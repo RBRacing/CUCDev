@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "965168877282",
+    "firebase_url": "https://caza-un-chollo.firebaseio.com",
+    "project_id": "caza-un-chollo",
+    "storage_bucket": "caza-un-chollo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965168877282:android:2e4a441235a31751",
+        "android_client_info": {
+          "package_name": "com.enav.cazaunchollo.cazaunchollo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965168877282-hsc79cll9h0lm74dbgmq1a4a2ngmo1fu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDW6gkOD0R1KYvyVDUQ3V2GYrspnnYPaWc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
