@@ -15,11 +15,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class OfferScrollingActivity extends AppCompatActivity
 implements AppBarLayout.OnOffsetChangedListener {
 
         private int mMaxScrollSize;
+        private TextView estado;
+        private static String referencia;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -38,13 +41,18 @@ implements AppBarLayout.OnOffsetChangedListener {
                 }
             });
 
-            toolbar.setTitle("PRUEBA");
+            toolbar.setTitle("DESCRIPCION");
 
             appbarLayout.addOnOffsetChangedListener(this);
             mMaxScrollSize = appbarLayout.getTotalScrollRange();
 
             viewPager.setAdapter(new TabsAdapter(getSupportFragmentManager()));
             tabLayout.setupWithViewPager(viewPager);
+
+            estado = (TextView) findViewById(R.id.estado);
+
+            referencia = getIntent().getStringExtra("referencia");
+
         }
 
     public static void start(Context c) {
@@ -89,4 +97,11 @@ implements AppBarLayout.OnOffsetChangedListener {
         }
     }
 
+    public static String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
 }

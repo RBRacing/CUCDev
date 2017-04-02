@@ -24,7 +24,7 @@
             app:subtitle="#Media Markt"
             app:theme="@style/ToolbarCard"
             app:titleTextAppearance="@style/Card.Title"
-            android:onClick="moreInfoForOffer"
+
             />
 
         <ImageView

@@ -1,12 +1,15 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -40,45 +43,21 @@ public class MainActivity extends AppCompatActivity
       Declarar instancias globales
        */
     private RecyclerView recycler;
-    private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
-
-    private ViewGroup linearLayoutDetails;
-    private ImageView imageViewExpand;
-
-    private static final int DURATION = 250;
-
-
-
     private DatabaseReference ref;
-    private DatabaseReference nombreRef;
-
-    private List<Offer> items;
-
-    private ArrayList<Object> mOfferArray;
-
-    private Button button_send;
-
-
     private RecyclerView mRoomRecyclerView;
     private DatabaseReference mFirebaseDatabaseReference;
-    private FirebaseRecyclerAdapter<Offer, OfferViewHolder> mFirebaseAdapter;
+    private static FirebaseRecyclerAdapter<Offer, OfferViewHolder> mFirebaseAdapter;
     private LinearLayoutManager mLinearLayoutManager;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mOfferArray = new ArrayList<>();
-
-        button_send = (Button) findViewById(R.id.button_send);
-
         // Conexión Firebase
         ref = FirebaseDatabase.getInstance().getReference();
-        nombreRef = ref.child("Offer");
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -125,8 +104,13 @@ public class MainActivity extends AppCompatActivity
                 viewHolder.comentarios.setText(model.getComentarios());
                 viewHolder.imagen.setImageResource(model.getImagen());
 
+
             }
+
+
         };
+
+
 
         mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver(){
             @Override
@@ -138,11 +122,18 @@ public class MainActivity extends AppCompatActivity
                     mRoomRecyclerView.scrollToPosition(positionStart);
                 }
             }
+
+
         });
         mRoomRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRoomRecyclerView.setAdapter(mFirebaseAdapter);
 
+
+
+
+
     }
+
 
 
     @Override
@@ -203,10 +194,10 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void moreInfoForOffer(View view) {
-
-        Intent intent = new Intent(this, OfferScrollingActivity.class);
-        startActivity(intent);
-
+    public static void recogerIDyLanzarActivity(View v, int id){
+        String referencia = mFirebaseAdapter.getRef(id).getKey().toString();
+        Intent intent = new Intent(v.getContext(), OfferScrollingActivity.class);
+        intent.putExtra("referencia", referencia);
+        v.getContext().startActivity(intent);
     }
 }

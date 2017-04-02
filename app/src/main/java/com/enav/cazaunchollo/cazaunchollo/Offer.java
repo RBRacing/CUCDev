@@ -13,18 +13,20 @@ public class Offer {
     private String comentarios;
     private String likes;
     private int imagen;
+    private String descripcion;
 
 
     public Offer() {
 
     }
 
-    public Offer(String nombre, String hashtag, String likes, String comentarios, int imagen) {
+    public Offer(String nombre, String hashtag, String likes, String comentarios, int imagen, String descripcion) {
         this.nombre = nombre;
         this.hashtag = hashtag;
         this.likes = likes;
         this.comentarios = comentarios;
         this.imagen = imagen;
+        this.descripcion = descripcion;
     }
 
 
@@ -66,5 +68,13 @@ public class Offer {
 
     public void setImagen(int imagen) {
         this.imagen = imagen;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }
