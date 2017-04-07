@@ -6,12 +6,14 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,6 +27,8 @@ public class OfferDescriptionFragment extends Fragment {
     private LinearLayout mRootView;
     private DatabaseReference ref;
     private TextView textView2;
+    private TextView estado;
+    private ImageView estadoIV;
 
     @Nullable
     @Override
@@ -32,7 +36,8 @@ public class OfferDescriptionFragment extends Fragment {
         mRootView = (LinearLayout) inflater.inflate(R.layout.fragment_offer_description, container, false);
 
         textView2 = (TextView) mRootView.findViewById(R.id.textView2);
-        TextView estado = (TextView) mRootView.findViewById(R.id.estado);
+        estado = (TextView) mRootView.findViewById(R.id.estado);
+        estadoIV = (ImageView)mRootView.findViewById(R.id.estadoIV);
         String referencia = OfferScrollingActivity.getReferencia();
 
         // Conexión Firebase
@@ -41,9 +46,22 @@ public class OfferDescriptionFragment extends Fragment {
        ref.child(referencia).addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
-               Offer offer =  dataSnapshot.getValue(Offer.class);;
+               Offer offer =  dataSnapshot.getValue(Offer.class);
                String descripcion = offer.getDescripcion();
+               String estado2 = offer.getEstado();
                textView2.setText(descripcion);
+
+               if(estado2.equals("DISPONIBLE")){
+                   estadoIV.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_24dp));
+                   estado.setText(estado2);
+               }
+
+               if(estado2.equals("AGOTADO")){
+                   estadoIV.setImageDrawable(getResources().getDrawable(R.drawable.ic_close_24dp));
+                   estado.setText(estado2);
+               }
+
+
            }
 
            @Override
@@ -52,9 +70,7 @@ public class OfferDescriptionFragment extends Fragment {
            }
        });
 
-
         return mRootView;
-
 
 
     }

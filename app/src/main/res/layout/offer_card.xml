@@ -46,16 +46,16 @@
 
 
             <ImageView
-                android:id="@+id/compartir"
+                android:id="@+id/likeIV"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-
+                android:onClick="like"
                 android:src="@drawable/ic_favorite_red_24dp" />
 
             <TextView
-                android:id="@+id/likes"
+                android:id="@+id/likeTV"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"

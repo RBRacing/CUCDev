@@ -20,18 +20,53 @@ import com.google.firebase.database.FirebaseDatabase;
 public class OfferViewHolder extends RecyclerView.ViewHolder{
     public Toolbar toolbarCard;
     public TextView comentarios;
-    public TextView likes;
+    public TextView likeTV;
     public ImageView imagen;
+    public ImageView likeIV;
+    DatabaseReference dbRef;
 
 
     public OfferViewHolder(View v){
+
         super(v);
         toolbarCard = (Toolbar)itemView.findViewById(R.id.toolbarCard);
         comentarios = (TextView)itemView.findViewById(R.id.comentarios);
-        likes = (TextView)itemView.findViewById(R.id.likes);
+        likeTV = (TextView)itemView.findViewById(R.id.likeTV);
         imagen = (ImageView)itemView.findViewById(R.id.imagen);
+        likeIV = (ImageView)itemView.findViewById(R.id.likeIV);
+
+        imagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.recogerIDyLanzarActivity(v, getPosition());
+            }
+        });
+        likeIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //int suma = Integer.parseInt(likeTV.getText().toString()) + 1;
+                //likeTV.setText(String.valueOf(suma));
 
 
+                //DatabaseReference ref =  FirebaseDatabase.getInstance().getReference().child("offers");
+                //String referencia = ref.getRef('2').getKey().toString();
+                //getRef(id).getKey().toString()
+                // Log.d("KEY", ref.getRef(getPosition()).getKey().toString());
+
+
+
+                MainActivity.like(v, getPosition());
+            }
+        });
+
+        /*
+        likeTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.like(v, getPosition());
+            }
+        });*/
+        /*
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,8 +75,7 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
                 //Log.d("KEY", String.valueOf(ref.getRef(String.valueOf(getPosition())).getKey()));
                 MainActivity.recogerIDyLanzarActivity(v, getPosition());
             }
-        });
-
+        });*/
 
     }
 
@@ -62,11 +96,11 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
     }
 
     public TextView getLikes() {
-        return likes;
+        return likeTV;
     }
 
     public void setLikes(TextView likes) {
-        this.likes = likes;
+        this.likeTV = likes;
     }
 
     public ImageView getImagen() {
@@ -76,4 +110,5 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
     public void setImagen(ImageView imagen) {
         this.imagen = imagen;
     }
+
 }

@@ -45,8 +45,10 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView recycler;
     private RecyclerView.LayoutManager lManager;
     private DatabaseReference ref;
+    private static DatabaseReference ref2;
     private RecyclerView mRoomRecyclerView;
-    private DatabaseReference mFirebaseDatabaseReference;
+
+    private static DatabaseReference mFirebaseDatabaseReference;
     private static FirebaseRecyclerAdapter<Offer, OfferViewHolder> mFirebaseAdapter;
     private LinearLayoutManager mLinearLayoutManager;
 
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity
 
         // Conexión Firebase
         ref = FirebaseDatabase.getInstance().getReference();
+
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -99,7 +103,7 @@ public class MainActivity extends AppCompatActivity
             protected void populateViewHolder(OfferViewHolder viewHolder, Offer model, int position) {
                 viewHolder.toolbarCard.setTitle(model.getNombre());
                 viewHolder.toolbarCard.setSubtitle("#"+model.getHashtag());
-                viewHolder.likes.setText(model.getLikes());
+                viewHolder.likeTV.setText(model.getLikes());
                 viewHolder.toolbarCard.setTitle(model.getNombre());
                 viewHolder.comentarios.setText(model.getComentarios());
                 viewHolder.imagen.setImageResource(model.getImagen());
@@ -109,7 +113,6 @@ public class MainActivity extends AppCompatActivity
 
 
         };
-
 
 
         mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver(){
@@ -127,8 +130,6 @@ public class MainActivity extends AppCompatActivity
         });
         mRoomRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRoomRecyclerView.setAdapter(mFirebaseAdapter);
-
-
 
 
 
@@ -199,5 +200,9 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(v.getContext(), OfferScrollingActivity.class);
         intent.putExtra("referencia", referencia);
         v.getContext().startActivity(intent);
+    }
+
+    public static void like(View v, int id){
+
     }
 }
