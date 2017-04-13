@@ -7,6 +7,5 @@ package com.enav.cazaunchollo.cazaunchollo;
 public class FirebaseReferences {
 
     final public static String OFFERS_REFERENCE = "offers";
-    //final public static String OFFER_REFERENCE = "offer";
 
 }

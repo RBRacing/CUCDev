@@ -5,31 +5,23 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Opcion1" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Opcion2" />
+            android:title="Mi perfil" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Opcion3" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Opcion4" />
+            android:title="Ofertas guardadas" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Contribuidor">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="Opcion5" />
+                android:title="Añadir oferta" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="Opcion6" />
+                android:title="Modificar oferta" />
         </menu>
     </item>
 

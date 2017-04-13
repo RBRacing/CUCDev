@@ -1,15 +1,9 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,35 +13,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    /*
-      Declarar instancias globales
-       */
     private RecyclerView recycler;
     private RecyclerView.LayoutManager lManager;
     private DatabaseReference ref;
     private static DatabaseReference ref2;
     private RecyclerView mRoomRecyclerView;
-
     private static DatabaseReference mFirebaseDatabaseReference;
     private static FirebaseRecyclerAdapter<Offer, OfferViewHolder> mFirebaseAdapter;
     private LinearLayoutManager mLinearLayoutManager;
@@ -60,12 +38,8 @@ public class MainActivity extends AppCompatActivity
         // Conexión Firebase
         ref = FirebaseDatabase.getInstance().getReference();
 
-
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -85,13 +59,12 @@ public class MainActivity extends AppCompatActivity
         recycler.setLayoutManager(lManager);
 
         // Crear un nuevo adaptador
-
-        mRoomRecyclerView = (RecyclerView)findViewById(R.id.reciclador);
+        mRoomRecyclerView = (RecyclerView) findViewById(R.id.reciclador);
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mLinearLayoutManager = new LinearLayoutManager(this);
+
         //Muestra las tarjetas de arriba a abajo
         mLinearLayoutManager.setStackFromEnd(true);
-
 
         mFirebaseAdapter = new FirebaseRecyclerAdapter<Offer, OfferViewHolder>(
                 Offer.class,
@@ -102,26 +75,21 @@ public class MainActivity extends AppCompatActivity
             @Override
             protected void populateViewHolder(OfferViewHolder viewHolder, Offer model, int position) {
                 viewHolder.toolbarCard.setTitle(model.getNombre());
-                viewHolder.toolbarCard.setSubtitle("#"+model.getHashtag());
+                viewHolder.toolbarCard.setSubtitle("#" + model.getHashtag());
                 viewHolder.likeTV.setText(model.getLikes());
                 viewHolder.toolbarCard.setTitle(model.getNombre());
                 viewHolder.comentarios.setText(model.getComentarios());
                 viewHolder.imagen.setImageResource(model.getImagen());
-
-
             }
-
-
         };
 
-
-        mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver(){
+        mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
-            public void onItemRangeInserted(int positionStart, int itemCount){
+            public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
                 int roomCount = mFirebaseAdapter.getItemCount();
                 int lastVisiblePosition = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
-                if (lastVisiblePosition == -1 || (positionStart >= (roomCount -1) && lastVisiblePosition == (positionStart -1))){
+                if (lastVisiblePosition == -1 || (positionStart >= (roomCount - 1) && lastVisiblePosition == (positionStart - 1))) {
                     mRoomRecyclerView.scrollToPosition(positionStart);
                 }
             }
@@ -131,11 +99,7 @@ public class MainActivity extends AppCompatActivity
         mRoomRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRoomRecyclerView.setAdapter(mFirebaseAdapter);
 
-
-
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -162,6 +126,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.action_search) {
+            return true;
+        }
+
         if (id == R.id.action_settings) {
             return true;
         }
@@ -176,15 +144,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent intent = new Intent(this, OfferFormActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
-
         } else if (id == R.id.nav_share) {
+            Intent intent = new Intent(this, OfferFormActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_send) {
 
@@ -195,14 +160,15 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public static void recogerIDyLanzarActivity(View v, int id){
+    public static void recogerIDyLanzarActivity(View v, int id) {
         String referencia = mFirebaseAdapter.getRef(id).getKey().toString();
         Intent intent = new Intent(v.getContext(), OfferScrollingActivity.class);
         intent.putExtra("referencia", referencia);
         v.getContext().startActivity(intent);
     }
 
-    public static void like(View v, int id){
+    // Sin terminar...
+    public static void like(View v, int id) {
 
     }
 }

@@ -84,10 +84,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:gravity="center"
                 />
-
-
         </LinearLayout>
-
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

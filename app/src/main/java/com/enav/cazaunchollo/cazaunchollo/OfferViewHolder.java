@@ -1,29 +1,20 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * Created by Edgar on 25/03/2017.
- */
 
 public class OfferViewHolder extends RecyclerView.ViewHolder{
+
     public Toolbar toolbarCard;
     public TextView comentarios;
     public TextView likeTV;
     public ImageView imagen;
     public ImageView likeIV;
-    DatabaseReference dbRef;
 
 
     public OfferViewHolder(View v){
@@ -44,16 +35,13 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
         likeIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //int suma = Integer.parseInt(likeTV.getText().toString()) + 1;
                 //likeTV.setText(String.valueOf(suma));
-
-
                 //DatabaseReference ref =  FirebaseDatabase.getInstance().getReference().child("offers");
                 //String referencia = ref.getRef('2').getKey().toString();
                 //getRef(id).getKey().toString()
                 // Log.d("KEY", ref.getRef(getPosition()).getKey().toString());
-
-
 
                 MainActivity.like(v, getPosition());
             }

@@ -5,29 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.enav.cazaunchollo.cazaunchollo.OfferFormActivity">
+    tools:context="com.enav.cazaunchollo.cazaunchollo.OfferFormActivity"
+    android:padding="5dp"
+    >
 
-    <EditText
-        android:id="@+id/editText_name"
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Name"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:text="PANTALLA PROVISIONAL"
+        android:gravity="center"
+        android:paddingTop="20dp"
+        />
 
-    <EditText
-        android:id="@+id/editText_link"
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Link"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="75dp" />
+        android:gravity="center"
+        android:paddingTop="20dp"
+        android:text="Añadir producto predefinido"
+       />
 
     <Button
         android:id="@+id/button_send"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Send"
+        android:text="ADD"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="169dp" />
+        tools:layout_editor_absoluteY="169dp"
+        />
 </LinearLayout>

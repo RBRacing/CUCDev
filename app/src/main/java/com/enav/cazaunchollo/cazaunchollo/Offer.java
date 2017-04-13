@@ -1,11 +1,5 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
-import java.util.Date;
-
-/**
- * Created by Edgar on 18/03/2017.
- */
-
 public class Offer {
 
     private String nombre;
@@ -15,13 +9,13 @@ public class Offer {
     private int imagen;
     private String descripcion;
     private String estado;
+    private Comment comment;
 
 
     public Offer() {
-
     }
 
-    public Offer(String nombre, String hashtag, String likes, String comentarios, int imagen, String descripcion, String estado) {
+    public Offer(String nombre, String hashtag, String likes, String comentarios, int imagen, String descripcion, String estado, Comment comment) {
         this.nombre = nombre;
         this.hashtag = hashtag;
         this.likes = likes;
@@ -29,6 +23,7 @@ public class Offer {
         this.imagen = imagen;
         this.descripcion = descripcion;
         this.estado = estado;
+        this.comment = comment;
     }
 
 
@@ -86,5 +81,13 @@ public class Offer {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
     }
 }
