@@ -15,17 +15,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:background="@color/cardview_light_background"
             android:padding="16dp">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/person_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp"
-                android:src="@drawable/common_google_signin_btn_icon_dark_normal" />
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginRight="10dp"
+                android:contentDescription="HOLA"
+                android:src="@drawable/bmw_profile_img" />
 
             <TextView
                 android:id="@+id/person_name"
@@ -34,7 +33,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/person_photo"
                 android:text="RBRacing"
-                android:textSize="24sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView

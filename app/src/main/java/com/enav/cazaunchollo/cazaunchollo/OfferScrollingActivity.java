@@ -41,7 +41,7 @@ implements AppBarLayout.OnOffsetChangedListener {
                 }
             });
 
-            toolbar.setTitle("CAZA UN CHOLLO");
+            toolbar.setTitle("Caza un Chollo");
 
             appbarLayout.addOnOffsetChangedListener(this);
             mMaxScrollSize = appbarLayout.getTotalScrollRange();
