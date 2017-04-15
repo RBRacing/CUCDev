@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -68,9 +67,12 @@ implements AppBarLayout.OnOffsetChangedListener {
 
     }
 
+
+
+
+
     public void createComment(View view) {
 
-        Log.d("CREATE", "COMMENT");
         Comment c = new Comment("RBRacing", "Pole");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();

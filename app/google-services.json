@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "965168877282-8q8gug9jvcpstnjlf4bsj26q8pc28ldj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enav.cazaunchollo.cazaunchollo",
+            "certificate_hash": "f0302163f7ad6e166f0dbb7a97fd8bbde4bf4574"
+          }
+        },
+        {
           "client_id": "965168877282-hsc79cll9h0lm74dbgmq1a4a2ngmo1fu.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965168877282-hsc79cll9h0lm74dbgmq1a4a2ngmo1fu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
