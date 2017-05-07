@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,6 +24,7 @@ implements AppBarLayout.OnOffsetChangedListener {
         private int mMaxScrollSize;
         private TextView estado;
         private static String referencia;
+        private EditText eT_comment;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -52,11 +54,16 @@ implements AppBarLayout.OnOffsetChangedListener {
 
             referencia = getIntent().getStringExtra("referencia");
 
+            eT_comment = (EditText) findViewById(R.id.eT_comment);
+
         }
 
     public static void start(Context c) {
         c.startActivity(new Intent(c, OfferScrollingActivity.class));
     }
+
+
+
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
@@ -67,13 +74,9 @@ implements AppBarLayout.OnOffsetChangedListener {
 
     }
 
-
-
-
-
     public void createComment(View view) {
 
-        Comment c = new Comment("RBRacing", "Pole");
+        Comment c = new Comment("USER_TEST", "TEST");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.child("offers").child(referencia).child("comments").push().setValue(c);

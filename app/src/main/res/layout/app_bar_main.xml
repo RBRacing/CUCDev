@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.enav.cazaunchollo.cazaunchollo.MainActivity"
-    android:background="#d61a08"
+    android:background="#d9dde0"
     >
 
     <android.support.design.widget.AppBarLayout

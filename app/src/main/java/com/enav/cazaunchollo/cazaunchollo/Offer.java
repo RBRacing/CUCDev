@@ -1,5 +1,7 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
+import java.util.Date;
+
 public class Offer {
 
     private String nombre;
@@ -10,12 +12,13 @@ public class Offer {
     private String descripcion;
     private String estado;
     private Comment comment;
+    private String fecha;
 
 
     public Offer() {
     }
 
-    public Offer(String nombre, String hashtag, String likes, String comentarios, int imagen, String descripcion, String estado, Comment comment) {
+    public Offer(String nombre, String hashtag, String likes, String comentarios, int imagen, String descripcion, String estado, Comment comment, String fecha) {
         this.nombre = nombre;
         this.hashtag = hashtag;
         this.likes = likes;
@@ -24,6 +27,7 @@ public class Offer {
         this.descripcion = descripcion;
         this.estado = estado;
         this.comment = comment;
+        this.fecha = fecha;
     }
 
 
@@ -89,5 +93,13 @@ public class Offer {
 
     public void setComment(Comment comment) {
         this.comment = comment;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 }

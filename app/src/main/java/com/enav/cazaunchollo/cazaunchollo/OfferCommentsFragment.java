@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -32,10 +33,15 @@ public class OfferCommentsFragment extends Fragment {
     private static FirebaseRecyclerAdapter<Comment, CommentViewHolder> mFirebaseAdapter;
     private LinearLayoutManager mLinearLayoutManager;
 
+    private EditText eT_comment;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = (CoordinatorLayout) inflater.inflate(R.layout.app_bar_main2, container, false);
+
+
+        String comentario = "";
 
         String referencia = OfferScrollingActivity.getReferencia();
         // Obtener el Recycler
@@ -76,12 +82,11 @@ public class OfferCommentsFragment extends Fragment {
                     mRoomRecyclerView.scrollToPosition(positionStart);
                 }
             }
-
-
         });
         mRoomRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRoomRecyclerView.setAdapter(mFirebaseAdapter);
 
+        eT_comment = (EditText) mRootView.findViewById(R.id.eT_comment);
 
         return mRootView;
     }

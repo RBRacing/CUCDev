@@ -24,17 +24,17 @@
             android:background="@color/colorPrimaryDark">
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/eT_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:backgroundTint="@android:color/background_light"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:text=""
-                android:textColor="#ffffff"/>
+                android:textColor="#ffffff" />
 
             <ImageButton
                 android:id="@+id/imageButton"

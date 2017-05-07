@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity
                 viewHolder.toolbarCard.setTitle(model.getNombre());
                 viewHolder.comentarios.setText(model.getComentarios());
                 viewHolder.imagen.setImageResource(model.getImagen());
+                viewHolder.fecha.setText(model.getFecha());
             }
         };
 
@@ -259,7 +261,9 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            //return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -295,8 +299,18 @@ public class MainActivity extends AppCompatActivity
         v.getContext().startActivity(intent);
     }
 
+    public static String dameREFOffer(int id){
+        String referencia = mFirebaseAdapter.getRef(id).getKey().toString();
+        Log.d("referenica", referencia.toString());
+
+    return referencia;
+    }
+
     // Sin terminar...
     public static void like(View v, int id) {
+        Log.d("ID: ", String.valueOf(id));
+
+
 
     }
 

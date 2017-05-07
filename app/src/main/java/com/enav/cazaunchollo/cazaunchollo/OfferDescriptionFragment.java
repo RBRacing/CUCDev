@@ -28,6 +28,7 @@ public class OfferDescriptionFragment extends Fragment {
     private TextView estado;
     private ImageView estadoIV;
     private TextView tituloTV;
+    private ImageView imagen;
 
     @Nullable
     @Override
@@ -38,6 +39,7 @@ public class OfferDescriptionFragment extends Fragment {
         estado = (TextView) mRootView.findViewById(R.id.estado);
         estadoIV = (ImageView)mRootView.findViewById(R.id.estadoIV);
         tituloTV = (TextView)mRootView.findViewById(R.id.titulotv);
+        imagen = (ImageView)mRootView.findViewById(R.id.imageView3);
         String referencia = OfferScrollingActivity.getReferencia();
 
 
@@ -51,6 +53,7 @@ public class OfferDescriptionFragment extends Fragment {
                String titulo = offer.getNombre();
                String descripcion = offer.getDescripcion();
                String estado2 = offer.getEstado();
+               imagen.setImageResource(offer.getImagen());
                tituloTV.setText(titulo);
                textView2.setText(descripcion);
 

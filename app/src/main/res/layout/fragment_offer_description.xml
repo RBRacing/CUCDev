@@ -26,6 +26,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
+                android:clickable="false"
+                android:cropToPadding="true"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/sinfoto" />
 
             <TextView
