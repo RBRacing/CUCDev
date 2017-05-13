@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity
                 viewHolder.likeTV.setText(model.getLikes());
                 viewHolder.toolbarCard.setTitle(model.getNombre());
                 viewHolder.comentarios.setText(model.getComentarios());
-                viewHolder.imagen.setImageResource(model.getImagen());
+                Glide.with(getApplicationContext()).load(model.getImagen()).fitCenter().into(viewHolder.getImagen());
                 viewHolder.fecha.setText(model.getFecha());
             }
         };

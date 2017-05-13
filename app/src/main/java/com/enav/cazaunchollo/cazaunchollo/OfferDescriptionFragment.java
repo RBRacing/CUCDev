@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,7 +55,8 @@ public class OfferDescriptionFragment extends Fragment {
                String titulo = offer.getNombre();
                String descripcion = offer.getDescripcion();
                String estado2 = offer.getEstado();
-               imagen.setImageResource(offer.getImagen());
+               Glide.with(getContext()).load(offer.getImagen()).fitCenter().centerCrop().into(imagen);
+               //imagen.setImageResource(offer.getImagen());
                tituloTV.setText(titulo);
                textView2.setText(descripcion);
 

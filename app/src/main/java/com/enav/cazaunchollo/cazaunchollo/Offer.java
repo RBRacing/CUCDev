@@ -1,5 +1,7 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
+import android.net.Uri;
+
 import java.util.Date;
 
 public class Offer {
@@ -8,7 +10,7 @@ public class Offer {
     private String hashtag;
     private String comentarios;
     private String likes;
-    private int imagen;
+    private String imagen;
     private String descripcion;
     private String estado;
     private Comment comment;
@@ -18,7 +20,7 @@ public class Offer {
     public Offer() {
     }
 
-    public Offer(String nombre, String hashtag, String likes, String comentarios, int imagen, String descripcion, String estado, Comment comment, String fecha) {
+    public Offer(String nombre, String hashtag, String likes, String comentarios, String imagen, String descripcion, String estado, Comment comment, String fecha) {
         this.nombre = nombre;
         this.hashtag = hashtag;
         this.likes = likes;
@@ -63,11 +65,11 @@ public class Offer {
         this.hashtag = hashtag;
     }
 
-    public int getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(int imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
