@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity
     private static DatabaseReference mFirebaseDatabaseReference;
     private static FirebaseRecyclerAdapter<Offer, OfferViewHolder> mFirebaseAdapter;
     private LinearLayoutManager mLinearLayoutManager;
+    private FirebaseAuth.AuthStateListener authListener;
+    private ProgressBar progressBar;
+    private FirebaseAuth auth;
 
     private TextView user_email;
 
@@ -58,8 +62,31 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //get firebase auth instance
+        auth = FirebaseAuth.getInstance();
         // Conexión Firebase
-        ref = FirebaseDatabase.getInstance().getReference();
+        //ref = FirebaseDatabase.getInstance().getReference();
+        //get current user
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                }
+            }
+        };
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        if (progressBar != null) {
+            //progressBar.setVisibility(View.GONE);
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -147,7 +174,7 @@ public class MainActivity extends AppCompatActivity
                 if (user != null) {
                     setUserData(user);
                 } else {
-                    goLogInScreen();
+                    //goLogInScreen();
                 }
             }
         };
@@ -165,12 +192,6 @@ public class MainActivity extends AppCompatActivity
         //Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        firebaseAuth.addAuthStateListener(firebaseAuthListener);
-    }
 
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
@@ -224,15 +245,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-
-        if (firebaseAuthListener != null) {
-            firebaseAuth.removeAuthStateListener(firebaseAuthListener);
-        }
-    }
-
-    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -264,6 +276,10 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
+            //return true;
+        }
+        if (id == R.id.action_logout) {
+            signOut();
             //return true;
         }
 
@@ -319,4 +335,29 @@ public class MainActivity extends AppCompatActivity
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+    //sign out method
+    public void signOut() {
+        auth.signOut();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        auth.addAuthStateListener(authListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (authListener != null) {
+            auth.removeAuthStateListener(authListener);
+        }
+    }
+
 }
