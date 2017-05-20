@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -67,6 +69,11 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
                 String referencia = MainActivity.dameREFOffer(getPosition());
                 DatabaseReference ref =  FirebaseDatabase.getInstance().getReference().child("offers").child(referencia).child("likes");
 
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                FirebaseUser user = mAuth.getCurrentUser();
+
+                DatabaseReference ref2 =  FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("likes");
+                ref2.push().setValue(referencia);
                 ref.setValue(String.valueOf(likes));
 
             }

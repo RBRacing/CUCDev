@@ -28,11 +28,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OfferFormActivity"
+        <activity
+            android:name=".OfferFormActivity"
             android:label="Nueva Publicación">
-                <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.enav.cazaunchollo.cazaunchollo.MainActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.enav.cazaunchollo.cazaunchollo.MainActivity" />
         </activity>
         <activity
             android:name=".OfferScrollingActivity"
@@ -62,7 +63,11 @@
         <activity
             android:name=".ResetPasswordActivity"
             android:label="@string/title_activity_reset_password"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MyProfile"
+            android:label="@string/title_activity_my_profile"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

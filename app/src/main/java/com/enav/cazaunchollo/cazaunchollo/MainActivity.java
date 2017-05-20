@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth.AuthStateListener authListener;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
+    private TextView username;
 
     private TextView user_email;
 
@@ -78,6 +80,8 @@ public class MainActivity extends AppCompatActivity
                     // launch login activity
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();
+                }else{
+                    setUserData(user);
                 }
             }
         };
@@ -116,7 +120,8 @@ public class MainActivity extends AppCompatActivity
         //Muestra las tarjetas de arriba a abajo
         mLinearLayoutManager.setStackFromEnd(true);
 
-        user_email = (TextView) findViewById(R.id.user_email);
+        //user_email = (TextView) findViewById(R.id.user_email);
+        username = (TextView) findViewById(R.id.username);
 
         mFirebaseAdapter = new FirebaseRecyclerAdapter<Offer, OfferViewHolder>(
                 Offer.class,
@@ -152,39 +157,17 @@ public class MainActivity extends AppCompatActivity
         mRoomRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRoomRecyclerView.setAdapter(mFirebaseAdapter);
 
-
-        // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
-
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    setUserData(user);
-                } else {
-                    //goLogInScreen();
-                }
-            }
-        };
-
-
-
     }
 
     private void setUserData(FirebaseUser user) {
         Toast.makeText(getApplicationContext(), "Bienvenido: "+user.getEmail().toString(), Toast.LENGTH_SHORT).show();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        username = (TextView) headerView.findViewById(R.id.username);
+        username.setText(user.getEmail());
+
+        //username.setText(user.getEmail());
         //user_email.setText(user.getEmail().toString());
         //nameTextView.setText(user.getDisplayName());
         //emailTextView.setText(user.getEmail());
@@ -293,6 +276,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+
+            Intent intent = new Intent(this, MyProfile.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {
 
