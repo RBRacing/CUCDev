@@ -2,28 +2,24 @@ package com.enav.cazaunchollo.cazaunchollo;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.ArrayList;
+
 @IgnoreExtraProperties
 public class User {
 
     private String name;
     private String email;
-    private String phone_num;
-    private String offer;
+    private int userPhoto;
+    private String registrationDate;
+    private String experience;
+    //private ArrayList<String> offer;
 
-    public User(){
+    public User() {
 
     }
 
-    public User(String name, String email){
+    public User(String name, String email) {
         this.name = name;
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -35,19 +31,35 @@ public class User {
         this.name = name;
     }
 
-    public String getPhone_num() {
-        return phone_num;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPhone_num(String phone_num) {
-        this.phone_num = phone_num;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getOffer() {
-        return offer;
+    public int getUserPhoto() {
+        return userPhoto;
     }
 
-    public void setOffer(String offer) {
-        this.offer = offer;
+    public void setUserPhoto(int userPhoto) {
+        this.userPhoto = userPhoto;
+    }
+
+    public String getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 }

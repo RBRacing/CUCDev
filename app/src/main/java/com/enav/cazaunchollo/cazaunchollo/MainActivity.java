@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,10 +40,9 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
+    /* Variables */
     private RecyclerView recycler;
     private RecyclerView.LayoutManager lManager;
-    private DatabaseReference ref;
-    private static DatabaseReference ref2;
     private RecyclerView mRoomRecyclerView;
     private static DatabaseReference mFirebaseDatabaseReference;
     private static FirebaseRecyclerAdapter<Offer, OfferViewHolder> mFirebaseAdapter;
@@ -51,13 +51,8 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     private TextView username;
+    private ImageView userPhoto;
 
-    private TextView user_email;
-
-    private GoogleApiClient googleApiClient;
-
-    private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +62,6 @@ public class MainActivity extends AppCompatActivity
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
         // Conexión Firebase
-        //ref = FirebaseDatabase.getInstance().getReference();
-        //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         authListener = new FirebaseAuth.AuthStateListener() {
@@ -89,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         if (progressBar != null) {
-            //progressBar.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -131,10 +124,9 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             protected void populateViewHolder(OfferViewHolder viewHolder, Offer model, int position) {
-                viewHolder.toolbarCard.setTitle(model.getNombre());
-                viewHolder.toolbarCard.setSubtitle("#" + model.getHashtag());
+                viewHolder.titleCard.setText(model.getNombre());
+                viewHolder.subTitleCard.setText("#" + model.getHashtag());
                 viewHolder.likeTV.setText(model.getLikes());
-                viewHolder.toolbarCard.setTitle(model.getNombre());
                 viewHolder.comentarios.setText(model.getComentarios());
                 Glide.with(getApplicationContext()).load(model.getImagen()).fitCenter().into(viewHolder.getImagen());
                 viewHolder.fecha.setText(model.getFecha());
@@ -167,64 +159,13 @@ public class MainActivity extends AppCompatActivity
         username = (TextView) headerView.findViewById(R.id.username);
         username.setText(user.getEmail());
 
+
         //username.setText(user.getEmail());
         //user_email.setText(user.getEmail().toString());
         //nameTextView.setText(user.getDisplayName());
         //emailTextView.setText(user.getEmail());
         //idTextView.setText(user.getUid());
         //Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
-    }
-
-
-    private void handleSignInResult(GoogleSignInResult result) {
-        if (result.isSuccess()) {
-
-            GoogleSignInAccount account = result.getSignInAccount();
-
-            //nameTextView.setText(account.getDisplayName());
-            //emailTextView.setText(account.getEmail());
-           // idTextView.setText(account.getId());
-
-           // Glide.with(this).load(account.getPhotoUrl()).into(photoImageView);
-
-        } else {
-            goLogInScreen();
-        }
-    }
-    private void goLogInScreen() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    public void logOut(View view) {
-        firebaseAuth.signOut();
-
-        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-            @Override
-            public void onResult(@NonNull Status status) {
-                if (status.isSuccess()) {
-                    goLogInScreen();
-                } else {
-                    Toast.makeText(getApplicationContext(), "sdasd", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    public void revoke(View view) {
-        firebaseAuth.signOut();
-
-        Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-            @Override
-            public void onResult(@NonNull Status status) {
-                if (status.isSuccess()) {
-                    goLogInScreen();
-                } else {
-                    Toast.makeText(getApplicationContext(), "dsadd", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     @Override

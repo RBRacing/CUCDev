@@ -44,7 +44,7 @@ public class MyProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
-        mListView = (ListView) findViewById(R.id.listview);
+       // mListView = (ListView) findViewById(R.id.listview);
         tvUserInfo= (TextView) findViewById(R.id.user_profile_name);
 
         //declare the database reference object. This is what we use to access the database.

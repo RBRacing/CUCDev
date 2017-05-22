@@ -30,19 +30,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbarCard"
+            <TextView
+                android:id="@+id/titleCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                app:popupTheme="@style/Theme.AppCompat.Light"
-                app:subtitle="#Media Markt"
-                app:subtitleTextAppearance="@style/Card.Subtitle"
-                app:theme="@style/ToolbarCard"
-                app:title="Chollo electrónica al 70%"
-                app:titleTextAppearance="@style/Card.Title"
+                android:text="TextView"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:paddingTop="16dp"
+                android:paddingLeft="16dp"/>
 
-                />
+            <TextView
+                android:id="@+id/subTitleCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="16dp"
+                android:paddingTop="4dp"
+                android:paddingLeft="16dp"/>
 
             <ImageView
                 android:id="@+id/imagen"
