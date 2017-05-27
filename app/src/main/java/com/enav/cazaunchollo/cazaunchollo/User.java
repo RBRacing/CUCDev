@@ -2,25 +2,22 @@ package com.enav.cazaunchollo.cazaunchollo;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.util.ArrayList;
-
 @IgnoreExtraProperties
 public class User {
 
     private String name;
     private String email;
-    private int userPhoto;
+    private int image;
     private String registrationDate;
-    private String experience;
+    private int points;
     //private ArrayList<String> offer;
 
-    public User() {
-
-    }
-
-    public User(String name, String email) {
+    public User(String name, String email, int image, String registrationDate, int points) {
         this.name = name;
         this.email = email;
+        this.image = image;
+        this.registrationDate = registrationDate;
+        this.points = points;
     }
 
     public String getName() {
@@ -39,12 +36,12 @@ public class User {
         this.email = email;
     }
 
-    public int getUserPhoto() {
-        return userPhoto;
+    public int getImage() {
+        return image;
     }
 
-    public void setUserPhoto(int userPhoto) {
-        this.userPhoto = userPhoto;
+    public void setImage(int image) {
+        this.image = image;
     }
 
     public String getRegistrationDate() {
@@ -55,11 +52,11 @@ public class User {
         this.registrationDate = registrationDate;
     }
 
-    public String getExperience() {
-        return experience;
+    public int getPoints() {
+        return points;
     }
 
-    public void setExperience(String experience) {
-        this.experience = experience;
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

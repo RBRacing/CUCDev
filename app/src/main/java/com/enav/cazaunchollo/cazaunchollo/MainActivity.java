@@ -59,9 +59,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //get firebase auth instance
+        // Instancía de Firebase
         auth = FirebaseAuth.getInstance();
-        // Conexión Firebase
+
+        // Obtener usuario actual Firebase
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         authListener = new FirebaseAuth.AuthStateListener() {
@@ -69,8 +70,6 @@ public class MainActivity extends AppCompatActivity
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user == null) {
-                    // user auth state is changed - user is null
-                    // launch login activity
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();
                 }else{
@@ -79,14 +78,15 @@ public class MainActivity extends AppCompatActivity
             }
         };
 
+        /* Referencias de variables */
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        username = (TextView) findViewById(R.id.username);
 
         if (progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -112,9 +112,6 @@ public class MainActivity extends AppCompatActivity
 
         //Muestra las tarjetas de arriba a abajo
         mLinearLayoutManager.setStackFromEnd(true);
-
-        //user_email = (TextView) findViewById(R.id.user_email);
-        username = (TextView) findViewById(R.id.username);
 
         mFirebaseAdapter = new FirebaseRecyclerAdapter<Offer, OfferViewHolder>(
                 Offer.class,
@@ -152,20 +149,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setUserData(FirebaseUser user) {
-        Toast.makeText(getApplicationContext(), "Bienvenido: "+user.getEmail().toString(), Toast.LENGTH_SHORT).show();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         username = (TextView) headerView.findViewById(R.id.username);
         username.setText(user.getEmail());
-
-
-        //username.setText(user.getEmail());
-        //user_email.setText(user.getEmail().toString());
-        //nameTextView.setText(user.getDisplayName());
-        //emailTextView.setText(user.getEmail());
-        //idTextView.setText(user.getUid());
-        //Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
     }
 
     @Override
@@ -200,11 +187,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
-            //return true;
         }
         if (id == R.id.action_logout) {
             signOut();
-            //return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -216,18 +201,17 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-
+        if (id == R.id.myProfile) {
             Intent intent = new Intent(this, MyProfile.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.favorites) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.addOffer) {
             Intent intent = new Intent(this, OfferFormActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.modOffer) {
 
         }
 
@@ -248,14 +232,6 @@ public class MainActivity extends AppCompatActivity
         Log.d("referenica", referencia.toString());
 
     return referencia;
-    }
-
-    // Sin terminar...
-    public static void like(View v, int id) {
-        Log.d("ID: ", String.valueOf(id));
-
-
-
     }
 
     @Override

@@ -35,7 +35,9 @@ public class MyProfile extends AppCompatActivity {
     private DatabaseReference myRef;
     private  String userID;
     private String authFlag = "";
-    private TextView tvUserInfo;
+    private TextView user_profile_name;
+    private TextView user_profile_email;
+
 
     private ListView mListView;
 
@@ -45,7 +47,8 @@ public class MyProfile extends AppCompatActivity {
         setContentView(R.layout.activity_my_profile);
 
        // mListView = (ListView) findViewById(R.id.listview);
-        tvUserInfo= (TextView) findViewById(R.id.user_profile_name);
+        user_profile_name= (TextView) findViewById(R.id.user_profile_name);
+        user_profile_email = (TextView) findViewById(R.id.user_profile_email);
 
         //declare the database reference object. This is what we use to access the database.
         //NOTE: Unless you are signed in, this will not be useable.
@@ -62,7 +65,7 @@ public class MyProfile extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    toastMessage("Successfully signed in with: " + user.getEmail());
+
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -84,15 +87,14 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
-
-
-
     }
 
     private void showData(DataSnapshot dataSnapshot) {
 
         String name = (String) dataSnapshot.child(userID).child("name").getValue();
-        tvUserInfo.setText(name);
+        String email = (String) dataSnapshot.child(userID).child("email").getValue();
+        user_profile_name.setText(name);
+        user_profile_email.setText(email);
     }
 
 

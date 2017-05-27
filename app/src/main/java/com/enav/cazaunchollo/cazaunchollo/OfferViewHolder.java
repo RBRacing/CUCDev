@@ -100,13 +100,6 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
             }
         });
 
-
-        likeTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.like(v, getPosition());
-            }
-        });
         /*
         v.setOnClickListener(new View.OnClickListener() {
             @Override

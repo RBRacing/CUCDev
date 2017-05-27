@@ -5,9 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.enav.cazaunchollo.cazaunchollo.MainActivity"
+    android:background="#d9dde0"
     >
 
-    <include layout="@layout/content_main2"/>
+    <include
+        layout="@layout/content_main2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -24,11 +28,12 @@
             android:background="@color/colorPrimaryDark">
 
             <EditText
-                android:id="@+id/eT_comment"
+                android:id="@+id/editText_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:backgroundTint="@android:color/background_light"
                 android:ems="10"
@@ -39,11 +44,12 @@
             <ImageButton
                 android:id="@+id/imageButton"
                 style="@android:style/Widget.DeviceDefault.ImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/background_light"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:backgroundTint="@android:color/transparent"
                 android:onClick="createComment"
-                app:srcCompat="@drawable/ic_check_24dp" />
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/send_button" />
         </TableRow>
 
     </TableLayout>

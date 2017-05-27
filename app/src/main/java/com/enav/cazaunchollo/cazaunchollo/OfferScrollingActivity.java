@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,11 +13,18 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.zip.Inflater;
 
 public class OfferScrollingActivity extends AppCompatActivity
 implements AppBarLayout.OnOffsetChangedListener {
@@ -24,7 +32,8 @@ implements AppBarLayout.OnOffsetChangedListener {
         private int mMaxScrollSize;
         private TextView estado;
         private static String referencia;
-        private EditText eT_comment;
+        private EditText editText_comment;
+        private FirebaseAuth auth;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +43,7 @@ implements AppBarLayout.OnOffsetChangedListener {
             TabLayout tabLayout = (TabLayout) findViewById(R.id.materialup_tabs);
             ViewPager viewPager  = (ViewPager) findViewById(R.id.materialup_viewpager);
             AppBarLayout appbarLayout = (AppBarLayout) findViewById(R.id.materialup_appbar);
+
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.materialup_toolbar);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -54,7 +64,8 @@ implements AppBarLayout.OnOffsetChangedListener {
 
             referencia = getIntent().getStringExtra("referencia");
 
-            eT_comment = (EditText) findViewById(R.id.eT_comment);
+
+
 
         }
 
@@ -67,16 +78,24 @@ implements AppBarLayout.OnOffsetChangedListener {
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-        if (mMaxScrollSize == 0)
-            mMaxScrollSize = appBarLayout.getTotalScrollRange();
+        appBarLayout.setExpanded(true, false);
 
-        int percentage = (Math.abs(i)) * 100 / mMaxScrollSize;
 
     }
 
     public void createComment(View view) {
+        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+        inflater.inflate(R.layout.app_bar_main2, null);
 
-        Comment c = new Comment("USER_TEST", "TEST");
+        // Instancía de Firebase
+        auth = FirebaseAuth.getInstance();
+
+        // Obtener usuario actual Firebase
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+       // editText_comment = (EditText) inflaterR.id.editText_comment);
+
+        Comment c = new Comment(user.getEmail().toString(), editText_comment.getText().toString());
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.child("offers").child(referencia).child("comments").push().setValue(c);
@@ -119,4 +138,7 @@ implements AppBarLayout.OnOffsetChangedListener {
     public void setReferencia(String referencia) {
         this.referencia = referencia;
     }
+
+
 }
+

@@ -33,7 +33,7 @@ public class OfferCommentsFragment extends Fragment {
     private static FirebaseRecyclerAdapter<Comment, CommentViewHolder> mFirebaseAdapter;
     private LinearLayoutManager mLinearLayoutManager;
 
-    private EditText eT_comment;
+    private EditText editText_comment;
 
     @Nullable
     @Override
@@ -58,7 +58,7 @@ public class OfferCommentsFragment extends Fragment {
         mLinearLayoutManager = new LinearLayoutManager(getContext());
 
         //Muestra las tarjetas de arriba a abajo
-        mLinearLayoutManager.setStackFromEnd(true);
+        mLinearLayoutManager.setStackFromEnd(false);
 
         mFirebaseAdapter = new FirebaseRecyclerAdapter<Comment, CommentViewHolder>(
                 Comment.class,
@@ -86,7 +86,7 @@ public class OfferCommentsFragment extends Fragment {
         mRoomRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRoomRecyclerView.setAdapter(mFirebaseAdapter);
 
-        eT_comment = (EditText) mRootView.findViewById(R.id.eT_comment);
+        editText_comment = (EditText) mRootView.findViewById(R.id.editText_comment);
 
         return mRootView;
     }
@@ -94,5 +94,6 @@ public class OfferCommentsFragment extends Fragment {
     public static Fragment newInstance() {
         return new OfferCommentsFragment();
     }
+
 
 }

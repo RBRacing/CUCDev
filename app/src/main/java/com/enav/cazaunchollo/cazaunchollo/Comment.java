@@ -1,9 +1,5 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
-/**
- * Created by Edgar on 13/04/2017.
- */
-
 public class Comment{
 
     private String autor;
