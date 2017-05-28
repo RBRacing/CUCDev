@@ -73,6 +73,7 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
                 // Tengo que coger el uid y el idOffer
                 String referencia = devolverReferencia(getPosition());
                 User.addLikesToList(user.getUid(),referencia);
+                Offer.addUIDToThisOffer(user.getUid(), referencia);
 
 
 

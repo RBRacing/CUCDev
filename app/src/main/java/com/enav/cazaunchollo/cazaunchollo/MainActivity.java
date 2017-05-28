@@ -1,6 +1,7 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -128,6 +129,9 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             protected void populateViewHolder(OfferViewHolder viewHolder, Offer model, int position) {
+                if(model.getUsersLikeToThisOffer().contains(user.getUid())){
+                    viewHolder.likeIV.setColorFilter(Color.BLUE);
+                }
                 viewHolder.titleCard.setText(model.getNombre());
                 viewHolder.subTitleCard.setText("#" + model.getHashtag());
                 viewHolder.likeTV.setText(model.getLikes());

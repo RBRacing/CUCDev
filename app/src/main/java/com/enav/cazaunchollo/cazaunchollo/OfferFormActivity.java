@@ -23,7 +23,9 @@ import com.google.firebase.storage.UploadTask;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class OfferFormActivity extends AppCompatActivity {
 
@@ -69,12 +71,14 @@ public class OfferFormActivity extends AppCompatActivity {
 
                 DateFormat dateFormat = new DateFormat();
                 String fecha = dateFormat.devolverFecha();
+                List<String> usersLikeToThisOffer = new ArrayList<String>();
+                usersLikeToThisOffer.add("");
 
                 //SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
                 //String fecha = formateador.format(new Date());
                 //Log.d("FECHA", fecha);
 
-                Offer offer = new Offer("Chollo Test 1", "Tienda Test 1", "0", "0", urifoto, "DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST", "AGOTADO", comment, fecha);
+                Offer offer = new Offer("Chollo Test 1", "Tienda Test 1", "0", "0", urifoto, "DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN", "AGOTADO", comment, fecha, usersLikeToThisOffer);
                 offerReference.push().setValue(offer);
             }
         });

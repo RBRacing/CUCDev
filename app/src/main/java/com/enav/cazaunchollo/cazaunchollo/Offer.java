@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
@@ -25,25 +26,88 @@ public class Offer {
     private String estado;
     private Comment comment;
     private String fecha;
+    private static List<String> usersLikeToThisOffer;
+    private String color;
 
 
     public Offer() {
     }
 
-    public Offer(String nombre, String hashtag, String likes, String comentarios, String imagen, String descripcion, String estado, Comment comment, String fecha) {
+    public Offer(String nombre, String hashtag, String comentarios, String likes, String imagen, String descripcion, String estado, Comment comment, String fecha, List<String> usersLikeToThisOffer) {
         this.nombre = nombre;
         this.hashtag = hashtag;
-        this.likes = likes;
         this.comentarios = comentarios;
+        this.likes = likes;
         this.imagen = imagen;
         this.descripcion = descripcion;
         this.estado = estado;
         this.comment = comment;
         this.fecha = fecha;
+        this.usersLikeToThisOffer = usersLikeToThisOffer;
+        ;
     }
 
+    public static void addUIDToThisOffer(final String uid, final String idOffer){
+
+        final DatabaseReference databaseReference =
+                FirebaseDatabase.getInstance().getReference()
+                        .child("offers")
+                        .child(idOffer).child("usersLikeToThisOffer");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                usersLikeToThisOffer = (List) dataSnapshot.getValue();
+
+                if(usersLikeToThisOffer !=null){
+                    if(!usersLikeToThisOffer.contains(uid)){
+                        usersLikeToThisOffer.add(uid);
+                        databaseReference.setValue(usersLikeToThisOffer);
+
+                    }
+                }else{
+                    List<String> usersLikeToThisOffer = new ArrayList<String>();
+                    usersLikeToThisOffer.add(uid);
+                    databaseReference.setValue(usersLikeToThisOffer);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Log.e(TAGLOG, "Error!", databaseError.toException());
+            }
+        });
+    }
+
+    public boolean usersLikeToThisOffer(String uid, final String idOffer){
+
+        boolean likethis = false;
+
+        final DatabaseReference databaseReference =
+                FirebaseDatabase.getInstance().getReference()
+                        .child("offers")
+                        .child(idOffer).child("usersLikeToThisOffer");
 
 
+
+        if(usersLikeToThisOffer !=null){
+            if(usersLikeToThisOffer.contains(uid)){
+                likethis=true;
+            }
+        }
+
+        return likethis;
+
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public String getNombre() {
         return nombre;
@@ -115,5 +179,13 @@ public class Offer {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public List<String> getUsersLikeToThisOffer() {
+        return usersLikeToThisOffer;
+    }
+
+    public void setUsersLikeToThisOffer(List<String> usersLikeToThisOffer) {
+        this.usersLikeToThisOffer = usersLikeToThisOffer;
     }
 }
