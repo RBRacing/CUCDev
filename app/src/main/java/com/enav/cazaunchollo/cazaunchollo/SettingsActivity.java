@@ -25,9 +25,9 @@ import java.util.List;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
- * handset devices, settings are presented as a single list. On tablets,
+ * handset devices, settings are presented as a single favorites. On tablets,
  * settings are split by category, with category headers shown to the left of
- * the list of settings.
+ * the favorites of settings.
  * <p>
  * See <a href="http://developer.android.com/design/patterns/settings.html">
  * Android Design: Settings</a> for design guidelines and the <a
@@ -45,8 +45,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             String stringValue = value.toString();
 
             if (preference instanceof ListPreference) {
-                // For list preferences, look up the correct display value in
-                // the preference's 'entries' list.
+                // For favorites preferences, look up the correct display value in
+                // the preference's 'entries' favorites.
                 ListPreference listPreference = (ListPreference) preference;
                 int index = listPreference.findIndexOfValue(stringValue);
 

@@ -19,6 +19,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SignupActivity extends AppCompatActivity {
 
     /* Variables */
@@ -127,7 +130,10 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void writeNewUser(String userId, String name, String email) {
-        User user = new User(name, email, 0, "", 0);
+        List<String> list = new ArrayList<String>();
+        list.add("");
+
+        User user = new User(name, email, "https://firebasestorage.googleapis.com/v0/b/caza-un-chollo.appspot.com/o/UsersPhoto%2FnewUserPhoto.png?alt=media&token=f0a89c25-1807-4115-9d81-f5d36fd452c3", "", 0, list, 1);
         databaseReference.child("users").child(userId).setValue(user);
     }
 }

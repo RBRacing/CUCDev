@@ -3,6 +3,7 @@ package com.enav.cazaunchollo.cazaunchollo;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,13 +12,14 @@ public class CommentViewHolder extends RecyclerView.ViewHolder{
 
     //public Toolbar toolbarCard2;
     public TextView person_name;
-
+    public TextView textView_comment;
 
     public CommentViewHolder(View v){
 
         super(v);
         //toolbarCard2 = (Toolbar)itemView.findViewById(R.id.toolbarCard2);
         person_name = (TextView)itemView.findViewById(R.id.person_name);
+        textView_comment = (TextView) itemView.findViewById(R.id.textView_comment);
 
         /*
         likeTV.setOnClickListener(new View.OnClickListener() {
@@ -46,4 +48,6 @@ public class CommentViewHolder extends RecyclerView.ViewHolder{
     public void setPerson_name(TextView person_name) {
         this.person_name = person_name;
     }
+
+
 }

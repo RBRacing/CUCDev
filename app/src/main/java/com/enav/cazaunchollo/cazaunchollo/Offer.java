@@ -1,8 +1,18 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
 import android.net.Uri;
+import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.Date;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 public class Offer {
 
@@ -31,6 +41,8 @@ public class Offer {
         this.comment = comment;
         this.fecha = fecha;
     }
+
+
 
 
     public String getNombre() {

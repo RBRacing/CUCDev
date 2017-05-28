@@ -33,9 +33,14 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.ValueEventListener;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -51,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     private TextView username;
+    private TextView level;
     private ImageView userPhoto;
 
 
@@ -83,6 +89,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         username = (TextView) findViewById(R.id.username);
+        level = (TextView) findViewById(R.id.level);
 
         if (progressBar != null) {
             progressBar.setVisibility(View.GONE);
@@ -149,11 +156,46 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setUserData(FirebaseUser user) {
+
+        // Get a reference to our posts
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference().child("users").child(user.getUid());
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
+        final View headerView = navigationView.getHeaderView(0);
         username = (TextView) headerView.findViewById(R.id.username);
         username.setText(user.getEmail());
+        // Attach a listener to read the data at our posts reference
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+
+                CircleImageView userPhoto;
+                userPhoto = (CircleImageView) findViewById(R.id.userPhoto);
+
+                level = (TextView) headerView.findViewById(R.id.level);
+                level.setText("Nivel "+String.valueOf(user.getLevel()));
+
+                Glide.with(getApplicationContext()).load(user.getImage()).fitCenter().into(userPhoto);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+
+
+
+
+
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -225,6 +267,11 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(v.getContext(), OfferScrollingActivity.class);
         intent.putExtra("referencia", referencia);
         v.getContext().startActivity(intent);
+    }
+
+    public static String devolverReferencia(int id) {
+        String referencia = mFirebaseAdapter.getRef(id).getKey().toString();
+       return referencia;
     }
 
     public static String dameREFOffer(int id){

@@ -67,6 +67,8 @@ implements AppBarLayout.OnOffsetChangedListener {
 
 
 
+
+
         }
 
     public static void start(Context c) {
@@ -84,8 +86,17 @@ implements AppBarLayout.OnOffsetChangedListener {
     }
 
     public void createComment(View view) {
-        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
-        inflater.inflate(R.layout.app_bar_main2, null);
+       // LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+        //inflater.inflate(R.layout.app_bar_main2, null);
+
+
+        android.app.Fragment frag = getFragmentManager().findFragmentById(R.id.reciclador2);
+        String co = (String) ((TextView) frag.getView().findViewById(R.id.textView_comment)).getText();
+
+        OfferCommentsFragment offerCommentsFragment = new OfferCommentsFragment();
+
+
+
 
         // Instancía de Firebase
         auth = FirebaseAuth.getInstance();
@@ -93,9 +104,13 @@ implements AppBarLayout.OnOffsetChangedListener {
         // Obtener usuario actual Firebase
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-       // editText_comment = (EditText) inflaterR.id.editText_comment);
 
-        Comment c = new Comment(user.getEmail().toString(), editText_comment.getText().toString());
+        String comentario =
+
+             comentario = editText_comment.getText().toString();
+
+
+        Comment c = new Comment(user.getEmail().toString(), comentario);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.child("offers").child(referencia).child("comments").push().setValue(c);

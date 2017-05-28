@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyProfile extends AppCompatActivity {
 
@@ -37,6 +40,7 @@ public class MyProfile extends AppCompatActivity {
     private String authFlag = "";
     private TextView user_profile_name;
     private TextView user_profile_email;
+    private CircleImageView user_profile_photo;
 
 
     private ListView mListView;
@@ -49,6 +53,7 @@ public class MyProfile extends AppCompatActivity {
        // mListView = (ListView) findViewById(R.id.listview);
         user_profile_name= (TextView) findViewById(R.id.user_profile_name);
         user_profile_email = (TextView) findViewById(R.id.user_profile_email);
+        user_profile_photo = (CircleImageView) findViewById(R.id.user_profile_photo);
 
         //declare the database reference object. This is what we use to access the database.
         //NOTE: Unless you are signed in, this will not be useable.
@@ -93,8 +98,10 @@ public class MyProfile extends AppCompatActivity {
 
         String name = (String) dataSnapshot.child(userID).child("name").getValue();
         String email = (String) dataSnapshot.child(userID).child("email").getValue();
+        String userPhoto = (String) dataSnapshot.child(userID).child("image").getValue();
         user_profile_name.setText(name);
         user_profile_email.setText(email);
+        Glide.with(getApplicationContext()).load(userPhoto).fitCenter().into(user_profile_photo);
     }
 
 

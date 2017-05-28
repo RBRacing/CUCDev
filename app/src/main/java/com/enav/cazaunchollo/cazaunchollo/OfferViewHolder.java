@@ -1,28 +1,18 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-import static android.R.attr.id;
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
+import static com.enav.cazaunchollo.cazaunchollo.MainActivity.devolverReferencia;
 
 
 public class OfferViewHolder extends RecyclerView.ViewHolder{
@@ -79,23 +69,31 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
 
 
                // MainActivity.like(v, getPosition());
-                int likes = Integer.parseInt(likeTV.getText().toString())+1;
-                likeTV.setText(String.valueOf(likes));
+
+                // Tengo que coger el uid y el idOffer
+                String referencia = devolverReferencia(getPosition());
+                User.addLikesToList(user.getUid(),referencia);
 
 
-                DatabaseReference ref3 =  FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("likes");
+
+
+                //int likes = Integer.parseInt(likeTV.getText().toString())+1;
+                //likeTV.setText(String.valueOf(likes));
+
+
+                //DatabaseReference ref3 =  FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("likes");
 
 
                 //OfferScrollingActivity offerScrollingActivity = new OfferScrollingActivity();
-                String referencia = MainActivity.dameREFOffer(getPosition());
-                arrayKeyOffers.add(referencia);
-                DatabaseReference ref =  FirebaseDatabase.getInstance().getReference().child("offers").child(referencia).child("likes");
+                //String referencia = MainActivity.dameREFOffer(getPosition());
+                //arrayKeyOffers.add(referencia);
+                //DatabaseReference ref =  FirebaseDatabase.getInstance().getReference().child("offers").child(referencia).child("likes");
 
 
-                DatabaseReference ref2 =  FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("likes");
+                //DatabaseReference ref2 =  FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("likes");
                // ref2.setValue(arrayKeyOffers);
-                ref.setValue(String.valueOf(likes));
-                likeIV.setEnabled(false);
+                //ref.setValue(String.valueOf(likes));
+                //likeIV.setEnabled(false);
 
             }
         });

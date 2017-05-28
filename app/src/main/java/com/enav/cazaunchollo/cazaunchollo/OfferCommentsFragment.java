@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -32,8 +33,10 @@ public class OfferCommentsFragment extends Fragment {
     private static DatabaseReference mFirebaseDatabaseReference;
     private static FirebaseRecyclerAdapter<Comment, CommentViewHolder> mFirebaseAdapter;
     private LinearLayoutManager mLinearLayoutManager;
+    public String texto;
 
-    private EditText editText_comment;
+
+    public EditText editText_comment;
 
     @Nullable
     @Override
@@ -41,7 +44,13 @@ public class OfferCommentsFragment extends Fragment {
         mRootView = (CoordinatorLayout) inflater.inflate(R.layout.app_bar_main2, container, false);
 
 
+
+        editText_comment = (EditText) mRootView.findViewById(R.id.editText_comment);
+
+        texto = editText_comment.getText().toString();
+
         String comentario = "";
+
 
         String referencia = OfferScrollingActivity.getReferencia();
         // Obtener el Recycler
@@ -69,6 +78,7 @@ public class OfferCommentsFragment extends Fragment {
             @Override
             protected void populateViewHolder(CommentViewHolder viewHolder, Comment model, int position) {
                 viewHolder.person_name.setText(model.getAutor());
+                viewHolder.textView_comment.setText(model.getMensaje());
             }
         };
 
@@ -86,7 +96,7 @@ public class OfferCommentsFragment extends Fragment {
         mRoomRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRoomRecyclerView.setAdapter(mFirebaseAdapter);
 
-        editText_comment = (EditText) mRootView.findViewById(R.id.editText_comment);
+
 
         return mRootView;
     }
@@ -95,5 +105,11 @@ public class OfferCommentsFragment extends Fragment {
         return new OfferCommentsFragment();
     }
 
+    public String getTexto() {
+        return texto;
+    }
 
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
 }
