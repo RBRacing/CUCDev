@@ -35,7 +35,8 @@
                 android:layout_marginTop="24dp"
                 android:elevation="3dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/egg_flat" />
+                android:src="@drawable/egg_flat"
+                android:onClick="changeUserPhoto"/>
 
             <TextView
                 android:id="@+id/user_profile_name"
@@ -47,7 +48,8 @@
                 android:text="username"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="changeUsername"/>
 
             <TextView
                 android:id="@+id/user_profile_email"

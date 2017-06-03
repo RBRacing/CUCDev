@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.enav.cazaunchollo.cazaunchollo.OfferFormActivity"
-    >
+    tools:context="com.enav.cazaunchollo.cazaunchollo.OfferModActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,13 +19,20 @@
             android:weightSum="1"
             android:padding="20dp">
 
+            <TextView
+                android:id="@+id/id_offer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ID:"
+                android:paddingBottom="10dp"/>
+
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/editText_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <EditText
-                    android:id="@+id/input_title"
+                    android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Título" />
@@ -39,7 +45,7 @@
                 android:layout_height="match_parent">
 
                 <EditText
-                    android:id="@+id/input_shop"
+                    android:id="@+id/shop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Tienda" />
@@ -52,7 +58,7 @@
                 android:layout_height="match_parent">
 
                 <EditText
-                    android:id="@+id/input_description"
+                    android:id="@+id/description"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top|left"
@@ -71,7 +77,7 @@
                 android:layout_height="match_parent">
 
                 <EditText
-                    android:id="@+id/input_link"
+                    android:id="@+id/link"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enlace" />
@@ -84,14 +90,14 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/checkBox_status"
+                    android:id="@+id/status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
                     android:text="Disponible" />
 
                 <Button
-                    android:id="@+id/btnSubir"
+                    android:id="@+id/subirImagen"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -100,14 +106,14 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button_post_offer"
+                android:id="@+id/button_mod_offer"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="PUBLICAR" />
+                android:text="MODIFICAR" />
 
             <ImageView
-                android:id="@+id/imageLoad"
+                android:id="@+id/imageLoadMod"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"

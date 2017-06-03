@@ -40,12 +40,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
+    private static final String SENDER_ID = "000";
     /* Variables */
     private RecyclerView recycler;
     private RecyclerView.LayoutManager lManager;
@@ -59,13 +62,17 @@ public class MainActivity extends AppCompatActivity
     private TextView username;
     private TextView level;
     private ImageView userPhoto;
+    private Boolean borrar;
+    private String referencia;
+    private int user_level;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        user_level = 0;
+        borrar = false;
         // Instancía de Firebase
         auth = FirebaseAuth.getInstance();
 
@@ -157,6 +164,18 @@ public class MainActivity extends AppCompatActivity
         mRoomRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRoomRecyclerView.setAdapter(mFirebaseAdapter);
 
+        Bundle datos = this.getIntent().getExtras();
+
+        if(datos != null){
+            referencia = datos.getString("referencia");
+            borrar = datos.getBoolean("confirmarBorrado");
+
+            if(referencia != null && borrar){
+                removeOffer();
+            }
+        }
+
+
     }
 
     private void setUserData(FirebaseUser user) {
@@ -167,6 +186,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         final View headerView = navigationView.getHeaderView(0);
+
+
         username = (TextView) headerView.findViewById(R.id.username);
         username.setText(user.getEmail());
         // Attach a listener to read the data at our posts reference
@@ -175,11 +196,19 @@ public class MainActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
 
+                if(user.getBan() == true){
+                    signOut();
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    Toast.makeText(getApplicationContext(), "Esta cuenta se encuentra baneada", Toast.LENGTH_SHORT).show();
+
+                }
+
                 CircleImageView userPhoto;
                 userPhoto = (CircleImageView) findViewById(R.id.userPhoto);
 
                 level = (TextView) headerView.findViewById(R.id.level);
                 level.setText("Nivel "+String.valueOf(user.getLevel()));
+                setUser_level(user.getLevel());
 
                 Glide.with(getApplicationContext()).load(user.getImage()).fitCenter().into(userPhoto);
 
@@ -221,10 +250,6 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
-            return true;
-        }
-
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
@@ -247,12 +272,19 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.favorites) {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "CAZA UN CHOLLO! Proximamente en Google Play.");
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, "Compartir en"));
 
         } else if (id == R.id.addOffer) {
-            Intent intent = new Intent(this, OfferFormActivity.class);
-            startActivity(intent);
-
-        } else if (id == R.id.modOffer) {
+            if(getUser_level()>1){
+                Intent intent = new Intent(this, OfferFormActivity.class);
+                startActivity(intent);
+            }else{
+                Toast.makeText(getApplicationContext(), "Necesitas ser mínimo nivel 2 para poder realizar una publicación", Toast.LENGTH_SHORT).show();
+            }
 
         }
 
@@ -266,6 +298,13 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(v.getContext(), OfferScrollingActivity.class);
         intent.putExtra("referencia", referencia);
         v.getContext().startActivity(intent);
+    }
+
+    public void removeOffer(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference offerReference = database.getReference(FirebaseReferences.OFFERS_REFERENCE);
+
+        offerReference.child(referencia).removeValue();
     }
 
     public static String devolverReferencia(int id) {
@@ -309,4 +348,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public int getUser_level() {
+        return user_level;
+    }
+
+    public void setUser_level(int user_level) {
+        this.user_level = user_level;
+    }
 }

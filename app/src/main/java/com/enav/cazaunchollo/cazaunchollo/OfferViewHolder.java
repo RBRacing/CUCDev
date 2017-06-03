@@ -46,6 +46,12 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
 
         DatabaseReference myRef1 = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
 
+        titleCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.recogerIDyLanzarActivity(v, getPosition());
+            }
+        });
 
         imagen.setOnClickListener(new View.OnClickListener() {
             @Override

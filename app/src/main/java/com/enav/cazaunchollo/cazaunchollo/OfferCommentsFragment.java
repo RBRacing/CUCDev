@@ -80,7 +80,7 @@ public class OfferCommentsFragment extends Fragment {
             protected void populateViewHolder(CommentViewHolder viewHolder, Comment model, int position) {
                 viewHolder.person_name.setText(model.getAutor());
                 viewHolder.textView_comment.setText(model.getMensaje());
-                viewHolder.textView_level.setText(model.getLevel());
+                viewHolder.comment_date.setText(model.getDate());
             }
         };
 
@@ -102,24 +102,37 @@ public class OfferCommentsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getContext(), pruebaEditText.getText().toString(), Toast.LENGTH_SHORT).show();
-                FirebaseAuth auth;
-                // Instancía de Firebase
-                auth = FirebaseAuth.getInstance();
+                String comentario = pruebaEditText.getText().toString();
+                if(!comentario.equals("")){
+                    FirebaseAuth auth;
+                    // Instancía de Firebase
+                    auth = FirebaseAuth.getInstance();
 
-                // Obtener usuario actual Firebase
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    // Obtener usuario actual Firebase
+                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                Comment c = new Comment(user.getEmail().toString(), pruebaEditText.getText().toString());
+                    Comment c = new Comment(user.getEmail().toString(), pruebaEditText.getText().toString(), returnDate());
 
 
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                ref.child("offers").child(OfferScrollingActivity.getReferencia()).child("comments").push().setValue(c);
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                    ref.child("offers").child(OfferScrollingActivity.getReferencia()).child("comments").push().setValue(c);
+
+                    pruebaEditText.setText("");
+                }
+                else{
+                    Toast.makeText(getContext(), "Debes escribir algo antes de enviarlo", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
 
         return mRootView;
+    }
+
+    public String returnDate(){
+        DateFormat dateFormat = new DateFormat();
+        String fecha = dateFormat.devolverFecha();
+        return fecha;
     }
 
     public static Fragment newInstance() {

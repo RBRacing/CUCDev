@@ -10,7 +10,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder{
     //public Toolbar toolbarCard2;
     public TextView person_name;
     public TextView textView_comment;
-    public TextView textView_level;
+    public TextView comment_date;
 
     public CommentViewHolder(View v){
 
@@ -18,7 +18,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder{
         //toolbarCard2 = (Toolbar)itemView.findViewById(R.id.toolbarCard2);
         person_name = (TextView)itemView.findViewById(R.id.person_name);
         textView_comment = (TextView) itemView.findViewById(R.id.textView_comment);
-        textView_level = (TextView) itemView.findViewById(R.id.textView_level);
+        comment_date = (TextView) itemView.findViewById(R.id.comment_date);
 
         /*
         likeTV.setOnClickListener(new View.OnClickListener() {
@@ -56,11 +56,11 @@ public class CommentViewHolder extends RecyclerView.ViewHolder{
         this.textView_comment = textView_comment;
     }
 
-    public TextView getTextView_level() {
-        return textView_level;
+    public TextView getComment_date() {
+        return comment_date;
     }
 
-    public void setTextView_level(TextView textView_level) {
-        this.textView_level = textView_level;
+    public void setComment_date(TextView comment_date) {
+        this.comment_date = comment_date;
     }
 }

@@ -24,9 +24,10 @@ public class User {
     private String registrationDate;
     private int points;
     private int level;
+    private Boolean ban;
     static List<String> favorites = new ArrayList<String>();
 
-    public User(String name, String email, String image, String registrationDate, int points, List<String> favorites, int level) {
+    public User(String name, String email, String image, String registrationDate, int points, List<String> favorites, int level, boolean ban) {
         this.name = name;
         this.email = email;
         this.image = image;
@@ -34,6 +35,7 @@ public class User {
         this.points = points;
         this.favorites = favorites;
         this.level = level;
+        this.ban = ban;
     }
 
     public User() {
@@ -95,6 +97,13 @@ public class User {
     }
 
 
+    public Boolean getBan() {
+        return ban;
+    }
+
+    public void setBan(Boolean ban) {
+        this.ban = ban;
+    }
 
     public String getName() {
         return name;

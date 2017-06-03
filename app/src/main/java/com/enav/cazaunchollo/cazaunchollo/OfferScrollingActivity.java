@@ -103,29 +103,28 @@ implements AppBarLayout.OnOffsetChangedListener {
 
     }
 
-    public void createComment(View view) {
-       // LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
-        //inflater.inflate(R.layout.app_bar_main2, null);
+    public void modOffer(View view) {
+        OfferDescriptionFragment offerDescriptionFragment = new OfferDescriptionFragment();
+        Intent intent = new Intent(this, OfferModActivity.class);
+        intent.putExtra("referencia", referencia.toString());
 
-
-        String texto = editText_comment.getText().toString();
-
-
-        // Instancía de Firebase
-        auth = FirebaseAuth.getInstance();
-
-        // Obtener usuario actual Firebase
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        Comment c = new Comment(user.getEmail().toString(), editText_comment.getText().toString());
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.child("offers").child(referencia).child("comments").push().setValue(c);
+        startActivity(intent);
 
     }
 
+    public void removeOffer(View view) {
 
 
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("referencia", referencia.toString());
+        intent.putExtra("confirmarBorrado", true);
+        startActivity(intent);
+
+
+
+
+    }
 
     class TabsAdapter extends FragmentPagerAdapter {
         public TabsAdapter(FragmentManager fm) {

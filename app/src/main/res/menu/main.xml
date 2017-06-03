@@ -2,11 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/action_search"
-        android:orderInCategory="100"
-        android:title="@string/action_search"
-        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_settings"
@@ -17,7 +12,7 @@
     <item
         android:id="@+id/action_logout"
         android:orderInCategory="100"
-        android:title="Logout"
+        android:title="Cerrar sesión"
         app:showAsAction="never" />
 
 </menu>

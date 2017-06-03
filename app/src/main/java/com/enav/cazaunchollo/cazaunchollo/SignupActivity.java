@@ -25,7 +25,7 @@ import java.util.List;
 public class SignupActivity extends AppCompatActivity {
 
     /* Variables */
-    private EditText inputEmail, inputPassword;
+    private EditText inputEmail, inputPassword, username;
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
@@ -45,6 +45,7 @@ public class SignupActivity extends AppCompatActivity {
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
+        username = (EditText) findViewById(R.id.username);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
 
@@ -108,20 +109,13 @@ public class SignupActivity extends AppCompatActivity {
     }
     private void onAuthSuccess(FirebaseUser user) {
         // Escribimos el nuevo usuario
-        writeNewUser(user.getUid(), usernameFromEmail(user.getEmail()), user.getEmail());
+        writeNewUser(user.getUid(), username.getText().toString(), user.getEmail());
 
         // Vamos a la pantalla principal
         startActivity(new Intent(SignupActivity.this, MainActivity.class));
         finish();
     }
 
-    private String usernameFromEmail(String email) {
-        if (email.contains("@")) {
-            return email.split("@")[0];
-        } else {
-            return email;
-        }
-    }
 
     @Override
     protected void onResume() {
@@ -133,7 +127,7 @@ public class SignupActivity extends AppCompatActivity {
         List<String> list = new ArrayList<String>();
         list.add("");
 
-        User user = new User(name, email, "https://firebasestorage.googleapis.com/v0/b/caza-un-chollo.appspot.com/o/UsersPhoto%2FnewUserPhoto.png?alt=media&token=f0a89c25-1807-4115-9d81-f5d36fd452c3", "", 0, list, 1);
+        User user = new User(name, email, "https://firebasestorage.googleapis.com/v0/b/caza-un-chollo.appspot.com/o/UsersPhoto%2FnewUserPhoto.png?alt=media&token=f0a89c25-1807-4115-9d81-f5d36fd452c3", "", 0, list, 1, false);
         databaseReference.child("users").child(userId).setValue(user);
     }
 }

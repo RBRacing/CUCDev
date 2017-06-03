@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -29,7 +32,7 @@ import java.util.List;
 
 public class OfferFormActivity extends AppCompatActivity {
 
-    private Button button_send;
+    private Button button_post_offer;
     private Button mUploadBtn;
     private StorageReference mStorage;
     private ImageView mImageView;
@@ -38,15 +41,32 @@ public class OfferFormActivity extends AppCompatActivity {
     private Uri descargarFoto;
     private String urifoto = "http://";
 
+
+    private EditText input_title;
+    private EditText input_shop;
+    private EditText input_description;
+    private CheckBox checkBox_status;
+    private EditText input_link;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_form);
 
         mUploadBtn = (Button) findViewById(R.id.btnSubir);
+        button_post_offer = (Button) findViewById(R.id.button_post_offer);
         mImageView = (ImageView) findViewById(R.id.imageLoad);
         mStorage = FirebaseStorage.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
+
+        input_title = (EditText) findViewById(R.id.input_title);
+        input_shop = (EditText) findViewById(R.id.input_shop);
+        input_description = (EditText) findViewById(R.id.input_description);
+        checkBox_status = (CheckBox) findViewById(R.id.checkBox_status);
+        input_link = (EditText) findViewById(R.id.input_link);
+
 
        mUploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,15 +77,14 @@ public class OfferFormActivity extends AppCompatActivity {
             }
         });
 
-
-
-        button_send = (Button) findViewById(R.id.button_send);
         final Comment comment = new Comment();
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference offerReference = database.getReference(FirebaseReferences.OFFERS_REFERENCE);
-        button_send.setOnClickListener(new View.OnClickListener() {
+
+
+        button_post_offer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -78,10 +97,13 @@ public class OfferFormActivity extends AppCompatActivity {
                 //String fecha = formateador.format(new Date());
                 //Log.d("FECHA", fecha);
 
-                Offer offer = new Offer("Chollo Test 1", "Tienda Test 1", "0", "0", urifoto, "DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN TEST DESCRIPCIÓN", "AGOTADO", comment, fecha, usersLikeToThisOffer);
+                Offer offer = new Offer(input_title.getText().toString(), input_shop.getText().toString(), "0", "0", urifoto, input_description.getText().toString(), checkBox_status.isChecked(), comment, fecha, input_link.getText().toString() ,usersLikeToThisOffer);
                 offerReference.push().setValue(offer);
+
+                Toast.makeText(getApplicationContext(), "Oferta publicada", Toast.LENGTH_SHORT).show();
             }
         });
+
 
 
 

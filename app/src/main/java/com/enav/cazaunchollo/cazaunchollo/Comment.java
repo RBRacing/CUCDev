@@ -4,11 +4,13 @@ public class Comment{
 
     private String autor;
     private String mensaje;
-    private String level;
+    private String date;
 
-    public Comment(String autor, String mensaje) {
+
+    public Comment(String autor, String mensaje, String date) {
         this.autor = autor;
         this.mensaje = mensaje;
+        this.date = date;
     }
 
     public Comment() {
@@ -31,11 +33,11 @@ public class Comment{
         this.mensaje = mensaje;
     }
 
-    public String getLevel() {
-        return level;
+    public String getDate() {
+        return date;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
+    public void setDate(String date) {
+        this.date = date;
     }
 }

@@ -23,27 +23,29 @@ public class Offer {
     private String likes;
     private String imagen;
     private String descripcion;
-    private String estado;
+    private Boolean disponible;
     private Comment comment;
     private String fecha;
     private static List<String> usersLikeToThisOffer;
     private String color;
     private static Boolean Pasar;
+    private String enlace;
 
 
     public Offer() {
     }
 
-    public Offer(String nombre, String hashtag, String comentarios, String likes, String imagen, String descripcion, String estado, Comment comment, String fecha, List<String> usersLikeToThisOffer) {
+    public Offer(String nombre, String hashtag, String comentarios, String likes, String imagen, String descripcion, Boolean disponible, Comment comment, String fecha, String enlace, List<String> usersLikeToThisOffer) {
         this.nombre = nombre;
         this.hashtag = hashtag;
         this.comentarios = comentarios;
         this.likes = likes;
         this.imagen = imagen;
         this.descripcion = descripcion;
-        this.estado = estado;
+        this.disponible = disponible;
         this.comment = comment;
         this.fecha = fecha;
+        this.enlace = enlace;
         this.usersLikeToThisOffer = usersLikeToThisOffer;
         ;
     }
@@ -195,12 +197,12 @@ public class Offer {
         this.descripcion = descripcion;
     }
 
-    public String getEstado() {
-        return estado;
+    public Boolean getDisponible() {
+        return disponible;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
     }
 
     public Comment getComment() {
@@ -225,5 +227,13 @@ public class Offer {
 
     public void setUsersLikeToThisOffer(List<String> usersLikeToThisOffer) {
         this.usersLikeToThisOffer = usersLikeToThisOffer;
+    }
+
+    public String getEnlace() {
+        return enlace;
+    }
+
+    public void setEnlace(String enlace) {
+        this.enlace = enlace;
     }
 }

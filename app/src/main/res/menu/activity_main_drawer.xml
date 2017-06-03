@@ -9,24 +9,17 @@
             android:id="@+id/myProfile"
             android:icon="@drawable/ic_account_circle_24dp"
             android:title="Mi perfil" />
+
+        <item
+            android:id="@+id/addOffer"
+            android:icon="@drawable/ic_offer_add_24dp"
+            android:title="Añadir oferta" />
+
         <item
             android:id="@+id/favorites"
-            android:icon="@drawable/ic_favorite_red_24dp"
-            android:title="Ofertas guardadas" />
+            android:icon="@drawable/ic_menu_share"
+            android:title="Compartir"
+            />
     </group>
-
-    <item android:title="Contribuidor">
-        <menu>
-            <item
-                android:id="@+id/addOffer"
-                android:icon="@drawable/ic_offer_add_24dp"
-                android:title="Añadir oferta" />
-            <item
-                android:id="@+id/modOffer"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Modificar oferta" />
-        </menu>
-    </item>
-
 
 </menu>
