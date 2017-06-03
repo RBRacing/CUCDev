@@ -55,11 +55,13 @@ public class OfferDescriptionFragment extends Fragment {
                String titulo = offer.getNombre();
                String descripcion = offer.getDescripcion();
                String estado2 = offer.getEstado();
-               Glide.with(getContext()).load(offer.getImagen()).fitCenter().centerCrop().into(imagen);
+
+               //Glide.with(getContext()).load(offer.getImagen()).fitCenter().centerCrop().into(imagen);
                //imagen.setImageResource(offer.getImagen());
                tituloTV.setText(titulo);
                textView2.setText(descripcion);
 
+               /*
                if(estado2.equals("DISPONIBLE")){
                    estadoIV.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_24dp));
                    estado.setText(estado2);
@@ -68,7 +70,7 @@ public class OfferDescriptionFragment extends Fragment {
                if(estado2.equals("AGOTADO")){
                    estadoIV.setImageDrawable(getResources().getDrawable(R.drawable.ic_close_24dp));
                    estado.setText(estado2);
-               }
+               }*/
            }
 
            @Override

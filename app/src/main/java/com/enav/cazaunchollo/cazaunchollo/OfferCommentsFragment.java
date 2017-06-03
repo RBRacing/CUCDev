@@ -15,15 +15,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class OfferCommentsFragment extends Fragment {
-    private CoordinatorLayout mRootView;
+    private RelativeLayout mRootView;
 
     private RecyclerView recycler;
     private RecyclerView.LayoutManager lManager;
@@ -34,6 +39,8 @@ public class OfferCommentsFragment extends Fragment {
     private static FirebaseRecyclerAdapter<Comment, CommentViewHolder> mFirebaseAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     public String texto;
+    public ImageButton imageButton;
+    public EditText pruebaEditText;
 
 
     public EditText editText_comment;
@@ -41,16 +48,10 @@ public class OfferCommentsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = (CoordinatorLayout) inflater.inflate(R.layout.app_bar_main2, container, false);
+        mRootView = (RelativeLayout) inflater.inflate(R.layout.app_bar_main2, container, false);
 
-
-
-        editText_comment = (EditText) mRootView.findViewById(R.id.editText_comment);
-
-        texto = editText_comment.getText().toString();
-
-        String comentario = "";
-
+        imageButton = (ImageButton) mRootView.findViewById(R.id.imageButton);
+        pruebaEditText = (EditText) mRootView.findViewById(R.id.editText_comment);
 
         String referencia = OfferScrollingActivity.getReferencia();
         // Obtener el Recycler
@@ -79,6 +80,7 @@ public class OfferCommentsFragment extends Fragment {
             protected void populateViewHolder(CommentViewHolder viewHolder, Comment model, int position) {
                 viewHolder.person_name.setText(model.getAutor());
                 viewHolder.textView_comment.setText(model.getMensaje());
+                viewHolder.textView_level.setText(model.getLevel());
             }
         };
 
@@ -96,6 +98,25 @@ public class OfferCommentsFragment extends Fragment {
         mRoomRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRoomRecyclerView.setAdapter(mFirebaseAdapter);
 
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(getContext(), pruebaEditText.getText().toString(), Toast.LENGTH_SHORT).show();
+                FirebaseAuth auth;
+                // Instancía de Firebase
+                auth = FirebaseAuth.getInstance();
+
+                // Obtener usuario actual Firebase
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                Comment c = new Comment(user.getEmail().toString(), pruebaEditText.getText().toString());
+
+
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                ref.child("offers").child(OfferScrollingActivity.getReferencia()).child("comments").push().setValue(c);
+            }
+        });
 
 
         return mRootView;

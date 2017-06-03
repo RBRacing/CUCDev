@@ -2,6 +2,10 @@ package com.enav.cazaunchollo.cazaunchollo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -17,7 +21,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,9 +38,13 @@ implements AppBarLayout.OnOffsetChangedListener {
 
         private int mMaxScrollSize;
         private TextView estado;
-        private static String referencia;
+        public static String referencia;
         private EditText editText_comment;
         private FirebaseAuth auth;
+        ImageView imageView;
+
+        boolean isImageFitToScreen;
+
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -58,16 +69,23 @@ implements AppBarLayout.OnOffsetChangedListener {
             mMaxScrollSize = appbarLayout.getTotalScrollRange();
 
             viewPager.setAdapter(new TabsAdapter(getSupportFragmentManager()));
+
             tabLayout.setupWithViewPager(viewPager);
 
             estado = (TextView) findViewById(R.id.estado);
 
             referencia = getIntent().getStringExtra("referencia");
 
+            LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+            View item = inflater.inflate(R.layout.fragment_offer_description, null);
 
 
+            imageView = (ImageView) item.findViewById(R.id.imageView3);
 
+            LayoutInflater inflater2 = LayoutInflater.from(getApplicationContext());
+            View item2 = inflater.inflate(R.layout.app_bar_main2, null);
 
+            editText_comment = (EditText) item2.findViewById(R.id.editText_comment);
 
         }
 
@@ -90,12 +108,7 @@ implements AppBarLayout.OnOffsetChangedListener {
         //inflater.inflate(R.layout.app_bar_main2, null);
 
 
-        android.app.Fragment frag = getFragmentManager().findFragmentById(R.id.reciclador2);
-        String co = (String) ((TextView) frag.getView().findViewById(R.id.textView_comment)).getText();
-
-        OfferCommentsFragment offerCommentsFragment = new OfferCommentsFragment();
-
-
+        String texto = editText_comment.getText().toString();
 
 
         // Instancía de Firebase
@@ -104,18 +117,15 @@ implements AppBarLayout.OnOffsetChangedListener {
         // Obtener usuario actual Firebase
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-
-        String comentario =
-
-             comentario = editText_comment.getText().toString();
-
-
-        Comment c = new Comment(user.getEmail().toString(), comentario);
+        Comment c = new Comment(user.getEmail().toString(), editText_comment.getText().toString());
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.child("offers").child(referencia).child("comments").push().setValue(c);
 
     }
+
+
+
 
     class TabsAdapter extends FragmentPagerAdapter {
         public TabsAdapter(FragmentManager fm) {
@@ -153,6 +163,7 @@ implements AppBarLayout.OnOffsetChangedListener {
     public void setReferencia(String referencia) {
         this.referencia = referencia;
     }
+
 
 
 }

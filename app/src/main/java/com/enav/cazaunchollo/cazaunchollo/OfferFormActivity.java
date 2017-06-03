@@ -51,7 +51,7 @@ public class OfferFormActivity extends AppCompatActivity {
        mUploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 startActivityForResult(intent, GALLERY_INTENT);
             }
@@ -60,7 +60,7 @@ public class OfferFormActivity extends AppCompatActivity {
 
 
         button_send = (Button) findViewById(R.id.button_send);
-        final Comment comment = new Comment("a", "a");
+        final Comment comment = new Comment();
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

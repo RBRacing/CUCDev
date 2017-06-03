@@ -28,6 +28,7 @@ public class Offer {
     private String fecha;
     private static List<String> usersLikeToThisOffer;
     private String color;
+    private static Boolean Pasar;
 
 
     public Offer() {
@@ -63,12 +64,16 @@ public class Offer {
                     if(!usersLikeToThisOffer.contains(uid)){
                         usersLikeToThisOffer.add(uid);
                         databaseReference.setValue(usersLikeToThisOffer);
+                        plusLike(idOffer);
+                        Pasar = false;
 
                     }
                 }else{
                     List<String> usersLikeToThisOffer = new ArrayList<String>();
                     usersLikeToThisOffer.add(uid);
                     databaseReference.setValue(usersLikeToThisOffer);
+                    plusLike(idOffer);
+                    Pasar = false;
                 }
 
             }
@@ -78,6 +83,39 @@ public class Offer {
                 // Log.e(TAGLOG, "Error!", databaseError.toException());
             }
         });
+    }
+
+    public static void plusLike(final String idOffer){
+
+        final DatabaseReference databaseReference =
+                FirebaseDatabase.getInstance().getReference()
+                        .child("offers")
+                        .child(idOffer).child("likes");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String likes = (String) dataSnapshot.getValue();
+
+                if(likes !=null && !Pasar){
+                    Pasar=true;
+                    int likesOfString = Integer.valueOf(likes);
+                    int calcular = likesOfString+1;
+                    databaseReference.setValue(String.valueOf(calcular));
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Log.e(TAGLOG, "Error!", databaseError.toException());
+            }
+        });
+
+
+
     }
 
     public boolean usersLikeToThisOffer(String uid, final String idOffer){

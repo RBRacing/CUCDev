@@ -10,31 +10,12 @@
     <string name="offer_description_test">La nueva Startup española Bipi está regalando 20€ en su app para alquiler coches. Pretender transformar el sector, con mejores precios, mayor seguridad, transparencia total y trayéndote el coche a tu casa. Usando el descuento, alquilar un coche 1 día sale a 22€ y te lo traen a tu casa. Además, si invitas a un amigo a la app, os dan 20€ a cada uno, por lo que ya tendrías 40€ y te saldría por 2€ como en el ejemplo de la imagen.</string>
 
 
-
     <!-- Sigup & Login Screen -->
     <string name="enter_email">Debes introducir un correo electrónico para registrarte</string>
     <string name="enter_password">Debes introducir una contraseña</string>
     <string name="minimum_password">El tramaño minimo para la contrasñea es de 6 caracteres</string>
     <string name="wrong_login">Error al registrarte. Por favor, inténtelo de nuevo más tarde</string>
     <string name="auth_failed">Error al realizar el login</string>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     <string name="large_text">
@@ -216,8 +197,6 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
-
-
 
 
     <string name="email">Email</string>

@@ -67,7 +67,8 @@
         <activity
             android:name=".MyProfile"
             android:label="@string/title_activity_my_profile"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".FullScreenImageActivity"></activity>
     </application>
 
 </manifest>

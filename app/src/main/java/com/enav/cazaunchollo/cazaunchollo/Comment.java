@@ -4,6 +4,7 @@ public class Comment{
 
     private String autor;
     private String mensaje;
+    private String level;
 
     public Comment(String autor, String mensaje) {
         this.autor = autor;
@@ -28,5 +29,13 @@ public class Comment{
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }
