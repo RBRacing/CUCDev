@@ -80,6 +80,7 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
                 String referencia = devolverReferencia(getPosition());
                 User.addLikesToList(user.getUid(),referencia);
                 Offer.addUIDToThisOffer(user.getUid(), referencia);
+                Offer.plusLike(referencia);
 
 
 

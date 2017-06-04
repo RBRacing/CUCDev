@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
+    android:layout_height="wrap_content"
+    xmlns:fab="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:paddingTop="0dp"
 
     >
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,8 +29,8 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-
                 app:srcCompat="@drawable/sinfoto" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,7 +46,7 @@
                     android:backgroundTint="@color/bg_main"
                     android:onClick="modOffer"
                     android:text="Modificar"
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/delete_offer"
@@ -55,7 +57,7 @@
                     android:backgroundTint="@color/btn_logut_bg"
                     android:onClick="removeOffer"
                     android:text="Eliminar"
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
 
 
             </LinearLayout>

@@ -41,6 +41,7 @@ public class OfferCommentsFragment extends Fragment {
     public String texto;
     public ImageButton imageButton;
     public EditText pruebaEditText;
+    private int num_comentarios;
 
 
     public EditText editText_comment;
@@ -53,6 +54,7 @@ public class OfferCommentsFragment extends Fragment {
         imageButton = (ImageButton) mRootView.findViewById(R.id.imageButton);
         pruebaEditText = (EditText) mRootView.findViewById(R.id.editText_comment);
 
+        num_comentarios  = 0;
         String referencia = OfferScrollingActivity.getReferencia();
         // Obtener el Recycler
         recycler = (RecyclerView) mRootView.findViewById(R.id.reciclador2);
@@ -118,6 +120,12 @@ public class OfferCommentsFragment extends Fragment {
                     ref.child("offers").child(OfferScrollingActivity.getReferencia()).child("comments").push().setValue(c);
 
                     pruebaEditText.setText("");
+
+                    CallFirebaseDatabase.devolverNumDeComentariosParaUnaOferta(OfferScrollingActivity.getReferencia());
+
+
+
+
                 }
                 else{
                     Toast.makeText(getContext(), "Debes escribir algo antes de enviarlo", Toast.LENGTH_SHORT).show();

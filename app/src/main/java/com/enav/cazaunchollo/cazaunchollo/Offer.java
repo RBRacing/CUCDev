@@ -67,7 +67,7 @@ public class Offer {
                     if(!usersLikeToThisOffer.contains(uid)){
                         usersLikeToThisOffer.add(uid);
                         databaseReference.setValue(usersLikeToThisOffer);
-                        plusLike(idOffer);
+                        //plusLike(idOffer);
                         Pasar = false;
 
                     }
@@ -75,7 +75,7 @@ public class Offer {
                     List<String> usersLikeToThisOffer = new ArrayList<String>();
                     usersLikeToThisOffer.add(uid);
                     databaseReference.setValue(usersLikeToThisOffer);
-                    plusLike(idOffer);
+                    //plusLike(idOffer);
                     Pasar = false;
                 }
 
