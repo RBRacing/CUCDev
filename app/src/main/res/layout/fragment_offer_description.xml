@@ -42,8 +42,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/bg_main"
+                    android:onClick="modOffer"
                     android:text="Modificar"
-                    android:onClick="modOffer"/>
+                    android:visibility="invisible" />
 
                 <Button
                     android:id="@+id/delete_offer"
@@ -52,8 +53,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/btn_logut_bg"
+                    android:onClick="removeOffer"
                     android:text="Eliminar"
-                    android:onClick="removeOffer"/>
+                    android:visibility="invisible" />
 
 
             </LinearLayout>

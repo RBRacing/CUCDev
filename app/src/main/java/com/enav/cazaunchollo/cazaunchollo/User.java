@@ -26,6 +26,8 @@ public class User {
     private int level;
     private Boolean ban;
     static List<String> favorites = new ArrayList<String>();
+    static List<String> offerLikeToThisOffer = new ArrayList<String>();
+
 
     public User(String name, String email, String image, String registrationDate, int points, List<String> favorites, int level, boolean ban) {
         this.name = name;
@@ -42,28 +44,75 @@ public class User {
 
     }
 
+    // Tengo que pasarle el uid del creador de la oferta
     public static void addLikesToList(final String uid, final String idOffer){
 
         final DatabaseReference databaseReference =
-                FirebaseDatabase.getInstance().getReference()
-                        .child("users")
-                        .child(uid).child("favorites");
+                FirebaseDatabase.getInstance().getReference();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                favorites = (List) dataSnapshot.getValue();
+                favorites = (List) dataSnapshot.child("users").child(uid).child("favorites").getValue();
+
+                //offerLikeToThisOffer = (List) dataSnapshot.child("offers").child(idOffer).child("usersLikeToThisOffer").getValue();
 
                 if(favorites !=null){
                     if(!favorites.contains(idOffer)){
                         favorites.add(idOffer);
-                        databaseReference.setValue(favorites);
+                        databaseReference.child("users").child(uid).child("favorites").setValue(favorites);
+
+                        Long points = ((Long) dataSnapshot.child("users").child(uid).child("points").getValue())+1;
+                        databaseReference.child("users").child(uid).child("points").setValue(points);
 
                     }
                 }else{
                     List<String> favorites = new ArrayList<String>();
                     favorites.add(idOffer);
-                    databaseReference.setValue(favorites);
+                    databaseReference.child("users").child(uid).child("favorites").setValue(favorites);
+
+                    Long points = ((Long) dataSnapshot.child("users").child(uid).child("points").getValue())+1;
+                    databaseReference.child("users").child(uid).child("points").setValue(points);
+                }
+
+                /*
+                if(offerLikeToThisOffer !=null){
+                    if(!offerLikeToThisOffer.contains(uid)){
+                        offerLikeToThisOffer.add(uid);
+                        databaseReference.child("offers").child(idOffer).setValue(offerLikeToThisOffer);
+                    }
+                }else{
+                    List<String> offerLikeToThisOffer = new ArrayList<String>();
+                    offerLikeToThisOffer.add(uid);
+                    databaseReference.child("offers").child(idOffer).setValue(offerLikeToThisOffer);
+                }*/
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Log.e(TAGLOG, "Error!", databaseError.toException());
+            }
+        });
+    }
+
+    public static void addPointsToCreator(final String uid){
+
+        final DatabaseReference databaseReference =
+                FirebaseDatabase.getInstance().getReference()
+                        .child("users")
+                        .child(uid).child("points");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Long points = (Long) dataSnapshot.getValue();
+
+                if(points !=null){
+                    points = ((Long) dataSnapshot.child("points").getValue())+20;
+                    databaseReference.child("points").setValue(points);
+
                 }
 
             }
@@ -74,6 +123,8 @@ public class User {
             }
         });
     }
+
+
 
     public static boolean likeThis(String uid, final String idOffer){
 

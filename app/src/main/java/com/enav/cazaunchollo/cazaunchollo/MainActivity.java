@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             protected void populateViewHolder(OfferViewHolder viewHolder, Offer model, int position) {
                 if(model.getUsersLikeToThisOffer().contains(user.getUid())){
-                    viewHolder.likeIV.setColorFilter(Color.BLUE);
+                    viewHolder.likeIV.setColorFilter(Color.RED);
                 }
                 viewHolder.titleCard.setText(model.getNombre());
                 viewHolder.subTitleCard.setText("#" + model.getHashtag());
@@ -250,10 +250,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-        }
+        /*if (id == R.id.action_settings) {
+            //Intent intent = new Intent(this, SettingsActivity.class);
+            //startActivity(intent);
+        }*/
         if (id == R.id.action_logout) {
             signOut();
         }

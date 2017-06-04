@@ -26,16 +26,17 @@ public class Offer {
     private Boolean disponible;
     private Comment comment;
     private String fecha;
-    private static List<String> usersLikeToThisOffer;
+    static List<String> usersLikeToThisOffer;
     private String color;
     private static Boolean Pasar;
     private String enlace;
+    private String uid_creator;
 
 
     public Offer() {
     }
 
-    public Offer(String nombre, String hashtag, String comentarios, String likes, String imagen, String descripcion, Boolean disponible, Comment comment, String fecha, String enlace, List<String> usersLikeToThisOffer) {
+    public Offer(String nombre, String hashtag, String comentarios, String likes, String imagen, String descripcion, Boolean disponible, Comment comment, String fecha, String enlace, String uid_creator, List<String> usersLikeToThisOffer) {
         this.nombre = nombre;
         this.hashtag = hashtag;
         this.comentarios = comentarios;
@@ -47,7 +48,7 @@ public class Offer {
         this.fecha = fecha;
         this.enlace = enlace;
         this.usersLikeToThisOffer = usersLikeToThisOffer;
-        ;
+        this.uid_creator = uid_creator;
     }
 
     public static void addUIDToThisOffer(final String uid, final String idOffer){
@@ -90,20 +91,23 @@ public class Offer {
     public static void plusLike(final String idOffer){
 
         final DatabaseReference databaseReference =
-                FirebaseDatabase.getInstance().getReference()
-                        .child("offers")
-                        .child(idOffer).child("likes");
+                FirebaseDatabase.getInstance().getReference();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String likes = (String) dataSnapshot.getValue();
+                String likes = (String) dataSnapshot.child("offers").child(idOffer).child("likes").getValue();
+
+
+                String uid_creator = (String) dataSnapshot.child("offers").child(idOffer).child("uid_creator").getValue();
 
                 if(likes !=null && !Pasar){
                     Pasar=true;
                     int likesOfString = Integer.valueOf(likes);
                     int calcular = likesOfString+1;
-                    databaseReference.setValue(String.valueOf(calcular));
+                    databaseReference.child("offers").child(idOffer).child("likes").setValue(String.valueOf(calcular));
+                    calcular = calcular*5;
+                    databaseReference.child("users").child(uid_creator).child("points").setValue(calcular);
 
 
                 }
@@ -235,5 +239,13 @@ public class Offer {
 
     public void setEnlace(String enlace) {
         this.enlace = enlace;
+    }
+
+    public String getUid_creator() {
+        return uid_creator;
+    }
+
+    public void setUid_creator(String uid_creator) {
+        this.uid_creator = uid_creator;
     }
 }

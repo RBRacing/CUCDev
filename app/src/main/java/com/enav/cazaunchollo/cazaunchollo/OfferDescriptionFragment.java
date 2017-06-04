@@ -20,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +41,9 @@ public class OfferDescriptionFragment extends Fragment {
     MainActivity m;
     boolean entro;
 
+    private Button mod_offer;
+    private Button delete_offer;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,6 +55,9 @@ public class OfferDescriptionFragment extends Fragment {
         tituloTV = (TextView)mRootView.findViewById(R.id.titulotv);
         imagen = (ImageView)mRootView.findViewById(R.id.imageView3);
         button_link_offer = (Button) mRootView.findViewById(R.id.button_link_offer);
+        mod_offer = (Button) mRootView.findViewById(R.id.mod_offer);
+        delete_offer = (Button) mRootView.findViewById(R.id.delete_offer);
+
         String referencia = OfferScrollingActivity.getReferencia();
         m = new MainActivity();
         entro = false;
@@ -123,6 +131,22 @@ public class OfferDescriptionFragment extends Fragment {
                        estadoIV.setImageDrawable(getResources().getDrawable(R.drawable.ic_close_24dp));
                        estado.setText("AGOTADO");
                    }
+
+                   //
+                   FirebaseAuth auth;
+                   auth = FirebaseAuth.getInstance();
+
+                   // Obtener usuario actual Firebase
+                   final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                   if(offer.getUid_creator().equals(user.getUid())){
+                       mod_offer.setVisibility(View.VISIBLE);
+                       delete_offer.setVisibility(View.VISIBLE);
+
+
+                   }
+
+
                }
 
 

@@ -3,6 +3,7 @@ package com.enav.cazaunchollo.cazaunchollo;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,9 +19,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +41,8 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.enav.cazaunchollo.cazaunchollo.R.drawable.trophy;
 
 public class MyProfile extends AppCompatActivity {
 
@@ -57,6 +63,8 @@ public class MyProfile extends AppCompatActivity {
     private StorageReference mStorage;
     private Uri descargarFoto;
     private String urifoto = "http://";
+    private RoundCornerProgressBar level_progressBar;
+    private TextView level_indicator;
 
 
     private ListView mListView;
@@ -70,6 +78,8 @@ public class MyProfile extends AppCompatActivity {
         user_profile_name= (TextView) findViewById(R.id.user_profile_name);
         user_profile_email = (TextView) findViewById(R.id.user_profile_email);
         user_profile_photo = (CircleImageView) findViewById(R.id.user_profile_photo);
+        level_progressBar = (RoundCornerProgressBar) findViewById(R.id.level_progressBar);
+        level_indicator = (TextView) findViewById(R.id.level_indicator);
 
         mStorage = FirebaseStorage.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
@@ -118,9 +128,22 @@ public class MyProfile extends AppCompatActivity {
         String name = (String) dataSnapshot.child(userID).child("name").getValue();
         String email = (String) dataSnapshot.child(userID).child("email").getValue();
         String userPhoto = (String) dataSnapshot.child(userID).child("image").getValue();
+        Long points = (Long) dataSnapshot.child(userID).child("points").getValue();
+
         user_profile_name.setText(name);
         user_profile_email.setText(email);
         Glide.with(getApplicationContext()).load(userPhoto).fitCenter().into(user_profile_photo);
+
+        level_indicator.setText(String.valueOf(points)+"/100");
+
+        level_progressBar.setProgress(points.intValue());
+        level_progressBar.setProgressColor(Color.parseColor("#4abe5b"));
+        level_progressBar.setProgressBackgroundColor(Color.parseColor("#7dd28a"));
+
+        level_progressBar.setMax(100);
+
+        level_progressBar.setRadius(0);
+
     }
 
 

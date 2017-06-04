@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,6 +42,7 @@ public class OfferFormActivity extends AppCompatActivity {
     private static final int GALLERY_INTENT = 1;
     private Uri descargarFoto;
     private String urifoto = "http://";
+    private FirebaseAuth mAuth;
 
 
     private EditText input_title;
@@ -97,7 +100,10 @@ public class OfferFormActivity extends AppCompatActivity {
                 //String fecha = formateador.format(new Date());
                 //Log.d("FECHA", fecha);
 
-                Offer offer = new Offer(input_title.getText().toString(), input_shop.getText().toString(), "0", "0", urifoto, input_description.getText().toString(), checkBox_status.isChecked(), comment, fecha, input_link.getText().toString() ,usersLikeToThisOffer);
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser user = mAuth.getCurrentUser();
+
+                Offer offer = new Offer(input_title.getText().toString(), input_shop.getText().toString(), "0", "0", urifoto, input_description.getText().toString(), checkBox_status.isChecked(), comment, fecha, input_link.getText().toString() ,user.getUid(),usersLikeToThisOffer);
                 offerReference.push().setValue(offer);
 
                 Toast.makeText(getApplicationContext(), "Oferta publicada", Toast.LENGTH_SHORT).show();
