@@ -45,6 +45,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
@@ -136,16 +137,18 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             protected void populateViewHolder(OfferViewHolder viewHolder, Offer model, int position) {
+
                 if(model.getUsersLikeToThisOffer().contains(user.getUid())){
-                    viewHolder.likeIV.setColorFilter(Color.RED);
+                        viewHolder.likeIV.setColorFilter(Color.RED);
                 }
-                viewHolder.titleCard.setText(model.getNombre());
-                viewHolder.subTitleCard.setText("#" + model.getHashtag());
-                viewHolder.likeTV.setText(model.getLikes());
-                viewHolder.comentarios.setText(model.getComentarios());
-                Glide.with(getApplicationContext()).load(model.getImagen()).fitCenter().into(viewHolder.getImagen());
-                viewHolder.fecha.setText(model.getFecha());
-            }
+                    viewHolder.titleCard.setText(model.getNombre());
+                    viewHolder.subTitleCard.setText("#" + model.getHashtag());
+                    viewHolder.likeTV.setText(model.getLikes());
+                    viewHolder.comentarios.setText(model.getComentarios());
+                    Glide.with(getApplicationContext()).load(model.getImagen()).fitCenter().into(viewHolder.getImagen());
+                    viewHolder.fecha.setText(model.getFecha());
+                }
+
         };
 
         mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -304,7 +307,16 @@ public class MainActivity extends AppCompatActivity
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference offerReference = database.getReference(FirebaseReferences.OFFERS_REFERENCE);
 
-        offerReference.child(referencia).removeValue();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+
+
+        //removeIDOfferOfUsers(referencia, user.getUid());
+
+        //offerReference.child(referencia).removeValue();
+        //Offer.hideOffer(referencia);
+
+
     }
 
     public static String devolverReferencia(int id) {

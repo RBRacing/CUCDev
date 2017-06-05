@@ -28,15 +28,16 @@ public class Offer {
     private String fecha;
     static List<String> usersLikeToThisOffer;
     private String color;
-    private static Boolean Pasar;
+    private static Boolean Pasar = true;
     private String enlace;
     private String uid_creator;
+    private Boolean visible;
 
 
     public Offer() {
     }
 
-    public Offer(String nombre, String hashtag, String comentarios, String likes, String imagen, String descripcion, Boolean disponible, Comment comment, String fecha, String enlace, String uid_creator, List<String> usersLikeToThisOffer) {
+    public Offer(String nombre, String hashtag, String comentarios, String likes, String imagen, String descripcion, Boolean disponible, Comment comment, String fecha, String enlace, String uid_creator, List<String> usersLikeToThisOffer, Boolean visible) {
         this.nombre = nombre;
         this.hashtag = hashtag;
         this.comentarios = comentarios;
@@ -49,6 +50,7 @@ public class Offer {
         this.enlace = enlace;
         this.usersLikeToThisOffer = usersLikeToThisOffer;
         this.uid_creator = uid_creator;
+        this.visible = visible;
     }
 
     public static void addUIDToThisOffer(final String uid, final String idOffer){
@@ -106,7 +108,7 @@ public class Offer {
                     int likesOfString = Integer.valueOf(likes);
                     int calcular = likesOfString+1;
                     databaseReference.child("offers").child(idOffer).child("likes").setValue(String.valueOf(calcular));
-                    calcular = calcular*5;
+                    calcular = calcular + (calcular*5);
                     databaseReference.child("users").child(uid_creator).child("points").setValue(calcular);
 
 
@@ -142,6 +144,21 @@ public class Offer {
         }
 
         return likethis;
+
+    }
+
+    public static void hideOffer(final String idOffer){
+
+
+        final DatabaseReference databaseReference =
+                FirebaseDatabase.getInstance().getReference()
+                        .child("offers")
+                        .child(idOffer);
+
+
+
+        databaseReference.child("visible").setValue(false);
+
 
     }
 
@@ -247,5 +264,13 @@ public class Offer {
 
     public void setUid_creator(String uid_creator) {
         this.uid_creator = uid_creator;
+    }
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
     }
 }

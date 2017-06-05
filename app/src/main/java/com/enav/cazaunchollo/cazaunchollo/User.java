@@ -13,7 +13,10 @@ import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @IgnoreExtraProperties
 public class User {
@@ -26,7 +29,6 @@ public class User {
     private int level;
     private Boolean ban;
     static List<String> favorites = new ArrayList<String>();
-    static List<String> offerLikeToThisOffer = new ArrayList<String>();
 
 
     public User(String name, String email, String image, String registrationDate, int points, List<String> favorites, int level, boolean ban) {
@@ -126,6 +128,7 @@ public class User {
 
 
 
+
     public static boolean likeThis(String uid, final String idOffer){
 
         boolean likethis = false;
@@ -147,6 +150,13 @@ public class User {
 
     }
 
+    public static List<String> getFavorites() {
+        return favorites;
+    }
+
+    public static void setFavorites(List<String> favorites) {
+        User.favorites = favorites;
+    }
 
     public Boolean getBan() {
         return ban;

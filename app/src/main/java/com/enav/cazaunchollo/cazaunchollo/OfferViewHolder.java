@@ -1,5 +1,6 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,7 +25,10 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
     public TextView likeTV;
     public ImageView imagen;
     public ImageView likeIV;
+    public ImageView comentariosico;
     public TextView fecha;
+    public boolean visible;
+    public CardView idcardview;
     private ArrayList <String>  arrayKeyOffers = new ArrayList<>();
 
 
@@ -39,6 +43,8 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
         imagen = (ImageView)itemView.findViewById(R.id.imagen);
         likeIV = (ImageView)itemView.findViewById(R.id.likeIV);
         fecha = (TextView) itemView.findViewById(R.id.publication_date);
+        comentariosico = (ImageView) itemView.findViewById(R.id.comentariosico);
+        idcardview = (CardView)itemView.findViewById(R.id.idcardview);
 
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();

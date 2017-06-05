@@ -57,7 +57,7 @@ public class OfferDescriptionFragment extends Fragment {
         imagen = (ImageView)mRootView.findViewById(R.id.imageView3);
         button_link_offer = (Button) mRootView.findViewById(R.id.button_link_offer);
         mod_offer = (Button) mRootView.findViewById(R.id.mod_offer);
-        delete_offer = (Button) mRootView.findViewById(R.id.delete_offer);
+
 
         String referencia = OfferScrollingActivity.getReferencia();
         m = new MainActivity();
@@ -122,7 +122,6 @@ public class OfferDescriptionFragment extends Fragment {
                        }
                    });
 
-
                    if(estado2 && entro){
                        estadoIV.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_24dp));
                        estado.setText("DISPONIBLE");
@@ -144,16 +143,11 @@ public class OfferDescriptionFragment extends Fragment {
                     if(offer != null){
                         if(offer.getUid_creator().equals(user.getUid())){
                             mod_offer.setVisibility(View.VISIBLE);
-                            delete_offer.setVisibility(View.VISIBLE);
-
 
                         }
                     }
 
-
-
                }
-
 
 
            @Override

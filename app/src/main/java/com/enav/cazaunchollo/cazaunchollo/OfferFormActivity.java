@@ -107,7 +107,7 @@ public class OfferFormActivity extends AppCompatActivity {
                     urifoto = "https://firebasestorage.googleapis.com/v0/b/caza-un-chollo.appspot.com/o/OfferPhotos%2Fsinfoto.jpg?alt=media&token=db5b05e9-3e8c-4164-951f-e26b1c790981";
                 }
 
-                Offer offer = new Offer(input_title.getText().toString(), input_shop.getText().toString(), "0", "0", urifoto, input_description.getText().toString(), checkBox_status.isChecked(), comment, fecha, input_link.getText().toString() ,user.getUid(),usersLikeToThisOffer);
+                Offer offer = new Offer(input_title.getText().toString(), input_shop.getText().toString(), "0", "0", urifoto, input_description.getText().toString(), checkBox_status.isChecked(), comment, fecha, input_link.getText().toString() ,user.getUid(),usersLikeToThisOffer, true);
                 offerReference.push().setValue(offer);
 
                 Toast.makeText(getApplicationContext(), "Oferta publicada", Toast.LENGTH_SHORT).show();

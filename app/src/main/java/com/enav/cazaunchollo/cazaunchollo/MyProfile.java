@@ -42,7 +42,6 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.enav.cazaunchollo.cazaunchollo.R.drawable.trophy;
 
 public class MyProfile extends AppCompatActivity {
 
