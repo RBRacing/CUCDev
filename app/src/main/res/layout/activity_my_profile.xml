@@ -90,13 +90,14 @@
                         android:text="Nivel 1" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/textview_how_to"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:text="¿Cómo conseguir más experiencia?"
                         android:textColor="@color/colorHashtag"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:onClick="showHelpHowToGetMorePoints"/>
                 </LinearLayout>
 
                 <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar

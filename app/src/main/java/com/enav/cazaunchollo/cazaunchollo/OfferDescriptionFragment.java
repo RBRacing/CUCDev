@@ -140,12 +140,16 @@ public class OfferDescriptionFragment extends Fragment {
                    // Obtener usuario actual Firebase
                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                   if(offer.getUid_creator().equals(user.getUid())){
-                       mod_offer.setVisibility(View.VISIBLE);
-                       delete_offer.setVisibility(View.VISIBLE);
+
+                    if(offer != null){
+                        if(offer.getUid_creator().equals(user.getUid())){
+                            mod_offer.setVisibility(View.VISIBLE);
+                            delete_offer.setVisibility(View.VISIBLE);
 
 
-                   }
+                        }
+                    }
+
 
 
                }

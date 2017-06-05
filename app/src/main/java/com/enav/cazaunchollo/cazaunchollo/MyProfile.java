@@ -244,6 +244,27 @@ public class MyProfile extends AppCompatActivity {
 
     }
 
+    public void showHelpHowToGetMorePoints(View view) {
+
+        View view_dialog_how_to = LayoutInflater.from(MyProfile.this).inflate(R.layout.dialog_how_to_get_more_points, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MyProfile.this);
+
+        builder.setMessage("AYUDA")
+                .setView(view_dialog_how_to)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+    }
+
 
 
 

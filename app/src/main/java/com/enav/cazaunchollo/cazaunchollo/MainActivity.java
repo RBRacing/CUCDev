@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(this, OfferFormActivity.class);
                 startActivity(intent);
             }else{
-                Toast.makeText(getApplicationContext(), "Necesitas ser mínimo nivel 2 para poder realizar una publicación", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Necesitas ser mínimo nivel 2 para poder realizar una publicación", Toast.LENGTH_LONG).show();
             }
 
         }
