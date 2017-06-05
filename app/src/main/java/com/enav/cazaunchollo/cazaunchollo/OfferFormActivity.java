@@ -44,13 +44,11 @@ public class OfferFormActivity extends AppCompatActivity {
     private String urifoto = "http://";
     private FirebaseAuth mAuth;
 
-
     private EditText input_title;
     private EditText input_shop;
     private EditText input_description;
     private CheckBox checkBox_status;
     private EditText input_link;
-
 
 
     @Override
@@ -96,10 +94,6 @@ public class OfferFormActivity extends AppCompatActivity {
                 List<String> usersLikeToThisOffer = new ArrayList<String>();
                 usersLikeToThisOffer.add("");
 
-                //SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
-                //String fecha = formateador.format(new Date());
-                //Log.d("FECHA", fecha);
-
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser user = mAuth.getCurrentUser();
 
@@ -139,7 +133,6 @@ public class OfferFormActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     progressDialog.dismiss();
-
 
                     descargarFoto = taskSnapshot.getDownloadUrl();
                     urifoto = descargarFoto.toString();

@@ -32,8 +32,6 @@ public class OfferCommentsFragment extends Fragment {
 
     private RecyclerView recycler;
     private RecyclerView.LayoutManager lManager;
-    private DatabaseReference ref;
-    private static DatabaseReference ref2;
     private RecyclerView mRoomRecyclerView;
     private static DatabaseReference mFirebaseDatabaseReference;
     private static FirebaseRecyclerAdapter<Comment, CommentViewHolder> mFirebaseAdapter;
@@ -41,10 +39,7 @@ public class OfferCommentsFragment extends Fragment {
     public String texto;
     public ImageButton imageButton;
     public EditText pruebaEditText;
-    private int num_comentarios;
 
-
-    public EditText editText_comment;
 
     @Nullable
     @Override
@@ -54,8 +49,8 @@ public class OfferCommentsFragment extends Fragment {
         imageButton = (ImageButton) mRootView.findViewById(R.id.imageButton);
         pruebaEditText = (EditText) mRootView.findViewById(R.id.editText_comment);
 
-        num_comentarios  = 0;
         String referencia = OfferScrollingActivity.getReferencia();
+
         // Obtener el Recycler
         recycler = (RecyclerView) mRootView.findViewById(R.id.reciclador2);
         recycler.setHasFixedSize(true);
@@ -115,16 +110,10 @@ public class OfferCommentsFragment extends Fragment {
 
                     Comment c = new Comment(user.getEmail().toString(), pruebaEditText.getText().toString(), returnDate());
 
-
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                     ref.child("offers").child(OfferScrollingActivity.getReferencia()).child("comments").push().setValue(c);
-
                     pruebaEditText.setText("");
-
                     CallFirebaseDatabase.devolverNumDeComentariosParaUnaOferta(OfferScrollingActivity.getReferencia());
-
-
-
 
                 }
                 else{

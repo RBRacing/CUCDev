@@ -41,15 +41,13 @@ public class OfferDescriptionFragment extends Fragment {
     private Button button_link_offer;
     MainActivity m;
     boolean entro;
-
     private Button mod_offer;
-    private Button delete_offer;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = (LinearLayout) inflater.inflate(R.layout.fragment_offer_description, container, false);
-
         textView2 = (TextView) mRootView.findViewById(R.id.textView2);
         estado = (TextView) mRootView.findViewById(R.id.estado);
         estadoIV = (ImageView)mRootView.findViewById(R.id.estadoIV);
@@ -57,7 +55,6 @@ public class OfferDescriptionFragment extends Fragment {
         imagen = (ImageView)mRootView.findViewById(R.id.imageView3);
         button_link_offer = (Button) mRootView.findViewById(R.id.button_link_offer);
         mod_offer = (Button) mRootView.findViewById(R.id.mod_offer);
-
 
         String referencia = OfferScrollingActivity.getReferencia();
         m = new MainActivity();
@@ -76,7 +73,6 @@ public class OfferDescriptionFragment extends Fragment {
                Boolean estado2=false;
 
                try{
-
                    titulo = offer.getNombre();
                    descripcion = offer.getDescripcion();
                    estado2 = offer.getDisponible();
@@ -102,9 +98,6 @@ public class OfferDescriptionFragment extends Fragment {
                        entro = false;
                    }
 
-
-
-                   //imagen.setImageResource(offer.getImagen());
                    tituloTV.setText(titulo);
                    textView2.setText(descripcion);
                    button_link_offer.setOnClickListener(new View.OnClickListener() {
@@ -132,13 +125,8 @@ public class OfferDescriptionFragment extends Fragment {
                        estado.setText("AGOTADO");
                    }
 
-                   //
-                   FirebaseAuth auth;
-                   auth = FirebaseAuth.getInstance();
-
                    // Obtener usuario actual Firebase
                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
 
                     if(offer != null){
                         if(offer.getUid_creator().equals(user.getUid())){

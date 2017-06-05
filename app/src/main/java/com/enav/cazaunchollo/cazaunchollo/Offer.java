@@ -69,7 +69,6 @@ public class Offer {
                     if(!usersLikeToThisOffer.contains(uid)){
                         usersLikeToThisOffer.add(uid);
                         databaseReference.setValue(usersLikeToThisOffer);
-                        //plusLike(idOffer);
                         Pasar = false;
 
                     }
@@ -77,10 +76,8 @@ public class Offer {
                     List<String> usersLikeToThisOffer = new ArrayList<String>();
                     usersLikeToThisOffer.add(uid);
                     databaseReference.setValue(usersLikeToThisOffer);
-                    //plusLike(idOffer);
                     Pasar = false;
                 }
-
             }
 
             @Override
@@ -100,7 +97,6 @@ public class Offer {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String likes = (String) dataSnapshot.child("offers").child(idOffer).child("likes").getValue();
 
-
                 String uid_creator = (String) dataSnapshot.child("offers").child(idOffer).child("uid_creator").getValue();
 
                 if(likes !=null && !Pasar){
@@ -110,7 +106,6 @@ public class Offer {
                     databaseReference.child("offers").child(idOffer).child("likes").setValue(String.valueOf(calcular));
                     calcular = calcular + (calcular*5);
                     databaseReference.child("users").child(uid_creator).child("points").setValue(calcular);
-
 
                 }
 
@@ -129,13 +124,10 @@ public class Offer {
     public boolean usersLikeToThisOffer(String uid, final String idOffer){
 
         boolean likethis = false;
-
         final DatabaseReference databaseReference =
                 FirebaseDatabase.getInstance().getReference()
                         .child("offers")
                         .child(idOffer).child("usersLikeToThisOffer");
-
-
 
         if(usersLikeToThisOffer !=null){
             if(usersLikeToThisOffer.contains(uid)){
@@ -147,20 +139,6 @@ public class Offer {
 
     }
 
-    public static void hideOffer(final String idOffer){
-
-
-        final DatabaseReference databaseReference =
-                FirebaseDatabase.getInstance().getReference()
-                        .child("offers")
-                        .child(idOffer);
-
-
-
-        databaseReference.child("visible").setValue(false);
-
-
-    }
 
     public String getColor() {
         return color;

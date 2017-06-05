@@ -18,11 +18,6 @@ public class DateFormat {
         SimpleDateFormat format = new SimpleDateFormat("dd/M/yyyy HH:mm");
         String DateToStr = format.format(strToDate);
 
-        try {
-            strToDate = format.parse(DateToStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     return DateToStr;
     }
 }

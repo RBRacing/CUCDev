@@ -57,8 +57,6 @@ public class User {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 favorites = (List) dataSnapshot.child("users").child(uid).child("favorites").getValue();
 
-                //offerLikeToThisOffer = (List) dataSnapshot.child("offers").child(idOffer).child("usersLikeToThisOffer").getValue();
-
                 if(favorites !=null){
                     if(!favorites.contains(idOffer)){
                         favorites.add(idOffer);
@@ -77,19 +75,6 @@ public class User {
                     databaseReference.child("users").child(uid).child("points").setValue(points);
                 }
 
-                /*
-                if(offerLikeToThisOffer !=null){
-                    if(!offerLikeToThisOffer.contains(uid)){
-                        offerLikeToThisOffer.add(uid);
-                        databaseReference.child("offers").child(idOffer).setValue(offerLikeToThisOffer);
-                    }
-                }else{
-                    List<String> offerLikeToThisOffer = new ArrayList<String>();
-                    offerLikeToThisOffer.add(uid);
-                    databaseReference.child("offers").child(idOffer).setValue(offerLikeToThisOffer);
-                }*/
-
-
             }
 
             @Override
@@ -97,57 +82,6 @@ public class User {
                 // Log.e(TAGLOG, "Error!", databaseError.toException());
             }
         });
-    }
-
-    public static void addPointsToCreator(final String uid){
-
-        final DatabaseReference databaseReference =
-                FirebaseDatabase.getInstance().getReference()
-                        .child("users")
-                        .child(uid).child("points");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Long points = (Long) dataSnapshot.getValue();
-
-                if(points !=null){
-                    points = ((Long) dataSnapshot.child("points").getValue())+20;
-                    databaseReference.child("points").setValue(points);
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Log.e(TAGLOG, "Error!", databaseError.toException());
-            }
-        });
-    }
-
-
-
-
-    public static boolean likeThis(String uid, final String idOffer){
-
-        boolean likethis = false;
-
-        final DatabaseReference databaseReference =
-                FirebaseDatabase.getInstance().getReference()
-                        .child("users")
-                        .child(uid).child("favorites");
-
-
-
-                if(favorites !=null){
-                    if(favorites.contains(idOffer)){
-                        likethis=true;
-                    }
-                }
-
-        return likethis;
-
     }
 
     public static List<String> getFavorites() {

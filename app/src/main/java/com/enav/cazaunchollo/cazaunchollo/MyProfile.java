@@ -47,14 +47,11 @@ public class MyProfile extends AppCompatActivity {
 
     private static final String TAG = "ViewDatabase";
     private static final int GALLERY_INTENT = 1;
-
-    //add Firebase Database stuff
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference myRef;
     private  String userID;
-    private String authFlag = "";
     private TextView user_profile_name;
     private TextView user_profile_email;
     private ProgressDialog progressDialog;
@@ -73,18 +70,13 @@ public class MyProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
-       // mListView = (ListView) findViewById(R.id.listview);
         user_profile_name= (TextView) findViewById(R.id.user_profile_name);
         user_profile_email = (TextView) findViewById(R.id.user_profile_email);
         user_profile_photo = (CircleImageView) findViewById(R.id.user_profile_photo);
         level_progressBar = (RoundCornerProgressBar) findViewById(R.id.level_progressBar);
         level_indicator = (TextView) findViewById(R.id.level_indicator);
-
         mStorage = FirebaseStorage.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
-
-        //declare the database reference object. This is what we use to access the database.
-        //NOTE: Unless you are signed in, this will not be useable.
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference().child("users");
@@ -102,9 +94,7 @@ public class MyProfile extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    toastMessage("Successfully signed out.");
                 }
-                // ...
             }
         };
 
@@ -128,23 +118,17 @@ public class MyProfile extends AppCompatActivity {
         String email = (String) dataSnapshot.child(userID).child("email").getValue();
         String userPhoto = (String) dataSnapshot.child(userID).child("image").getValue();
         Long points = (Long) dataSnapshot.child(userID).child("points").getValue();
-
         user_profile_name.setText(name);
         user_profile_email.setText(email);
         Glide.with(getApplicationContext()).load(userPhoto).fitCenter().into(user_profile_photo);
-
         level_indicator.setText(String.valueOf(points)+"/100");
-
         level_progressBar.setProgress(points.intValue());
         level_progressBar.setProgressColor(Color.parseColor("#4abe5b"));
         level_progressBar.setProgressBackgroundColor(Color.parseColor("#7dd28a"));
-
         level_progressBar.setMax(100);
-
         level_progressBar.setRadius(0);
 
     }
-
 
 
     @Override
@@ -160,7 +144,6 @@ public class MyProfile extends AppCompatActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
-
 
     /**
      * customizable toast

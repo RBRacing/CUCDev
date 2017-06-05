@@ -36,15 +36,8 @@ import java.util.zip.Inflater;
 public class OfferScrollingActivity extends AppCompatActivity
 implements AppBarLayout.OnOffsetChangedListener {
 
-        private int mMaxScrollSize;
-        private TextView estado;
         public static String referencia;
-        private EditText editText_comment;
-        private FirebaseAuth auth;
         ImageView imageView;
-
-        boolean isImageFitToScreen;
-
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -66,26 +59,17 @@ implements AppBarLayout.OnOffsetChangedListener {
             toolbar.setTitle("Caza un Chollo");
 
             appbarLayout.addOnOffsetChangedListener(this);
-            mMaxScrollSize = appbarLayout.getTotalScrollRange();
 
             viewPager.setAdapter(new TabsAdapter(getSupportFragmentManager()));
 
             tabLayout.setupWithViewPager(viewPager);
-
-            estado = (TextView) findViewById(R.id.estado);
 
             referencia = getIntent().getStringExtra("referencia");
 
             LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
             View item = inflater.inflate(R.layout.fragment_offer_description, null);
 
-
             imageView = (ImageView) item.findViewById(R.id.imageView3);
-
-            LayoutInflater inflater2 = LayoutInflater.from(getApplicationContext());
-            View item2 = inflater.inflate(R.layout.app_bar_main2, null);
-
-            editText_comment = (EditText) item2.findViewById(R.id.editText_comment);
 
         }
 
@@ -94,12 +78,9 @@ implements AppBarLayout.OnOffsetChangedListener {
     }
 
 
-
-
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
         appBarLayout.setExpanded(true, false);
-
 
     }
 
@@ -107,23 +88,7 @@ implements AppBarLayout.OnOffsetChangedListener {
         OfferDescriptionFragment offerDescriptionFragment = new OfferDescriptionFragment();
         Intent intent = new Intent(this, OfferModActivity.class);
         intent.putExtra("referencia", referencia.toString());
-
         startActivity(intent);
-
-    }
-
-    public void removeOffer(View view) {
-
-
-
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("referencia", referencia.toString());
-        intent.putExtra("confirmarBorrado", true);
-        startActivity(intent);
-
-
-
-
     }
 
     class TabsAdapter extends FragmentPagerAdapter {
@@ -162,7 +127,6 @@ implements AppBarLayout.OnOffsetChangedListener {
     public void setReferencia(String referencia) {
         this.referencia = referencia;
     }
-
 
 
 }

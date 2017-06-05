@@ -252,11 +252,6 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        /*if (id == R.id.action_settings) {
-            //Intent intent = new Intent(this, SettingsActivity.class);
-            //startActivity(intent);
-        }*/
         if (id == R.id.action_logout) {
             signOut();
         }
@@ -309,13 +304,6 @@ public class MainActivity extends AppCompatActivity
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
-
-
-        //removeIDOfferOfUsers(referencia, user.getUid());
-
-        //offerReference.child(referencia).removeValue();
-        //Offer.hideOffer(referencia);
-
 
     }
 
