@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.USERS_REFERENCE;
+
 public class SignupActivity extends AppCompatActivity {
 
     /* Variables */
@@ -47,15 +49,6 @@ public class SignupActivity extends AppCompatActivity {
         inputPassword = (EditText) findViewById(R.id.password);
         username = (EditText) findViewById(R.id.username);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
-
-        // Métodos para los botones
-        btnResetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SignupActivity.this, ResetPasswordActivity.class));
-            }
-        });
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +121,6 @@ public class SignupActivity extends AppCompatActivity {
         list.add("");
 
         User user = new User(name, email, "https://firebasestorage.googleapis.com/v0/b/caza-un-chollo.appspot.com/o/UsersPhoto%2FnewUserPhoto.png?alt=media&token=f0a89c25-1807-4115-9d81-f5d36fd452c3", "", 0, list, 1, false);
-        databaseReference.child("users").child(userId).setValue(user);
+        databaseReference.child(USERS_REFERENCE).child(userId).setValue(user);
     }
 }

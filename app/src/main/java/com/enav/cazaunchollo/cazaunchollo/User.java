@@ -18,6 +18,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.FAVORITES_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.POINTS_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.USERS_REFERENCE;
+
 @IgnoreExtraProperties
 public class User {
 
@@ -55,31 +59,31 @@ public class User {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                favorites = (List) dataSnapshot.child("users").child(uid).child("favorites").getValue();
+                favorites = (List) dataSnapshot.child(USERS_REFERENCE).child(uid).child(FAVORITES_REFERENCE).getValue();
 
                 if(favorites !=null){
                     if(!favorites.contains(idOffer)){
                         favorites.add(idOffer);
-                        databaseReference.child("users").child(uid).child("favorites").setValue(favorites);
+                        databaseReference.child(USERS_REFERENCE).child(uid).child(FAVORITES_REFERENCE).setValue(favorites);
 
-                        Long points = ((Long) dataSnapshot.child("users").child(uid).child("points").getValue())+1;
-                        databaseReference.child("users").child(uid).child("points").setValue(points);
+                        Long points = ((Long) dataSnapshot.child(USERS_REFERENCE).child(uid).child(POINTS_REFERENCE).getValue())+1;
+                        databaseReference.child(USERS_REFERENCE).child(uid).child(POINTS_REFERENCE).setValue(points);
 
                     }
                 }else{
                     List<String> favorites = new ArrayList<String>();
                     favorites.add(idOffer);
-                    databaseReference.child("users").child(uid).child("favorites").setValue(favorites);
+                    databaseReference.child(USERS_REFERENCE).child(uid).child(FAVORITES_REFERENCE).setValue(favorites);
 
-                    Long points = ((Long) dataSnapshot.child("users").child(uid).child("points").getValue())+1;
-                    databaseReference.child("users").child(uid).child("points").setValue(points);
+                    Long points = ((Long) dataSnapshot.child(USERS_REFERENCE).child(uid).child(POINTS_REFERENCE).getValue())+1;
+                    databaseReference.child(USERS_REFERENCE).child(uid).child(POINTS_REFERENCE).setValue(points);
                 }
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Log.e(TAGLOG, "Error!", databaseError.toException());
+
             }
         });
     }

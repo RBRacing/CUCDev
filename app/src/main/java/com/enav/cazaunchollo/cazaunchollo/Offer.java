@@ -1,19 +1,20 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
-import android.net.Uri;
-import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.LIKES_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.OFFERS_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.POINTS_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.UID_CREATOR_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.USERS_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.USERS_TO_LIKE_THIS_OFFER;
+
 
 public class Offer {
 
@@ -57,8 +58,8 @@ public class Offer {
 
         final DatabaseReference databaseReference =
                 FirebaseDatabase.getInstance().getReference()
-                        .child("offers")
-                        .child(idOffer).child("usersLikeToThisOffer");
+                        .child(OFFERS_REFERENCE)
+                        .child(idOffer).child(USERS_TO_LIKE_THIS_OFFER);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,7 +83,7 @@ public class Offer {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Log.e(TAGLOG, "Error!", databaseError.toException());
+
             }
         });
     }
@@ -95,50 +96,28 @@ public class Offer {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String likes = (String) dataSnapshot.child("offers").child(idOffer).child("likes").getValue();
+                String likes = (String) dataSnapshot.child(OFFERS_REFERENCE).child(idOffer).child(LIKES_REFERENCE).getValue();
 
-                String uid_creator = (String) dataSnapshot.child("offers").child(idOffer).child("uid_creator").getValue();
+                String uid_creator = (String) dataSnapshot.child(OFFERS_REFERENCE).child(idOffer).child(UID_CREATOR_REFERENCE).getValue();
 
                 if(likes !=null && !Pasar){
                     Pasar=true;
                     int likesOfString = Integer.valueOf(likes);
                     int calcular = likesOfString+1;
-                    databaseReference.child("offers").child(idOffer).child("likes").setValue(String.valueOf(calcular));
+                    databaseReference.child(OFFERS_REFERENCE).child(idOffer).child(LIKES_REFERENCE).setValue(String.valueOf(calcular));
                     calcular = calcular + (calcular*5);
-                    databaseReference.child("users").child(uid_creator).child("points").setValue(calcular);
-
+                    databaseReference.child(USERS_REFERENCE).child(uid_creator).child(POINTS_REFERENCE).setValue(calcular);
                 }
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Log.e(TAGLOG, "Error!", databaseError.toException());
             }
         });
 
 
 
     }
-
-    public boolean usersLikeToThisOffer(String uid, final String idOffer){
-
-        boolean likethis = false;
-        final DatabaseReference databaseReference =
-                FirebaseDatabase.getInstance().getReference()
-                        .child("offers")
-                        .child(idOffer).child("usersLikeToThisOffer");
-
-        if(usersLikeToThisOffer !=null){
-            if(usersLikeToThisOffer.contains(uid)){
-                likethis=true;
-            }
-        }
-
-        return likethis;
-
-    }
-
 
     public String getColor() {
         return color;

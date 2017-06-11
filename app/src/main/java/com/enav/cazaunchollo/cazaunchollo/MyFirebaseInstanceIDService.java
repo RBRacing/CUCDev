@@ -1,23 +1,15 @@
 package com.enav.cazaunchollo.cazaunchollo;
 
-import android.app.Service;
-import android.util.Log;
-
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-/**
- * Created by Edgar on 03/06/2017.
- */
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
-    private static final String TAG = "FirebaseIDService";
 
     @Override
     public void onTokenRefresh() {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, "Refreshed token: " + refreshedToken);
 
         // TODO: Implement this method to send any registration to your app's servers.
         sendRegistrationToServer(refreshedToken);

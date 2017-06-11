@@ -27,6 +27,14 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.AVAILABLE_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.DESCRIPTION_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.HASHTAG_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.IMAGE_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.LINK_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.NAME_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.OFFERS_REFERENCE;
+
 public class OfferModActivity extends AppCompatActivity {
     private DatabaseReference ref;
     private EditText title;
@@ -70,7 +78,7 @@ public class OfferModActivity extends AppCompatActivity {
 
 
         // Conexión Firebase
-        ref = FirebaseDatabase.getInstance().getReference().child("offers");
+        ref = FirebaseDatabase.getInstance().getReference().child(OFFERS_REFERENCE);
 
         ref.child(referencia).addValueEventListener(new ValueEventListener() {
             @Override
@@ -103,7 +111,7 @@ public class OfferModActivity extends AppCompatActivity {
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference offerReference = database.getReference(FirebaseReferences.OFFERS_REFERENCE);
+        final DatabaseReference offerReference = database.getReference(OFFERS_REFERENCE);
 
 
 
@@ -111,13 +119,13 @@ public class OfferModActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                offerReference.child(referencia).child("nombre").setValue(title.getText().toString());
-                offerReference.child(referencia).child("hashtag").setValue(shop.getText().toString());
-                offerReference.child(referencia).child("descripcion").setValue(description.getText().toString());
-                offerReference.child(referencia).child("disponible").setValue(status.isChecked());
-                offerReference.child(referencia).child("enlace").setValue(link.getText().toString());
+                offerReference.child(referencia).child(NAME_REFERENCE).setValue(title.getText().toString());
+                offerReference.child(referencia).child(HASHTAG_REFERENCE).setValue(shop.getText().toString());
+                offerReference.child(referencia).child(DESCRIPTION_REFERENCE).setValue(description.getText().toString());
+                offerReference.child(referencia).child(AVAILABLE_REFERENCE).setValue(status.isChecked());
+                offerReference.child(referencia).child(LINK_REFERENCE).setValue(link.getText().toString());
                 if(!urifoto.equals("http://")){
-                    offerReference.child(referencia).child("imagen").setValue(urifoto);
+                    offerReference.child(referencia).child(IMAGE_REFERENCE).setValue(urifoto);
                 }
 
 

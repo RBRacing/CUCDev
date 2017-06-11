@@ -45,24 +45,23 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.OFFERS_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.USERS_REFERENCE;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
-    private static final String SENDER_ID = "000";
     /* Variables */
-    private RecyclerView recycler;
+    private RecyclerView recycler, mRoomRecyclerView;
     private RecyclerView.LayoutManager lManager;
-    private RecyclerView mRoomRecyclerView;
     private static DatabaseReference mFirebaseDatabaseReference;
     private static FirebaseRecyclerAdapter<Offer, OfferViewHolder> mFirebaseAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private FirebaseAuth.AuthStateListener authListener;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
-    private TextView username;
-    private TextView level;
-    private ImageView userPhoto;
+    private TextView username, level;
     private Boolean borrar;
     private String referencia;
     private int user_level;
@@ -74,6 +73,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         user_level = 0;
         borrar = false;
+
         // Instancía de Firebase
         auth = FirebaseAuth.getInstance();
 
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity
                 Offer.class,
                 R.layout.offer_card,
                 OfferViewHolder.class,
-                mFirebaseDatabaseReference.child("offers")) {
+                mFirebaseDatabaseReference.child(OFFERS_REFERENCE)) {
 
             @Override
             protected void populateViewHolder(OfferViewHolder viewHolder, Offer model, int position) {
@@ -168,7 +168,6 @@ public class MainActivity extends AppCompatActivity
         mRoomRecyclerView.setAdapter(mFirebaseAdapter);
 
         Bundle datos = this.getIntent().getExtras();
-
         if(datos != null){
             referencia = datos.getString("referencia");
             borrar = datos.getBoolean("confirmarBorrado");
@@ -178,22 +177,19 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-
     }
 
     private void setUserData(FirebaseUser user) {
 
-        // Get a reference to our posts
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference().child("users").child(user.getUid());
+        DatabaseReference ref = database.getReference().child(USERS_REFERENCE).child(user.getUid());
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         final View headerView = navigationView.getHeaderView(0);
 
-
         username = (TextView) headerView.findViewById(R.id.username);
         username.setText(user.getEmail());
-        // Attach a listener to read the data at our posts reference
+
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -215,12 +211,11 @@ public class MainActivity extends AppCompatActivity
 
                 Glide.with(getApplicationContext()).load(user.getImage()).fitCenter().into(userPhoto);
 
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+
             }
         });
 
@@ -300,7 +295,7 @@ public class MainActivity extends AppCompatActivity
 
     public void removeOffer(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference offerReference = database.getReference(FirebaseReferences.OFFERS_REFERENCE);
+        final DatabaseReference offerReference = database.getReference(OFFERS_REFERENCE);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
@@ -314,7 +309,6 @@ public class MainActivity extends AppCompatActivity
 
     public static String dameREFOffer(int id){
         String referencia = mFirebaseAdapter.getRef(id).getKey().toString();
-        Log.d("referenica", referencia.toString());
 
     return referencia;
     }
@@ -331,7 +325,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        //progressBar.setVisibility(View.GONE);
     }
 
     @Override

@@ -1,13 +1,7 @@
-/*
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
 package com.enav.cazaunchollo.cazaunchollo;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,16 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.COMMENTS_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.OFFERS_REFERENCE;
 
 public class OfferCommentsFragment extends Fragment {
     private RelativeLayout mRootView;
@@ -71,7 +65,7 @@ public class OfferCommentsFragment extends Fragment {
                 Comment.class,
                 R.layout.comment_card,
                 CommentViewHolder.class,
-                mFirebaseDatabaseReference.child("offers").child(referencia).child("comments")) {
+                mFirebaseDatabaseReference.child(OFFERS_REFERENCE).child(referencia).child(COMMENTS_REFERENCE)) {
 
             @Override
             protected void populateViewHolder(CommentViewHolder viewHolder, Comment model, int position) {
@@ -101,17 +95,11 @@ public class OfferCommentsFragment extends Fragment {
 
                 String comentario = pruebaEditText.getText().toString();
                 if(!comentario.equals("")){
-                    FirebaseAuth auth;
-                    // Instancía de Firebase
-                    auth = FirebaseAuth.getInstance();
-
                     // Obtener usuario actual Firebase
                     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
                     Comment c = new Comment(user.getEmail().toString(), pruebaEditText.getText().toString(), returnDate());
-
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                    ref.child("offers").child(OfferScrollingActivity.getReferencia()).child("comments").push().setValue(c);
+                    ref.child(OFFERS_REFERENCE).child(OfferScrollingActivity.getReferencia()).child(COMMENTS_REFERENCE).push().setValue(c);
                     pruebaEditText.setText("");
                     CallFirebaseDatabase.devolverNumDeComentariosParaUnaOferta(OfferScrollingActivity.getReferencia());
 
@@ -136,11 +124,4 @@ public class OfferCommentsFragment extends Fragment {
         return new OfferCommentsFragment();
     }
 
-    public String getTexto() {
-        return texto;
-    }
-
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
 }

@@ -7,13 +7,15 @@ import android.widget.TextView;
 
 public class CommentViewHolder extends RecyclerView.ViewHolder{
 
+    // Variables
     public TextView person_name;
     public TextView textView_comment;
     public TextView comment_date;
 
     public CommentViewHolder(View v){
-
         super(v);
+
+        // Inicializamos las variables
         person_name = (TextView)itemView.findViewById(R.id.person_name);
         textView_comment = (TextView) itemView.findViewById(R.id.textView_comment);
         comment_date = (TextView) itemView.findViewById(R.id.comment_date);

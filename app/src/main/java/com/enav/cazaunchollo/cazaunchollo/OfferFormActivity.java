@@ -5,15 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,13 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class OfferFormActivity extends AppCompatActivity {
@@ -43,7 +34,6 @@ public class OfferFormActivity extends AppCompatActivity {
     private Uri descargarFoto;
     private String urifoto = "http://";
     private FirebaseAuth mAuth;
-
     private EditText input_title;
     private EditText input_shop;
     private EditText input_description;
@@ -56,20 +46,19 @@ public class OfferFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_form);
 
+        progressDialog = new ProgressDialog(this);
+
         mUploadBtn = (Button) findViewById(R.id.btnSubir);
         button_post_offer = (Button) findViewById(R.id.button_post_offer);
         mImageView = (ImageView) findViewById(R.id.imageLoad);
         mStorage = FirebaseStorage.getInstance().getReference();
-        progressDialog = new ProgressDialog(this);
-
         input_title = (EditText) findViewById(R.id.input_title);
         input_shop = (EditText) findViewById(R.id.input_shop);
         input_description = (EditText) findViewById(R.id.input_description);
         checkBox_status = (CheckBox) findViewById(R.id.checkBox_status);
         input_link = (EditText) findViewById(R.id.input_link);
 
-
-       mUploadBtn.setOnClickListener(new View.OnClickListener() {
+        mUploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -80,10 +69,8 @@ public class OfferFormActivity extends AppCompatActivity {
 
         final Comment comment = new Comment();
 
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference offerReference = database.getReference(FirebaseReferences.OFFERS_REFERENCE);
-
 
         button_post_offer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,10 +94,6 @@ public class OfferFormActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Oferta publicada", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
-
     }
 
     @SuppressWarnings("VisibleForTests")
@@ -131,14 +114,10 @@ public class OfferFormActivity extends AppCompatActivity {
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                     progressDialog.dismiss();
-
                     descargarFoto = taskSnapshot.getDownloadUrl();
                     urifoto = descargarFoto.toString();
-
                     Glide.with(OfferFormActivity.this).load(descargarFoto).fitCenter().centerCrop().into(mImageView);
-
                     Toast.makeText(getApplicationContext(), "Imagen cargada correctamente", Toast.LENGTH_SHORT).show();
                     mUploadBtn.setText("Imagen Cargada");
                 }

@@ -1,8 +1,3 @@
-/*
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
 package com.enav.cazaunchollo.cazaunchollo;
 
 import android.content.Intent;
@@ -48,6 +43,7 @@ public class OfferDescriptionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = (LinearLayout) inflater.inflate(R.layout.fragment_offer_description, container, false);
+
         textView2 = (TextView) mRootView.findViewById(R.id.textView2);
         estado = (TextView) mRootView.findViewById(R.id.estado);
         estadoIV = (ImageView)mRootView.findViewById(R.id.estadoIV);
@@ -56,92 +52,90 @@ public class OfferDescriptionFragment extends Fragment {
         button_link_offer = (Button) mRootView.findViewById(R.id.button_link_offer);
         mod_offer = (Button) mRootView.findViewById(R.id.mod_offer);
 
-        String referencia = OfferScrollingActivity.getReferencia();
         m = new MainActivity();
         entro = false;
 
         // Conexión Firebase
         ref = FirebaseDatabase.getInstance().getReference().child("offers");
 
-       ref.child(referencia).addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange(DataSnapshot dataSnapshot) {
+        String referencia = OfferScrollingActivity.getReferencia();
+           ref.child(referencia).addValueEventListener(new ValueEventListener() {
+               @Override
+               public void onDataChange(DataSnapshot dataSnapshot) {
 
-               final Offer offer =  dataSnapshot.getValue(Offer.class);
-               String titulo="";
-               String descripcion="";
-               Boolean estado2=false;
+                   final Offer offer =  dataSnapshot.getValue(Offer.class);
+                   String titulo="";
+                   String descripcion="";
+                   Boolean estado2=false;
 
-               try{
-                   titulo = offer.getNombre();
-                   descripcion = offer.getDescripcion();
-                   estado2 = offer.getDisponible();
-
-               }catch (Exception e){
-
-               }
                    try{
-                       if(m.getApplicationContext() !=null){
-                           Glide.with(m.getApplicationContext()).load(offer.getImagen()).fitCenter().centerCrop().into(imagen);
+                       titulo = offer.getNombre();
+                       descripcion = offer.getDescripcion();
+                       estado2 = offer.getDisponible();
+
+                   }catch (Exception e){
+
+                   }
+                       try{
+                           if(m.getApplicationContext() !=null){
+                               Glide.with(m.getApplicationContext()).load(offer.getImagen()).fitCenter().centerCrop().into(imagen);
+                               entro = false;
+                           }
+                       }catch (Exception e){
                            entro = false;
                        }
-                   }catch (Exception e){
-                       entro = false;
-                   }
 
-                   try{
-                       if(getContext() !=null){
-                           Glide.with(getContext()).load(offer.getImagen()).fitCenter().centerCrop().into(imagen);
-                           entro = true;
-                       }
-                   }catch (Exception e){
-                       entro = false;
-                   }
-
-                   tituloTV.setText(titulo);
-                   textView2.setText(descripcion);
-                   button_link_offer.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View v) {
-                           String url = offer.getEnlace().toLowerCase().toString();
-                           try{
-                               Intent i = new Intent(Intent.ACTION_VIEW);
-                               i.setData(Uri.parse(url));
-                               startActivity(i);
-                           }catch (Exception e){
-                               Toast.makeText(getContext(),"Error al cargar la oferta, la URL no es válida.", Toast.LENGTH_SHORT).show();
+                       try{
+                           if(getContext() !=null){
+                               Glide.with(getContext()).load(offer.getImagen()).fitCenter().centerCrop().into(imagen);
+                               entro = true;
                            }
-
+                       }catch (Exception e){
+                           entro = false;
                        }
-                   });
 
-                   if(estado2 && entro){
-                       estadoIV.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_24dp));
-                       estado.setText("DISPONIBLE");
-                   }
+                       tituloTV.setText(titulo);
+                       textView2.setText(descripcion);
+                       button_link_offer.setOnClickListener(new View.OnClickListener() {
+                           @Override
+                           public void onClick(View v) {
+                               String url = offer.getEnlace().toLowerCase().toString();
+                               try{
+                                   Intent i = new Intent(Intent.ACTION_VIEW);
+                                   i.setData(Uri.parse(url));
+                                   startActivity(i);
+                               }catch (Exception e){
+                                   Toast.makeText(getContext(),"Error al cargar la oferta, la URL no es válida.", Toast.LENGTH_SHORT).show();
+                               }
 
-                   if(!estado2 && entro){
-                       estadoIV.setImageDrawable(getResources().getDrawable(R.drawable.ic_close_24dp));
-                       estado.setText("AGOTADO");
-                   }
+                           }
+                       });
 
-                   // Obtener usuario actual Firebase
-                   final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                       if(estado2 && entro){
+                           estadoIV.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_24dp));
+                           estado.setText("DISPONIBLE");
+                       }
 
-                    if(offer != null){
-                        if(offer.getUid_creator().equals(user.getUid())){
-                            mod_offer.setVisibility(View.VISIBLE);
+                       if(!estado2 && entro){
+                           estadoIV.setImageDrawable(getResources().getDrawable(R.drawable.ic_close_24dp));
+                           estado.setText("AGOTADO");
+                       }
 
+                       // Obtener usuario actual Firebase
+                       final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                        if(offer != null){
+                            if(offer.getUid_creator().equals(user.getUid())){
+                                mod_offer.setVisibility(View.VISIBLE);
+
+                            }
                         }
-                    }
+                   }
+
+               @Override
+               public void onCancelled(DatabaseError databaseError) {
 
                }
-
-
-           @Override
-           public void onCancelled(DatabaseError databaseError) {
-
-           }
        });
 
         return mRootView;

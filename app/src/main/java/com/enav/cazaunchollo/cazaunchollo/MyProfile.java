@@ -62,9 +62,6 @@ public class MyProfile extends AppCompatActivity {
     private RoundCornerProgressBar level_progressBar;
     private TextView level_indicator;
 
-
-    private ListView mListView;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,19 +177,13 @@ public class MyProfile extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     progressDialog.dismiss();
-
                     descargarFoto = taskSnapshot.getDownloadUrl();
                     urifoto = descargarFoto.toString();
-
                     Glide.with(MyProfile.this).load(descargarFoto).fitCenter().centerCrop().into(user_profile_photo);
-
                     Toast.makeText(getApplicationContext(), "Imagen cargada correctamente", Toast.LENGTH_SHORT).show();
-
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     final DatabaseReference offerReference = database.getReference("users").child(userID).child("image");
                     offerReference.setValue(urifoto);
-
-
                 }
             });
         }
@@ -237,8 +228,7 @@ public class MyProfile extends AppCompatActivity {
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-
+                        
                     }
                 });
 

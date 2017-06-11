@@ -53,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         btnReset = (Button) findViewById(R.id.btn_reset_password);
 
 
-
         /* Métodos para los botones */
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
+
             }
         });
 
