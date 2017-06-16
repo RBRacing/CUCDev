@@ -45,7 +45,8 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="16dp"
                 android:paddingTop="4dp"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:textColor="@color/colorHashtag"/>
 
             <ImageView
                 android:id="@+id/imagen"

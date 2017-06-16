@@ -5,7 +5,7 @@
     <color name="colorAccent">#4abe5b</color>
     <color name="colorPrimaryDark2">#0097a7</color>
     <color name="colorAccent2">#ffffff</color>
-    <color name="colorHashtag">#43bdfe</color>
+    <color name="colorHashtag">#3498db</color>
     <color name="bg_main">#428bca</color>
     <color name="white">#ffffff</color>
 </resources>
