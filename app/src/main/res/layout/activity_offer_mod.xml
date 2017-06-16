@@ -17,52 +17,70 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:weightSum="1"
-            android:padding="20dp">
+            >
+
+            <ImageView
+                android:id="@+id/imageLoadMod"
+                android:layout_width="match_parent"
+                android:layout_height="173dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/sinfoto"
+                android:cropToPadding="false"
+                android:scaleType="fitXY"
+                android:layout_marginBottom="5dp" />
 
             <TextView
                 android:id="@+id/id_offer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ID:"
-                android:paddingBottom="10dp"/>
+                android:text="@string/idMod"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"/>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/editText_title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <EditText
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Título" />
+                    android:hint="@string/titulo" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/editText_shop"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <EditText
                     android:id="@+id/shop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Tienda" />
+                    android:hint="@string/shop" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/editText_description"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <EditText
                     android:id="@+id/description"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top|left"
-                    android:hint="Descripción"
+                    android:hint="@string/description"
                     android:inputType="textMultiLine"
                     android:lines="8"
                     android:maxLines="10"
@@ -74,34 +92,30 @@
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/editText_link"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <EditText
                     android:id="@+id/link"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enlace" />
+                    android:hint="@string/link" />
 
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <CheckBox
                     android:id="@+id/status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="Disponible" />
-
-                <Button
-                    android:id="@+id/subirImagen"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="SUBIR IMAGEN" />
+                    android:text="@string/disponible" />
 
             </LinearLayout>
 
@@ -110,15 +124,9 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="MODIFICAR" />
+                android:text="@string/modificar"
+                android:layout_margin="20dp"/>
 
-            <ImageView
-                android:id="@+id/imageLoadMod"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.50"
-                android:adjustViewBounds="true"
-                />
         </LinearLayout>
     </ScrollView>
 

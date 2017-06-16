@@ -15,7 +15,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="top|left"
-            android:hint="Nuevo nombre de usuario"
+            android:hint="@string/new_username"
             android:inputType="textPersonName"
             android:lines="8"
             android:maxLines="10"

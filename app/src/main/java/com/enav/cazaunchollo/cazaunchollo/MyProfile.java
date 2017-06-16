@@ -38,6 +38,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -54,6 +56,7 @@ public class MyProfile extends AppCompatActivity {
     private  String userID;
     private TextView user_profile_name;
     private TextView user_profile_email;
+    private TextView level_profile;
     private ProgressDialog progressDialog;
     private CircleImageView user_profile_photo;
     private StorageReference mStorage;
@@ -72,6 +75,7 @@ public class MyProfile extends AppCompatActivity {
         user_profile_photo = (CircleImageView) findViewById(R.id.user_profile_photo);
         level_progressBar = (RoundCornerProgressBar) findViewById(R.id.level_progressBar);
         level_indicator = (TextView) findViewById(R.id.level_indicator);
+        level_profile = (TextView) findViewById(R.id.level_profile);
         mStorage = FirebaseStorage.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
@@ -118,12 +122,17 @@ public class MyProfile extends AppCompatActivity {
         user_profile_name.setText(name);
         user_profile_email.setText(email);
         Glide.with(getApplicationContext()).load(userPhoto).fitCenter().into(user_profile_photo);
+        Long level = (Long) dataSnapshot.child(userID).child("level").getValue();
+        level_profile.setText("Nivel "+String.valueOf(level));
         level_indicator.setText(String.valueOf(points)+"/100");
+        level_indicator.setVisibility(View.VISIBLE);
         level_progressBar.setProgress(points.intValue());
         level_progressBar.setProgressColor(Color.parseColor("#4abe5b"));
         level_progressBar.setProgressBackgroundColor(Color.parseColor("#7dd28a"));
         level_progressBar.setMax(100);
         level_progressBar.setRadius(0);
+        level_progressBar.setVisibility(View.VISIBLE);
+
 
     }
 
@@ -170,7 +179,7 @@ public class MyProfile extends AppCompatActivity {
             progressDialog.show();
 
             Uri uri = data.getData();
-            StorageReference filePath = mStorage.child("UsserPhotos").child(uri.getLastPathSegment());
+            StorageReference filePath = mStorage.child("UserPhotos").child(uri.getLastPathSegment());
 
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -238,8 +247,11 @@ public class MyProfile extends AppCompatActivity {
     }
 
 
+    public void getReward(View view) {
 
+        CallFirebaseDatabase.getRewardNewUserInBeta(userID);
 
+        Toast.makeText(getApplicationContext(), "¡Ya eres nivel 2!", Toast.LENGTH_SHORT).show();
 
-
+    }
 }

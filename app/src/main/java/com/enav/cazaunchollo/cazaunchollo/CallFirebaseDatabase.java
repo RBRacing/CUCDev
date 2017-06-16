@@ -9,7 +9,9 @@ import java.util.HashMap;
 
 import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.COMENTARIOS_REFERENCE;
 import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.COMMENTS_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.LEVEL_REFERENCE;
 import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.OFFERS_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.USERS_REFERENCE;
 
 
 public class CallFirebaseDatabase {
@@ -38,9 +40,14 @@ public class CallFirebaseDatabase {
 
             }
         });
+    }
+
+    public static void getRewardNewUserInBeta(final String uid){
+
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(USERS_REFERENCE).child(uid);
+        databaseReference.child(LEVEL_REFERENCE).setValue(2);
 
 
     }
-
 
 }

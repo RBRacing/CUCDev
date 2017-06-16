@@ -50,7 +50,8 @@ public class OfferModActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private StorageReference mStorage;
     private Button button_mod_offer;
-    private Button subirImagen;
+    private ImageView imageLoadMod;
+    MainActivity m;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class OfferModActivity extends AppCompatActivity {
         status = (CheckBox) findViewById(R.id.status);
         imageLoad = (ImageView)findViewById(R.id.imageLoadMod);
         button_mod_offer = (Button) findViewById(R.id.button_mod_offer);
-        subirImagen = (Button) findViewById(R.id.subirImagen);
+        imageLoadMod = (ImageView) findViewById(R.id.imageLoadMod);
 
         progressDialog = new ProgressDialog(this);
         mStorage = FirebaseStorage.getInstance().getReference();
@@ -76,6 +77,8 @@ public class OfferModActivity extends AppCompatActivity {
 
         id_offer.setText("ID: "+ referencia.toString());
 
+        m = new MainActivity();
+
 
         // Conexión Firebase
         ref = FirebaseDatabase.getInstance().getReference().child(OFFERS_REFERENCE);
@@ -84,6 +87,27 @@ public class OfferModActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Offer offer = dataSnapshot.getValue(Offer.class);
+
+                try{
+                    if(m.getApplicationContext() !=null){
+                        Glide.with(m.getApplicationContext()).load(offer.getImagen()).fitCenter().centerCrop().into(imageLoad);
+
+                    }
+                }catch (Exception e){
+
+                }
+
+                try{
+                    if(OfferModActivity.this !=null){
+                        Glide.with(OfferModActivity.this).load(offer.getImagen()).fitCenter().centerCrop().into(imageLoad);
+
+                    }
+                }catch (Exception e){
+
+                }
+
+
+                //Glide.with(OfferModActivity.this).load(offer.getImagen()).fitCenter().centerCrop().into(imageLoad);
                 title.setText(offer.getNombre());
                 shop.setText(offer.getHashtag());
                 description.setText(offer.getDescripcion());
@@ -98,7 +122,7 @@ public class OfferModActivity extends AppCompatActivity {
             }
         });
 
-        subirImagen.setOnClickListener(new View.OnClickListener() {
+        imageLoadMod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -162,7 +186,6 @@ public class OfferModActivity extends AppCompatActivity {
                     Glide.with(OfferModActivity.this).load(descargarFoto).fitCenter().centerCrop().into(imageLoad);
 
                     Toast.makeText(getApplicationContext(), "Imagen cargada correctamente", Toast.LENGTH_SHORT).show();
-                    subirImagen.setText("Imagen Cargada");
                 }
             });
         }

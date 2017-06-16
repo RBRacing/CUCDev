@@ -26,7 +26,7 @@ import java.util.List;
 public class OfferFormActivity extends AppCompatActivity {
 
     private Button button_post_offer;
-    private Button mUploadBtn;
+
     private StorageReference mStorage;
     private ImageView mImageView;
     private ProgressDialog progressDialog;
@@ -48,7 +48,7 @@ public class OfferFormActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
-        mUploadBtn = (Button) findViewById(R.id.btnSubir);
+
         button_post_offer = (Button) findViewById(R.id.button_post_offer);
         mImageView = (ImageView) findViewById(R.id.imageLoad);
         mStorage = FirebaseStorage.getInstance().getReference();
@@ -58,7 +58,7 @@ public class OfferFormActivity extends AppCompatActivity {
         checkBox_status = (CheckBox) findViewById(R.id.checkBox_status);
         input_link = (EditText) findViewById(R.id.input_link);
 
-        mUploadBtn.setOnClickListener(new View.OnClickListener() {
+        mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -119,7 +119,6 @@ public class OfferFormActivity extends AppCompatActivity {
                     urifoto = descargarFoto.toString();
                     Glide.with(OfferFormActivity.this).load(descargarFoto).fitCenter().centerCrop().into(mImageView);
                     Toast.makeText(getApplicationContext(), "Imagen cargada correctamente", Toast.LENGTH_SHORT).show();
-                    mUploadBtn.setText("Imagen Cargada");
                 }
             });
         }

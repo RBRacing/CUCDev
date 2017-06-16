@@ -65,7 +65,8 @@
         <activity android:name=".FullScreenImageActivity" />
         <activity android:name=".OfferModActivity"
             android:label="Modificar Oferta"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity"></activity>
 
         <service
             android:name=".MyFirebaseMessagingService">

@@ -100,13 +100,18 @@ public class Offer {
 
                 String uid_creator = (String) dataSnapshot.child(OFFERS_REFERENCE).child(idOffer).child(UID_CREATOR_REFERENCE).getValue();
 
+                Long points_uid_creator = (Long) dataSnapshot.child(USERS_REFERENCE).child(uid_creator).child(POINTS_REFERENCE).getValue();
+
                 if(likes !=null && !Pasar){
                     Pasar=true;
                     int likesOfString = Integer.valueOf(likes);
                     int calcular = likesOfString+1;
                     databaseReference.child(OFFERS_REFERENCE).child(idOffer).child(LIKES_REFERENCE).setValue(String.valueOf(calcular));
-                    calcular = calcular + (calcular*5);
-                    databaseReference.child(USERS_REFERENCE).child(uid_creator).child(POINTS_REFERENCE).setValue(calcular);
+                    calcular = calcular*5;
+                    points_uid_creator = points_uid_creator + calcular;
+
+                    databaseReference.child(USERS_REFERENCE).child(uid_creator).child(POINTS_REFERENCE).setValue(points_uid_creator);
+                    User.levelUp(uid_creator);
                 }
             }
 

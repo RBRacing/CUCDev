@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,7 +37,7 @@ public class OfferDescriptionFragment extends Fragment {
     private Button button_link_offer;
     MainActivity m;
     boolean entro;
-    private Button mod_offer;
+    private ImageButton mod_offer;
 
 
     @Nullable
@@ -50,7 +51,7 @@ public class OfferDescriptionFragment extends Fragment {
         tituloTV = (TextView)mRootView.findViewById(R.id.titulotv);
         imagen = (ImageView)mRootView.findViewById(R.id.imageView3);
         button_link_offer = (Button) mRootView.findViewById(R.id.button_link_offer);
-        mod_offer = (Button) mRootView.findViewById(R.id.mod_offer);
+        mod_offer = (ImageButton) mRootView.findViewById(R.id.mod_offer);
 
         m = new MainActivity();
         entro = false;

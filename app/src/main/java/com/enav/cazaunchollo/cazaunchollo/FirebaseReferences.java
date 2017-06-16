@@ -17,5 +17,6 @@ public class FirebaseReferences {
     final public static String AVAILABLE_REFERENCE = "disponible";
     final public static String LINK_REFERENCE = "enlace";
     final public static String IMAGE_REFERENCE = "imagen";
+    final public static String LEVEL_REFERENCE = "level";
 
 }

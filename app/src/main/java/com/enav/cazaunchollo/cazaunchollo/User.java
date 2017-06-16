@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.FAVORITES_REFERENCE;
+import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.LEVEL_REFERENCE;
 import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.POINTS_REFERENCE;
 import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.USERS_REFERENCE;
 
@@ -50,7 +51,6 @@ public class User {
 
     }
 
-    // Tengo que pasarle el uid del creador de la oferta
     public static void addLikesToList(final String uid, final String idOffer){
 
         final DatabaseReference databaseReference =
@@ -86,6 +86,33 @@ public class User {
 
             }
         });
+    }
+
+    public static void levelUp(final String uid){
+
+        final DatabaseReference databaseReference =
+                FirebaseDatabase.getInstance().getReference().child(USERS_REFERENCE).child(uid);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Long points = (Long) dataSnapshot.child(POINTS_REFERENCE).getValue();
+                Long level = (Long) dataSnapshot.child(LEVEL_REFERENCE).getValue();
+
+
+                if(points !=null && points>=100){
+                    databaseReference.child(POINTS_REFERENCE).setValue(points-100);
+                    databaseReference.child(LEVEL_REFERENCE).setValue(level+1);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
+
     }
 
     public static List<String> getFavorites() {

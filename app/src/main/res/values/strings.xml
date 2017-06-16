@@ -3,28 +3,53 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Ajustes</string>
-    <string name="title_activity_offer_scrolling">Detalles de la oferta</string>
 
     <!-- Sigup & Login Screen -->
-    <string name="title_activity_login">ENTRAR</string>
+    <string name="usuario">Usuario</string>
+    <string name="email">Email</string>
+    <string name="hint_password">Password</string>
     <string name="action_sign_in_short">REGISTRAR</string>
+    <string name="btn_link_to_login">¿Ya estás registrado?. Entra!</string>
+    <string name="btn_login">ENTRAR</string>
+
+    <!-- My Profile Screen -->
+    <string name="title_activity_my_profile">Mi Perfil</string>
+    <string name="nivel">Nivel </string>
+    <string name="how_to">¿Cómo conseguir más experiencia?</string>
+    <string name="experiencia">0/0</string>
+
+    <!-- Offer Form && Offer Mod Form Screen -->
+    <string name="titulo">Título</string>
+    <string name="shop">Tienda</string>
+    <string name="description">Descripción</string>
+    <string name="link">Enlace</string>
+    <string name="disponible">Disponible</string>
+    <string name="upload_img">SUBIR IMAGEN</string>
+    <string name="publicar">PUBLICAR</string>
+    <string name="idMod">ID:</string>
+    <string name="modificar">MODIFICAR</string>
+    <string name="btn_forgot_password">¿Has olvidado tu contraseña?</string>
+    <string name="btn_link_to_register">Aún no eres miembro? Regístrate ahora!</string>
+    <string name="title_activity_login">ENTRAR</string>
     <string name="enter_email">Debes introducir un correo electrónico para registrarte</string>
     <string name="enter_password">Debes introducir una contraseña</string>
     <string name="minimum_password">El tramaño minimo para la contrasñea es de 6 caracteres</string>
     <string name="wrong_login">Error al registrarte. Por favor, inténtelo de nuevo más tarde</string>
     <string name="auth_failed">Error al realizar el login</string>
-    <string name="email">Email</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
-    <string name="btn_login">ENTRAR</string>
-    <string name="btn_link_to_register">Aún no eres miembro? Regístrate ahora!</string>
-    <string name="btn_link_to_login">¿Ya estás registrado?. Entra!</string>
-    <string name="title_activity_reset_password">Resetear contraseña</string>
-    <string name="btn_forgot_password">¿Has olvidado tu contraseña?</string>
-    <string name="btn_reset_password">Reset Password</string>
 
-    <string name="lbl_forgot_password">Has olvidado tu contraseña?</string>
-    <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
-    <string name="title_activity_my_profile">Mi Perfil</string>
+    <!-- Change username Dialog -->
+    <string name="new_username">Nuevo nombre de usuario</string>
 
+    <!-- More info exp Dialog -->
+    <string name="question_1">¿Cómo conseguir más puntos de experiencia?</string>
+    <string name="answer_1">Consigue puntos de experiencia dando ME GUSTA a las publicaciones de los usuarios</string>
+    <string name="question_2">¿Para que valen los puntos de experiencia?</string>
+    <string name="answer_2">Los puntos de experiencia te permitiran realizar tus propias publicaciones y poder ver ofertas de otros usuarios que tienen un nivel mínimo para su visualización.</string>
+    <string name="answer_2_1">Por ejemplo: un usuario Nivel 3 realiza una publicación de una oferta en Amazon que para poder ver su contenido y acceder a ella necesitarias ser al menos NIvel 2.</string>
+    <string name="question_3">¿Qué pasa si soy nivel 2 o superior y realizo publicaciones que no son chollo?</string>
+    <string name="answer_3">Los usuarios podran reportar tus publicaciones y tu cuenta podría ser baneada.</string>
+
+    <!-- Description Screen -->
+    <string name="go_to_the_offer">LLEVAME A LA OFERTA</string>
+    <string name="title_activity_offer_scrolling">Detalles de la oferta</string>
 </resources>

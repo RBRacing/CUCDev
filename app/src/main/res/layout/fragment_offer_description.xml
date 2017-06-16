@@ -37,32 +37,31 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/mod_offer"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                <TextView
+                    android:id="@+id/titulotv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/bg_main"
-                    android:onClick="modOffer"
-                    android:text="Modificar"
-                    android:visibility="gone" />
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="16dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
+                <ImageButton
+                    android:id="@+id/mod_offer"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/edit_offer"
+                    android:onClick="modOffer"
+                    android:visibility="visible"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"/>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/titulotv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingBottom="5dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="16dp"
-                android:text="TITULO"
-                android:textSize="18sp"
-                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -105,7 +104,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_weight="1"
-                android:text="LLEVAME A LA OFERTA" />
+                android:text="@string/go_to_the_offer" />
 
         </LinearLayout>
     </ScrollView>
