@@ -36,6 +36,7 @@ import java.util.zip.Inflater;
 public class OfferScrollingActivity extends AppCompatActivity
 implements AppBarLayout.OnOffsetChangedListener {
 
+        // Variables
         public static String referencia;
         ImageView imageView;
 
@@ -47,28 +48,19 @@ implements AppBarLayout.OnOffsetChangedListener {
             TabLayout tabLayout = (TabLayout) findViewById(R.id.materialup_tabs);
             ViewPager viewPager  = (ViewPager) findViewById(R.id.materialup_viewpager);
             AppBarLayout appbarLayout = (AppBarLayout) findViewById(R.id.materialup_appbar);
-
-
             Toolbar toolbar = (Toolbar) findViewById(R.id.materialup_toolbar);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     onBackPressed();
                 }
             });
-
             toolbar.setTitle("Caza un Chollo");
-
             appbarLayout.addOnOffsetChangedListener(this);
-
             viewPager.setAdapter(new TabsAdapter(getSupportFragmentManager()));
-
             tabLayout.setupWithViewPager(viewPager);
-
             referencia = getIntent().getStringExtra("referencia");
-
             LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
             View item = inflater.inflate(R.layout.fragment_offer_description, null);
-
             imageView = (ImageView) item.findViewById(R.id.imageView3);
 
         }
@@ -91,6 +83,14 @@ implements AppBarLayout.OnOffsetChangedListener {
         startActivity(intent);
     }
 
+    // Abre la pantalla completa con la imagen
+    public void goFullImage(View view) {
+        Intent intent = new Intent(this, FullScreenImageActivity.class);
+        intent.putExtra("referencia", referencia.toString());
+        startActivity(intent);
+    }
+
+    // Tabs
     class TabsAdapter extends FragmentPagerAdapter {
         public TabsAdapter(FragmentManager fm) {
             super(fm);

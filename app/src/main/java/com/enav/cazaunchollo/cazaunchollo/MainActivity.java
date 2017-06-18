@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Inicializamos las siguientes variables
         user_level = 0;
         borrar = false;
 
@@ -84,10 +86,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
+                // Si no hay ningun usuario logueado nos va llevar a la pantalla de Login
                 if (user == null) {
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();
                 }else{
+                    // En caso de que haya un usuario logeado, le seteamos sus valores.
                     setUserData(user);
                 }
             }
@@ -138,16 +142,18 @@ public class MainActivity extends AppCompatActivity
             @Override
             protected void populateViewHolder(OfferViewHolder viewHolder, Offer model, int position) {
 
-                if(model.getUsersLikeToThisOffer().contains(user.getUid())){
-                        viewHolder.likeIV.setColorFilter(Color.RED);
-                }
-                    viewHolder.titleCard.setText(model.getNombre());
-                    viewHolder.subTitleCard.setText("#" + model.getHashtag());
-                    viewHolder.likeTV.setText(model.getLikes());
-                    viewHolder.comentarios.setText(model.getComentarios());
-                    Glide.with(getApplicationContext()).load(model.getImagen()).fitCenter().into(viewHolder.getImagen());
-                    viewHolder.fecha.setText(model.getFecha());
-                }
+                if(user !=null){
+                    if(model.getUsersLikeToThisOffer().contains(user.getUid())){
+                            viewHolder.likeIV.setColorFilter(Color.RED);
+                    }
+                        viewHolder.titleCard.setText(model.getNombre());
+                        viewHolder.subTitleCard.setText("#" + model.getHashtag());
+                        viewHolder.likeTV.setText(model.getLikes());
+                        viewHolder.comentarios.setText(model.getComentarios());
+                        Glide.with(getApplicationContext()).load(model.getImagen()).fitCenter().into(viewHolder.getImagen());
+                        viewHolder.fecha.setText(model.getFecha());
+                    }
+            }
 
         };
 
@@ -179,6 +185,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    // Seteamos los valores del usuario actual
     private void setUserData(FirebaseUser user) {
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -195,6 +202,7 @@ public class MainActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
 
+                // Si Ban == true no le permitimos el acceso a ese usuario
                 if(user.getBan() == true){
                     signOut();
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -220,8 +228,6 @@ public class MainActivity extends AppCompatActivity
         });
 
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -276,7 +282,7 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(this, OfferFormActivity.class);
                 startActivity(intent);
             }else{
-                Toast.makeText(getApplicationContext(), "Necesitas ser mínimo nivel 2 para poder realizar una publicación", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.level_min_publish_offer, Toast.LENGTH_LONG).show();
             }
 
         }
@@ -286,6 +292,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    // Recoge el id y lanza la activity de Detalle
     public static void recogerIDyLanzarActivity(View v, int id) {
         String referencia = mFirebaseAdapter.getRef(id).getKey().toString();
         Intent intent = new Intent(v.getContext(), OfferScrollingActivity.class);
@@ -293,6 +300,7 @@ public class MainActivity extends AppCompatActivity
         v.getContext().startActivity(intent);
     }
 
+    // Método para eliminar una publicación
     public void removeOffer(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference offerReference = database.getReference(OFFERS_REFERENCE);
@@ -317,7 +325,7 @@ public class MainActivity extends AppCompatActivity
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
-    //sign out method
+    // Salir
     public void signOut() {
         auth.signOut();
     }

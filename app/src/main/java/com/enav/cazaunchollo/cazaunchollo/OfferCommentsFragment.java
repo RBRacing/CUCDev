@@ -22,8 +22,9 @@ import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.COMMENTS_REF
 import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.OFFERS_REFERENCE;
 
 public class OfferCommentsFragment extends Fragment {
-    private RelativeLayout mRootView;
 
+    /* Variables */
+    private RelativeLayout mRootView;
     private RecyclerView recycler;
     private RecyclerView.LayoutManager lManager;
     private RecyclerView mRoomRecyclerView;
@@ -34,15 +35,13 @@ public class OfferCommentsFragment extends Fragment {
     public ImageButton imageButton;
     public EditText pruebaEditText;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        /* Inicialización de variables */
         mRootView = (RelativeLayout) inflater.inflate(R.layout.app_bar_main2, container, false);
-
         imageButton = (ImageButton) mRootView.findViewById(R.id.imageButton);
         pruebaEditText = (EditText) mRootView.findViewById(R.id.editText_comment);
-
         String referencia = OfferScrollingActivity.getReferencia();
 
         // Obtener el Recycler
@@ -102,18 +101,16 @@ public class OfferCommentsFragment extends Fragment {
                     ref.child(OFFERS_REFERENCE).child(OfferScrollingActivity.getReferencia()).child(COMMENTS_REFERENCE).push().setValue(c);
                     pruebaEditText.setText("");
                     CallFirebaseDatabase.devolverNumDeComentariosParaUnaOferta(OfferScrollingActivity.getReferencia());
-
                 }
                 else{
                     Toast.makeText(getContext(), "Debes escribir algo antes de enviarlo", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
         return mRootView;
     }
 
+    // Devolver fecha actual
     public String returnDate(){
         DateFormat dateFormat = new DateFormat();
         String fecha = dateFormat.devolverFecha();

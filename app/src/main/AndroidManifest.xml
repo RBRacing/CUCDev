@@ -62,7 +62,8 @@
             android:label="@string/title_activity_my_profile"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".FullScreenImageActivity" />
+        <activity android:name=".FullScreenImageActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".OfferModActivity"
             android:label="Modificar Oferta"
             android:screenOrientation="portrait"

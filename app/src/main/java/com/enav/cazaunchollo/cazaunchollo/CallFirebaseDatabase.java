@@ -42,6 +42,7 @@ public class CallFirebaseDatabase {
         });
     }
 
+    // Método temporal para subir a nivel 2 a los nuevos usuarios
     public static void getRewardNewUserInBeta(final String uid){
 
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(USERS_REFERENCE).child(uid);

@@ -36,6 +36,8 @@ import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.NAME_REFEREN
 import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.OFFERS_REFERENCE;
 
 public class OfferModActivity extends AppCompatActivity {
+
+    // Variables
     private DatabaseReference ref;
     private EditText title;
     private TextView id_offer;
@@ -58,6 +60,7 @@ public class OfferModActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_mod);
 
+        // Inicializacion de variables
         title = (EditText) findViewById(R.id.title) ;
         shop = (EditText) findViewById(R.id.shop);
         description = (EditText) findViewById(R.id.description);
@@ -66,48 +69,32 @@ public class OfferModActivity extends AppCompatActivity {
         imageLoad = (ImageView)findViewById(R.id.imageLoadMod);
         button_mod_offer = (Button) findViewById(R.id.button_mod_offer);
         imageLoadMod = (ImageView) findViewById(R.id.imageLoadMod);
-
         progressDialog = new ProgressDialog(this);
         mStorage = FirebaseStorage.getInstance().getReference();
-
         id_offer = (TextView) findViewById(R.id.id_offer);
-
         Bundle datos = this.getIntent().getExtras();
         final String referencia = datos.getString("referencia");
-
         id_offer.setText("ID: "+ referencia.toString());
-
         m = new MainActivity();
-
 
         // Conexión Firebase
         ref = FirebaseDatabase.getInstance().getReference().child(OFFERS_REFERENCE);
-
         ref.child(referencia).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Offer offer = dataSnapshot.getValue(Offer.class);
-
                 try{
                     if(m.getApplicationContext() !=null){
                         Glide.with(m.getApplicationContext()).load(offer.getImagen()).fitCenter().centerCrop().into(imageLoad);
-
                     }
-                }catch (Exception e){
-
-                }
+                }catch (Exception e){}
 
                 try{
                     if(OfferModActivity.this !=null){
                         Glide.with(OfferModActivity.this).load(offer.getImagen()).fitCenter().centerCrop().into(imageLoad);
-
                     }
-                }catch (Exception e){
+                }catch (Exception e){}
 
-                }
-
-
-                //Glide.with(OfferModActivity.this).load(offer.getImagen()).fitCenter().centerCrop().into(imageLoad);
                 title.setText(offer.getNombre());
                 shop.setText(offer.getHashtag());
                 description.setText(offer.getDescripcion());
@@ -122,6 +109,7 @@ public class OfferModActivity extends AppCompatActivity {
             }
         });
 
+        // Abre el explorador de archivos al pulsar sobre la imagen
         imageLoadMod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,14 +119,10 @@ public class OfferModActivity extends AppCompatActivity {
             }
         });
 
-        final Comment comment = new Comment();
-
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference offerReference = database.getReference(OFFERS_REFERENCE);
 
-
-
+        // Al pulsar sobre el boton de modificar
         button_mod_offer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,8 +135,6 @@ public class OfferModActivity extends AppCompatActivity {
                 if(!urifoto.equals("http://")){
                     offerReference.child(referencia).child(IMAGE_REFERENCE).setValue(urifoto);
                 }
-
-
                 Toast.makeText(getApplicationContext(), "Oferta modificada", Toast.LENGTH_SHORT).show();
             }
         });
@@ -164,7 +146,6 @@ public class OfferModActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
-
             progressDialog.setTitle("Subiendo foto");
             progressDialog.setMessage("Subiendo foto a Firebase");
             progressDialog.setCancelable(false);
@@ -172,19 +153,13 @@ public class OfferModActivity extends AppCompatActivity {
 
             Uri uri = data.getData();
             StorageReference filePath = mStorage.child("OfferPhotos").child(uri.getLastPathSegment());
-
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                     progressDialog.dismiss();
-
-
                     descargarFoto = taskSnapshot.getDownloadUrl();
                     urifoto = descargarFoto.toString();
-
                     Glide.with(OfferModActivity.this).load(descargarFoto).fitCenter().centerCrop().into(imageLoad);
-
                     Toast.makeText(getApplicationContext(), "Imagen cargada correctamente", Toast.LENGTH_SHORT).show();
                 }
             });

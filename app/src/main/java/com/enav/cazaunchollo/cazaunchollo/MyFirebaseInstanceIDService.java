@@ -6,6 +6,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
+    // Método para recibir notificaciones de Firebase
     @Override
     public void onTokenRefresh() {
         // Get updated InstanceID token.

@@ -29,7 +29,8 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/sinfoto" />
+                app:srcCompat="@drawable/sinfoto"
+                android:onClick="goFullImage"/>
 
 
             <LinearLayout
@@ -57,7 +58,7 @@
                     android:scaleType="fitXY"
                     app:srcCompat="@drawable/edit_offer"
                     android:onClick="modOffer"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:layout_marginRight="10dp"
                     android:background="@null"/>
 

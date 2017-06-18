@@ -18,6 +18,7 @@ import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.USERS_TO_LIK
 
 public class Offer {
 
+    // Variables
     private String nombre;
     private String hashtag;
     private String comentarios;
@@ -34,10 +35,11 @@ public class Offer {
     private String uid_creator;
     private Boolean visible;
 
-
+    // Constructor vacio de Oferta
     public Offer() {
     }
 
+    // Constructor de Oferta
     public Offer(String nombre, String hashtag, String comentarios, String likes, String imagen, String descripcion, Boolean disponible, Comment comment, String fecha, String enlace, String uid_creator, List<String> usersLikeToThisOffer, Boolean visible) {
         this.nombre = nombre;
         this.hashtag = hashtag;
@@ -54,6 +56,7 @@ public class Offer {
         this.visible = visible;
     }
 
+    // Metodo para añadir el User ID a la oferta
     public static void addUIDToThisOffer(final String uid, final String idOffer){
 
         final DatabaseReference databaseReference =
@@ -88,6 +91,7 @@ public class Offer {
         });
     }
 
+    // Método para sumar un ME GUSTA a la oferta
     public static void plusLike(final String idOffer){
 
         final DatabaseReference databaseReference =

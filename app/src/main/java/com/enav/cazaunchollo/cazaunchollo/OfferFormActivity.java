@@ -25,8 +25,8 @@ import java.util.List;
 
 public class OfferFormActivity extends AppCompatActivity {
 
+    // Variables
     private Button button_post_offer;
-
     private StorageReference mStorage;
     private ImageView mImageView;
     private ProgressDialog progressDialog;
@@ -46,9 +46,8 @@ public class OfferFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_form);
 
+        // Inicializacion de las variables
         progressDialog = new ProgressDialog(this);
-
-
         button_post_offer = (Button) findViewById(R.id.button_post_offer);
         mImageView = (ImageView) findViewById(R.id.imageLoad);
         mStorage = FirebaseStorage.getInstance().getReference();
@@ -58,6 +57,7 @@ public class OfferFormActivity extends AppCompatActivity {
         checkBox_status = (CheckBox) findViewById(R.id.checkBox_status);
         input_link = (EditText) findViewById(R.id.input_link);
 
+        // Abre la imagen pulsada a tamaño completo
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,22 +75,17 @@ public class OfferFormActivity extends AppCompatActivity {
         button_post_offer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DateFormat dateFormat = new DateFormat();
                 String fecha = dateFormat.devolverFecha();
                 List<String> usersLikeToThisOffer = new ArrayList<String>();
                 usersLikeToThisOffer.add("");
-
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser user = mAuth.getCurrentUser();
-
                 if(urifoto.equals("http://")){
                     urifoto = "https://firebasestorage.googleapis.com/v0/b/caza-un-chollo.appspot.com/o/OfferPhotos%2Fsinfoto.jpg?alt=media&token=db5b05e9-3e8c-4164-951f-e26b1c790981";
                 }
-
                 Offer offer = new Offer(input_title.getText().toString(), input_shop.getText().toString(), "0", "0", urifoto, input_description.getText().toString(), checkBox_status.isChecked(), comment, fecha, input_link.getText().toString() ,user.getUid(),usersLikeToThisOffer, true);
                 offerReference.push().setValue(offer);
-
                 Toast.makeText(getApplicationContext(), "Oferta publicada", Toast.LENGTH_SHORT).show();
             }
         });

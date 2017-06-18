@@ -24,6 +24,7 @@
     <string name="description">Descripción</string>
     <string name="link">Enlace</string>
     <string name="disponible">Disponible</string>
+    <string name="agotado">Agotado</string>
     <string name="upload_img">SUBIR IMAGEN</string>
     <string name="publicar">PUBLICAR</string>
     <string name="idMod">ID:</string>
@@ -52,4 +53,6 @@
     <!-- Description Screen -->
     <string name="go_to_the_offer">LLEVAME A LA OFERTA</string>
     <string name="title_activity_offer_scrolling">Detalles de la oferta</string>
+    <string name="level_min_publish_offer">Necesitas ser mínimo nivel 2 para poder realizar una publicación</string>
+    <string name="url_no_valida">Error al cargar la oferta, la URL no es válida.</string>
 </resources>

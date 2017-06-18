@@ -47,6 +47,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyProfile extends AppCompatActivity {
 
+    /* Variables */
     private static final String TAG = "ViewDatabase";
     private static final int GALLERY_INTENT = 1;
     private FirebaseDatabase mFirebaseDatabase;
@@ -70,6 +71,7 @@ public class MyProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
+        /* Inicializacion de variables */
         user_profile_name= (TextView) findViewById(R.id.user_profile_name);
         user_profile_email = (TextView) findViewById(R.id.user_profile_email);
         user_profile_photo = (CircleImageView) findViewById(R.id.user_profile_photo);
@@ -113,6 +115,7 @@ public class MyProfile extends AppCompatActivity {
 
     }
 
+    /* Mostrar todos los datos del usuario en la pantalla */
     private void showData(DataSnapshot dataSnapshot) {
 
         String name = (String) dataSnapshot.child(userID).child("name").getValue();
@@ -132,8 +135,6 @@ public class MyProfile extends AppCompatActivity {
         level_progressBar.setMax(100);
         level_progressBar.setRadius(0);
         level_progressBar.setVisibility(View.VISIBLE);
-
-
     }
 
 
@@ -159,6 +160,7 @@ public class MyProfile extends AppCompatActivity {
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
+    // Método para cambiar la foto de usuario
     public void changeUserPhoto(View view) {
 
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -199,6 +201,7 @@ public class MyProfile extends AppCompatActivity {
 
     }
 
+    // Método para cambiar el nombre de usuario
     public void changeUsername(View view) {
 
         View view_change_username = LayoutInflater.from(MyProfile.this).inflate(R.layout.change_username, null);
@@ -212,7 +215,7 @@ public class MyProfile extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        if(!input_new_username.equals("")){
+                        if(!input_new_username.getText().toString().equals("")){
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             final DatabaseReference offerReference = database.getReference("users").child(userID).child("name");
                             offerReference.setValue(input_new_username.getText().toString());
@@ -226,12 +229,10 @@ public class MyProfile extends AppCompatActivity {
 
     }
 
+    // Método para mostrar el Dialog de Ayuda Obtención de puntos
     public void showHelpHowToGetMorePoints(View view) {
-
         View view_dialog_how_to = LayoutInflater.from(MyProfile.this).inflate(R.layout.dialog_how_to_get_more_points, null);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(MyProfile.this);
-
         builder.setMessage("AYUDA")
                 .setView(view_dialog_how_to)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -243,14 +244,11 @@ public class MyProfile extends AppCompatActivity {
 
         AlertDialog alert = builder.create();
         alert.show();
-
     }
 
-
+    // Método para subir a nivel 2 a los usuarios nuevos
     public void getReward(View view) {
-
         CallFirebaseDatabase.getRewardNewUserInBeta(userID);
-
         Toast.makeText(getApplicationContext(), "¡Ya eres nivel 2!", Toast.LENGTH_SHORT).show();
 
     }

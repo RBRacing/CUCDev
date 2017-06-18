@@ -6,6 +6,6 @@
     <color name="colorPrimaryDark2">#0097a7</color>
     <color name="colorAccent2">#ffffff</color>
     <color name="colorHashtag">#3498db</color>
-    <color name="bg_main">#428bca</color>
     <color name="white">#ffffff</color>
+    <color name="black">#414141</color>
 </resources>

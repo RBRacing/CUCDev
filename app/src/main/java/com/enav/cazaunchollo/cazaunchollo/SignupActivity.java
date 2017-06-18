@@ -68,17 +68,14 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), R.string.enter_email, Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(getApplicationContext(), R.string.enter_password, Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), R.string.minimum_password, Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 progressBar.setVisibility(View.VISIBLE);
 
                 // Creamos el usuario
@@ -116,10 +113,10 @@ public class SignupActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
     }
 
+    // Método para crear un nuevo usuario
     private void writeNewUser(String userId, String name, String email) {
         List<String> list = new ArrayList<String>();
         list.add("");
-
         User user = new User(name, email, "https://firebasestorage.googleapis.com/v0/b/caza-un-chollo.appspot.com/o/UsersPhoto%2FnewUserPhoto.png?alt=media&token=f0a89c25-1807-4115-9d81-f5d36fd452c3", "", 0, list, 1, false);
         databaseReference.child(USERS_REFERENCE).child(userId).setValue(user);
     }

@@ -26,6 +26,7 @@ import static com.enav.cazaunchollo.cazaunchollo.FirebaseReferences.USERS_REFERE
 @IgnoreExtraProperties
 public class User {
 
+    // Variables
     private String name;
     private String email;
     private String image;
@@ -35,7 +36,7 @@ public class User {
     private Boolean ban;
     static List<String> favorites = new ArrayList<String>();
 
-
+    // Constructor de User
     public User(String name, String email, String image, String registrationDate, int points, List<String> favorites, int level, boolean ban) {
         this.name = name;
         this.email = email;
@@ -47,10 +48,12 @@ public class User {
         this.ban = ban;
     }
 
+    // Constructor vacio
     public User() {
 
     }
 
+    // Método para añadir los Likes a una lista en la BBDD del usuario
     public static void addLikesToList(final String uid, final String idOffer){
 
         final DatabaseReference databaseReference =
@@ -65,20 +68,16 @@ public class User {
                     if(!favorites.contains(idOffer)){
                         favorites.add(idOffer);
                         databaseReference.child(USERS_REFERENCE).child(uid).child(FAVORITES_REFERENCE).setValue(favorites);
-
                         Long points = ((Long) dataSnapshot.child(USERS_REFERENCE).child(uid).child(POINTS_REFERENCE).getValue())+1;
                         databaseReference.child(USERS_REFERENCE).child(uid).child(POINTS_REFERENCE).setValue(points);
-
                     }
                 }else{
                     List<String> favorites = new ArrayList<String>();
                     favorites.add(idOffer);
                     databaseReference.child(USERS_REFERENCE).child(uid).child(FAVORITES_REFERENCE).setValue(favorites);
-
                     Long points = ((Long) dataSnapshot.child(USERS_REFERENCE).child(uid).child(POINTS_REFERENCE).getValue())+1;
                     databaseReference.child(USERS_REFERENCE).child(uid).child(POINTS_REFERENCE).setValue(points);
                 }
-
             }
 
             @Override
@@ -88,6 +87,7 @@ public class User {
         });
     }
 
+    // Método para subir de nivel al usuario
     public static void levelUp(final String uid){
 
         final DatabaseReference databaseReference =
@@ -98,8 +98,6 @@ public class User {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Long points = (Long) dataSnapshot.child(POINTS_REFERENCE).getValue();
                 Long level = (Long) dataSnapshot.child(LEVEL_REFERENCE).getValue();
-
-
                 if(points !=null && points>=100){
                     databaseReference.child(POINTS_REFERENCE).setValue(points-100);
                     databaseReference.child(LEVEL_REFERENCE).setValue(level+1);
@@ -110,8 +108,6 @@ public class User {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
-
 
     }
 

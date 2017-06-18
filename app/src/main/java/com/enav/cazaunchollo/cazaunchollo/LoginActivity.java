@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         // Instancia Firebase
         firebaseAuth = FirebaseAuth.getInstance();
 
+        // Comprobamos si hay un usuario logeado, de ser así vamos al MainActivity
         if (firebaseAuth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
@@ -41,10 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         // Seteamos la vista
         setContentView(R.layout.activity_login);
 
+         /* Referencia de las variables*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        /* Referencia de las variables*/
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);

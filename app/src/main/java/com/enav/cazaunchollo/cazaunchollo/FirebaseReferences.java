@@ -2,6 +2,7 @@ package com.enav.cazaunchollo.cazaunchollo;
 
 public class FirebaseReferences {
 
+    /* Variables para acceder a los nodos de de la BBDD de Firebase */
     final public static String OFFERS_REFERENCE = "offers";
     final public static String LIKES_REFERENCE = "likes";
     final public static String USERS_REFERENCE = "users";

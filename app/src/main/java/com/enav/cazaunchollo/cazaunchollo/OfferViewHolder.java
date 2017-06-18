@@ -18,6 +18,7 @@ import static com.enav.cazaunchollo.cazaunchollo.MainActivity.devolverReferencia
 
 public class OfferViewHolder extends RecyclerView.ViewHolder{
 
+    // Variables
     public TextView titleCard;
     public TextView subTitleCard;
     public TextView comentarios;
@@ -28,10 +29,10 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
     public TextView fecha;
     public CardView idcardview;
 
-
     public OfferViewHolder(View v){
-
         super(v);
+
+        // Inicializacion de las variables
         titleCard = (TextView) itemView.findViewById(R.id.titleCard);
         subTitleCard = (TextView) itemView.findViewById(R.id.subTitleCard);
         comentarios = (TextView)itemView.findViewById(R.id.comentarios);
@@ -42,10 +43,10 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
         comentariosico = (ImageView) itemView.findViewById(R.id.comentariosico);
         idcardview = (CardView)itemView.findViewById(R.id.idcardview);
 
-
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
 
+        // Al hacer clic sobre el titulo de la tarjeta nos abrira la pantalla de Detalle
         titleCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,16 +54,18 @@ public class OfferViewHolder extends RecyclerView.ViewHolder{
             }
         });
 
+        // Al hacer click sobre la imagen de la tarjeta nos abrira la pantalla de Detalle
         imagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.recogerIDyLanzarActivity(v, getPosition());
             }
         });
+
+        // Al hacer click sobre el corazon de la tarjeta
         likeIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String referencia = devolverReferencia(getPosition());
                 User.addLikesToList(user.getUid(),referencia);
                 Offer.addUIDToThisOffer(user.getUid(), referencia);

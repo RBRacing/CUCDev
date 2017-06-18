@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class OfferDescriptionFragment extends Fragment {
 
+    // Variables
     private LinearLayout mRootView;
     private DatabaseReference ref;
     private TextView textView2;
@@ -43,8 +44,9 @@ public class OfferDescriptionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = (LinearLayout) inflater.inflate(R.layout.fragment_offer_description, container, false);
 
+        /* Inicialización de variables */
+        mRootView = (LinearLayout) inflater.inflate(R.layout.fragment_offer_description, container, false);
         textView2 = (TextView) mRootView.findViewById(R.id.textView2);
         estado = (TextView) mRootView.findViewById(R.id.estado);
         estadoIV = (ImageView)mRootView.findViewById(R.id.estadoIV);
@@ -52,18 +54,17 @@ public class OfferDescriptionFragment extends Fragment {
         imagen = (ImageView)mRootView.findViewById(R.id.imageView3);
         button_link_offer = (Button) mRootView.findViewById(R.id.button_link_offer);
         mod_offer = (ImageButton) mRootView.findViewById(R.id.mod_offer);
-
         m = new MainActivity();
         entro = false;
 
         // Conexión Firebase
         ref = FirebaseDatabase.getInstance().getReference().child("offers");
 
+        // Obtenemos la referencia de la oferta
         String referencia = OfferScrollingActivity.getReferencia();
            ref.child(referencia).addValueEventListener(new ValueEventListener() {
                @Override
                public void onDataChange(DataSnapshot dataSnapshot) {
-
                    final Offer offer =  dataSnapshot.getValue(Offer.class);
                    String titulo="";
                    String descripcion="";
@@ -74,9 +75,7 @@ public class OfferDescriptionFragment extends Fragment {
                        descripcion = offer.getDescripcion();
                        estado2 = offer.getDisponible();
 
-                   }catch (Exception e){
-
-                   }
+                   }catch (Exception e){}
                        try{
                            if(m.getApplicationContext() !=null){
                                Glide.with(m.getApplicationContext()).load(offer.getImagen()).fitCenter().centerCrop().into(imagen);
@@ -106,20 +105,19 @@ public class OfferDescriptionFragment extends Fragment {
                                    i.setData(Uri.parse(url));
                                    startActivity(i);
                                }catch (Exception e){
-                                   Toast.makeText(getContext(),"Error al cargar la oferta, la URL no es válida.", Toast.LENGTH_SHORT).show();
+                                   Toast.makeText(getContext(), R.string.url_no_valida, Toast.LENGTH_SHORT).show();
                                }
-
                            }
                        });
 
                        if(estado2 && entro){
                            estadoIV.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_24dp));
-                           estado.setText("DISPONIBLE");
+                           estado.setText(R.string.disponible);
                        }
 
                        if(!estado2 && entro){
                            estadoIV.setImageDrawable(getResources().getDrawable(R.drawable.ic_close_24dp));
-                           estado.setText("AGOTADO");
+                           estado.setText(R.string.agotado);
                        }
 
                        // Obtener usuario actual Firebase
@@ -138,9 +136,7 @@ public class OfferDescriptionFragment extends Fragment {
 
                }
        });
-
         return mRootView;
-
     }
 
     public static Fragment newInstance() {
